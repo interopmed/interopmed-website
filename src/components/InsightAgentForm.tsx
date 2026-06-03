@@ -119,10 +119,10 @@ export default function InsightAgentForm() {
     <form onSubmit={handleSubmit} className="rounded-lg border border-teal-200 bg-white p-6 shadow-sm dark:border-teal-900 dark:bg-slate-950 md:p-8">
       <div className="mb-6 flex flex-col gap-2">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
-          Gemini agent
+          Codex publisher
         </p>
         <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
-          Generate insight
+          Generate standards-aware insight
         </h2>
       </div>
 
@@ -134,7 +134,7 @@ export default function InsightAgentForm() {
           rows={4}
           value={topic}
           onChange={(event) => setTopic(event.target.value)}
-          placeholder="FHIR data quality strategy for regional care networks"
+          placeholder="FHIR data quality strategy for regional care networks, with governance and implementation risks"
           className="w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         />
       </label>
@@ -166,8 +166,8 @@ export default function InsightAgentForm() {
           <input
             type="text"
             name="audience"
-            value={audience}
-            onChange={(event) => setAudience(event.target.value)}
+          value={audience}
+          onChange={(event) => setAudience(event.target.value)}
             className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
           />
         </label>
@@ -227,7 +227,7 @@ export default function InsightAgentForm() {
         disabled={state.status === 'submitting'}
         className="mt-6 rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25 disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {state.status === 'submitting' ? 'Generating...' : 'Run agent'}
+        {state.status === 'submitting' ? 'Generating...' : 'Run Codex'}
       </button>
 
       {state.message && (

@@ -4,6 +4,28 @@ import { slugify } from './slugify'
 
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models'
 
+const INTEROPMED_CODEX_SYSTEM_PROMPT = `
+You are InteropMed Codex, a specialized healthcare interoperability engine for clinical standards, integration architecture, and compliant product strategy.
+
+Act as a senior healthcare integration architect, FHIR specialist, compliance-aware product strategist, and full-stack developer. Prioritize practical implementation, cloud-native zero-local-footprint SaaS patterns, and strict PHI safety.
+
+Core expertise:
+- HL7 FHIR R4, R4B, and R5 resources, profiles, extensions, bundles, operations, and SearchParameters.
+- HL7 v2.x and v3 messages including ADT, ORU, ORM, MLLP workflows, parsing, validation, and brittle feed handling.
+- DICOM and DICOMweb including WADO-RS, QIDO-RS, and STOW-RS.
+- CDA and C-CDA clinical document structures.
+- US Core Implementation Guides, ONC Cures Act Final Rule, HIPAA, HITECH, consent, audit logging, RBAC, ABAC, de-identification, tokenization, and PHI handling.
+
+Response rules:
+- Be direct, technical, practical, and opinionated.
+- Identify ambiguity and standards-version risk early.
+- Never use real PHI, hardcoded credentials, active API keys, access tokens, or production secrets.
+- Use synthetic but clinically realistic examples.
+- Prefer secure APIs, API gateways, queues, serverless workflows, webhooks, managed databases, encrypted object storage, and cloud endpoints over on-premise deployment unless the user explicitly requires on-premise.
+- When mapping legacy formats to FHIR, include a markdown mapping table with Source field, Transformation logic, and Target FHIR element.
+- When providing code, include defensive handling for missing fields, invalid dates, malformed identifiers, and invalid terminology.
+`
+
 type GeminiPart = {
   text?: string
   inlineData?: {
@@ -206,7 +228,9 @@ function normalizeDraft(value: Partial<GeneratedInsightDraft>, fallbackTopic: st
 export async function generateInsightDraft(input: InsightAgentInput) {
   const topic = input.topic.trim()
   const prompt = `
-You are InteropMed's healthcare interoperability insight agent.
+${INTEROPMED_CODEX_SYSTEM_PROMPT}
+
+You are creating an InteropMed executive insight article based on the Codex engine's perspective.
 
 Create one original executive insight article for a B2B healthcare technology audience.
 
@@ -234,6 +258,8 @@ Rules:
 - Keep the article between 700 and 1,000 words.
 - Keep x under 260 characters before the URL is appended.
 - Do not invent statistics, customer names, or regulatory claims.
+- Mention concrete interoperability standards only when they are relevant to the topic.
+- Surface security, governance, or compliance considerations where they affect implementation.
 
 Topic: ${topic}
 Audience: ${input.audience?.trim() || 'healthcare technology leaders'}
@@ -295,9 +321,9 @@ export async function chatWithInsightAgent(input: {
     .map((message) => `${message.role.toUpperCase()}: ${message.content}`)
     .join('\n\n')
   const prompt = `
-You are InteropMed's AI editorial partner for healthcare interoperability insights.
+${INTEROPMED_CODEX_SYSTEM_PROMPT}
 
-Help the account user decide article topics, sharpen positioning, outline angles, and refine article drafts.
+Help the account user evaluate InteropMed product ideas, architecture choices, interoperability mappings, compliance tradeoffs, article topics, positioning, and implementation plans.
 
 Return only valid JSON with this exact shape:
 {
@@ -320,11 +346,14 @@ Return only valid JSON with this exact shape:
 }
 
 Rules:
-- When brainstorming, return 3 to 5 practical topic options in topics.
+- If the user asks for healthcare interoperability architecture or implementation advice, answer directly in reply with concrete recommendations.
+- If the user asks for mappings, include a compact markdown mapping table in reply.
+- When brainstorming content, return 3 to 5 practical topic options in topics.
 - When refining a draft, preserve the core claim and improve clarity, structure, and executive usefulness.
 - Keep reply concise and action-oriented.
 - Do not invent customer names, citations, or statistics.
 - If there is a clear topic to generate, set generatorBrief.topic to a strong one-paragraph brief.
+- If standards, versions, or payload structures are ambiguous, state the risk and ask for the missing version or structure.
 
 Optional context:
 ${input.context?.trim() || 'No extra context provided.'}

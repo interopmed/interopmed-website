@@ -23,6 +23,7 @@ export default function Footer() {
             <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Product</h3>
             <ul className="space-y-2 text-sm">
               <li><Link href="/shin" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">SHIN Platform</Link></li>
+              <li><Link href="/codex" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Codex Engine</Link></li>
               <li><Link href="/open-source" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Open Source</Link></li>
               <li><Link href="/api-reference" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">API Reference</Link></li>
               <li><Link href="/documentation" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Documentation</Link></li>

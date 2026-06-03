@@ -47,6 +47,13 @@ const premiumLayer = [
   'Managed operations',
 ]
 
+const codexCapabilities = [
+  'FHIR, HL7, DICOM, and C-CDA implementation guidance',
+  'Legacy payload to FHIR mapping tables',
+  'Cloud-native integration architecture review',
+  'PHI-safe compliance and governance recommendations',
+]
+
 export default function HomePage() {
   return (
     <>
@@ -69,10 +76,10 @@ export default function HomePage() {
               </p>
               <div className="mt-9 flex flex-col gap-4 sm:flex-row">
                 <Link
-                  href="/implementation"
+                  href="/studio"
                   className="rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-7 py-3 text-center text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25"
                 >
-                  See implementation packages
+                  Open Studio
                 </Link>
                 <Link
                   href="/contact"
@@ -161,6 +168,48 @@ export default function HomePage() {
         </section>
 
         <ProblemSolutionMatrix />
+
+        <section className="bg-slate-950 py-20 text-white md:py-28">
+          <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
+            <div>
+              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-300">
+                InteropMed Codex Engine
+              </p>
+              <h2 className="text-4xl font-bold md:text-5xl">
+                Standards-aware AI for the hard parts of clinical data exchange.
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-slate-300">
+                Codex turns InteropMed into a practical advisory layer for founders, architects, and developers working through FHIR mappings, HL7 feeds, DICOM workflows, API design, and compliance-sensitive decisions.
+              </p>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <Link
+                  href="/codex"
+                  className="rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-7 py-3 text-center text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25"
+                >
+                  Explore Codex
+                </Link>
+                <Link
+                  href="/studio"
+                  className="rounded-lg border border-slate-700 px-7 py-3 text-center text-sm font-semibold text-slate-100 transition hover:border-teal-400 hover:text-teal-300"
+                >
+                  Launch Studio
+                </Link>
+              </div>
+            </div>
+            <div className="rounded-lg border border-slate-800 bg-slate-900 p-6 md:p-8">
+              <p className="mb-5 text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">
+                Codex can review
+              </p>
+              <div className="space-y-3">
+                {codexCapabilities.map((capability) => (
+                  <div key={capability} className="rounded-lg border border-slate-800 bg-slate-950 p-4 text-sm leading-6 text-slate-300">
+                    {capability}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
         <section className="bg-slate-50 py-20 dark:bg-slate-900 md:py-28">
           <div className="mx-auto max-w-7xl px-6">

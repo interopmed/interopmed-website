@@ -109,6 +109,19 @@ export default async function AccountDashboardPage() {
 
             <div className="mt-8 grid gap-6 lg:grid-cols-4">
               <Link
+                href="/studio"
+                className="rounded-lg border border-teal-200 bg-white p-6 transition hover:border-teal-400 dark:border-teal-900 dark:bg-slate-950 dark:hover:border-teal-500"
+              >
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
+                  SaaS
+                </p>
+                <h2 className="mb-3 text-xl font-bold text-slate-950 dark:text-white">Open Studio</h2>
+                <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
+                  Launch the protected external Studio workspace for browser-side mapping and packaging.
+                </p>
+              </Link>
+
+              <Link
                 href="/account/insights"
                 className="rounded-lg border border-slate-200 bg-white p-6 transition hover:border-teal-400 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-teal-500"
               >

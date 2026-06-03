@@ -19,8 +19,14 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6">
+          <Link href="/studio" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+            Studio
+          </Link>
           <Link href="/technology" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
             Technology
+          </Link>
+          <Link href="/codex" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+            Codex
           </Link>
           <Link href="/solutions" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
             Solutions
@@ -64,8 +70,14 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
           <div className="px-6 py-4 space-y-3">
+            <Link href="/studio" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
+              Studio
+            </Link>
             <Link href="/technology" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
               Technology
+            </Link>
+            <Link href="/codex" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
+              Codex
             </Link>
             <Link href="/solutions" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
               Solutions

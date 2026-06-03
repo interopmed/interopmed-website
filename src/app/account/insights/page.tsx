@@ -11,8 +11,8 @@ import { db } from '@/lib/db'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Account Insights | InteropMed',
-  description: 'Create and manage InteropMed insight articles.',
+  title: 'Codex Workspace | InteropMed',
+  description: 'Use InteropMed Codex to review interoperability strategy and create standards-aware insight articles.',
 }
 
 async function requireAccountSession() {
@@ -44,14 +44,14 @@ export default async function AccountInsightsPage() {
         <section className="bg-white py-16 dark:bg-slate-950 md:py-24">
           <div className="mx-auto max-w-7xl px-6">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
-              Account
+              Codex workspace
             </p>
             <div className="max-w-4xl">
               <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-5xl">
-                Add insights to the InteropMed content library.
+                Review interoperability ideas and turn strong positions into publishable insight.
               </h1>
               <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
-                Create draft or published insight articles backed by the database Article model. Use existing company and employee IDs so each insight keeps its content ownership relationships intact.
+                Use Codex to challenge architecture assumptions, clarify standards risk, shape implementation guidance, and generate InteropMed articles with healthcare-specific governance context.
               </p>
             </div>
           </div>

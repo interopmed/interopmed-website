@@ -49,7 +49,7 @@ export default function InsightChat() {
     {
       role: 'assistant',
       content:
-        'Tell me what market, workflow, or product angle you want to explore. I can suggest topics, challenge the angle, or refine a draft before you generate the full article.',
+        'Send me an interoperability question, product idea, architecture concern, mapping problem, or article angle. I can review standards risk, suggest implementation paths, or refine the brief.',
     },
   ])
   const [input, setInput] = useState('')
@@ -120,10 +120,10 @@ export default function InsightChat() {
     <section className="rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950 md:p-8">
       <div className="mb-6">
         <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
-          AI chat
+          InteropMed Codex
         </p>
         <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
-          Decide and refine
+          Review and refine
         </h2>
       </div>
 
@@ -155,7 +155,7 @@ export default function InsightChat() {
             rows={3}
             value={input}
             onChange={(event) => setInput(event.target.value)}
-            placeholder="Suggest five insight topics for payer-provider interoperability in 2026."
+            placeholder="Review this HL7 v2 ADT to FHIR mapping strategy, or suggest five strong payer-provider interoperability angles."
             className="w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
           />
         </label>
@@ -164,20 +164,20 @@ export default function InsightChat() {
           <label className="block">
             <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Context</span>
             <textarea
-              rows={3}
-              value={context}
-              onChange={(event) => setContext(event.target.value)}
-              placeholder="Product focus, target audience, campaign notes"
+            rows={3}
+            value={context}
+            onChange={(event) => setContext(event.target.value)}
+            placeholder="Standards version, source payload notes, product focus, target audience, or compliance context"
               className="w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
             />
           </label>
           <label className="block">
             <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Draft to refine</span>
             <textarea
-              rows={3}
-              value={draft}
-              onChange={(event) => setDraft(event.target.value)}
-              placeholder="Paste a rough article, outline, or intro"
+            rows={3}
+            value={draft}
+            onChange={(event) => setDraft(event.target.value)}
+            placeholder="Paste a rough mapping, article, architecture note, outline, or intro"
               className="w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
             />
           </label>
@@ -194,7 +194,7 @@ export default function InsightChat() {
           <button
             type="button"
             disabled={status === 'submitting'}
-            onClick={() => sendMessage('Give me five strong topic options and recommend the best one.')}
+            onClick={() => sendMessage('Give me five strong healthcare interoperability topic options and recommend the best one.')}
             className="rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-700 disabled:cursor-not-allowed disabled:opacity-70 dark:border-slate-700 dark:text-slate-300 dark:hover:border-teal-400 dark:hover:text-teal-300"
           >
             Topics
@@ -202,7 +202,7 @@ export default function InsightChat() {
           <button
             type="button"
             disabled={status === 'submitting' || !draft.trim()}
-            onClick={() => sendMessage('Refine the draft for clarity, structure, and executive usefulness.')}
+            onClick={() => sendMessage('Refine the draft for clarity, standards accuracy, compliance awareness, structure, and executive usefulness.')}
             className="rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-700 disabled:cursor-not-allowed disabled:opacity-70 dark:border-slate-700 dark:text-slate-300 dark:hover:border-teal-400 dark:hover:text-teal-300"
           >
             Refine draft

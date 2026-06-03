@@ -1,6 +1,7 @@
 import AccountLoginForm from '@/components/AccountLoginForm'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
+import { getSafeAccountRedirectPath } from '@/lib/account-auth'
 
 export const metadata = {
   title: 'Account Login | InteropMed',
@@ -15,9 +16,7 @@ type AccountLoginPageProps = {
 
 export default async function AccountLoginPage({ searchParams }: AccountLoginPageProps) {
   const params = await searchParams
-  const next = typeof params.next === 'string' && params.next.startsWith('/account')
-    ? params.next
-    : '/account'
+  const next = getSafeAccountRedirectPath(params.next)
 
   return (
     <>

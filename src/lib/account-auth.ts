@@ -18,3 +18,22 @@ export function isValidAccountPassword(password: string) {
 export function isValidAccountSession(value?: string) {
   return Boolean(value && value === getAccountSessionValue())
 }
+
+export function getSafeAccountRedirectPath(
+  value: string | string[] | undefined,
+  fallback = '/account'
+) {
+  if (typeof value !== 'string') {
+    return fallback
+  }
+
+  if (!value.startsWith('/') || value.startsWith('//')) {
+    return fallback
+  }
+
+  if (value.startsWith('/account') || value.startsWith('/studio')) {
+    return value
+  }
+
+  return fallback
+}
