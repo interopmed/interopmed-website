@@ -1,9 +1,13 @@
 import Link from 'next/link'
-import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
-import { ACCOUNT_SESSION_COOKIE, isValidAccountSession } from '@/lib/account-auth'
+import { getAccountSessionUser } from '@/lib/account-auth'
+import {
+  createStudioLaunchToken,
+  getSafeStudioReturnPath,
+  getStudioUrl,
+} from '@/lib/studio-auth'
 
 export const dynamic = 'force-dynamic'
 
@@ -13,36 +17,33 @@ export const metadata = {
 }
 
 async function requireAccountSession() {
-  const cookieStore = await cookies()
-  const session = cookieStore.get(ACCOUNT_SESSION_COOKIE)?.value
-
-  if (!isValidAccountSession(session)) {
-    redirect('/account/login?next=/studio')
-  }
+  return (await getAccountSessionUser()) !== null
 }
 
-function getStudioUrl() {
-  const value = process.env.INTEROPMED_STUDIO_URL?.trim()
-
-  if (!value) {
-    return null
-  }
-
-  try {
-    const url = new URL(value)
-    return url.toString()
-  } catch {
-    return null
-  }
+type StudioLauncherPageProps = {
+  searchParams: Promise<{
+    returnTo?: string | string[]
+  }>
 }
 
-export default async function StudioLauncherPage() {
-  await requireAccountSession()
+export default async function StudioLauncherPage({ searchParams }: StudioLauncherPageProps) {
+  const params = await searchParams
+  const returnTo = getSafeStudioReturnPath(params.returnTo)
+  const hasSession = await requireAccountSession()
+
+  if (!hasSession) {
+    const nextPath =
+      returnTo === '/' ? '/studio' : `/studio?returnTo=${encodeURIComponent(returnTo)}`
+    redirect(`/account/login?next=${encodeURIComponent(nextPath)}`)
+  }
 
   const studioUrl = getStudioUrl()
 
   if (studioUrl) {
-    redirect(studioUrl)
+    const token = createStudioLaunchToken(returnTo)
+    redirect(
+      `${studioUrl}/auth/complete?token=${encodeURIComponent(token)}&returnTo=${encodeURIComponent(returnTo)}`
+    )
   }
 
   return (
@@ -59,8 +60,8 @@ export default async function StudioLauncherPage() {
             </h1>
             <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
               InteropMed account access is working. Set <code>INTEROPMED_STUDIO_URL</code> to the
-              Studio subdomain or hosted URL, and this launcher will redirect authenticated users
-              there automatically.
+              Studio subdomain or hosted URL, and this launcher will mint a signed session handoff
+              for authenticated users automatically.
             </p>
           </div>
         </section>

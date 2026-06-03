@@ -1,10 +1,8 @@
 import Link from 'next/link'
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 import AccountLogoutButton from '@/components/AccountLogoutButton'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
-import { ACCOUNT_SESSION_COOKIE, isValidAccountSession } from '@/lib/account-auth'
+import { requireAccountUser } from '@/lib/account-auth'
 import { db } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
@@ -12,15 +10,6 @@ export const dynamic = 'force-dynamic'
 export const metadata = {
   title: 'Account Dashboard | InteropMed',
   description: 'InteropMed account dashboard for managing insights and internal content.',
-}
-
-async function requireAccountSession() {
-  const cookieStore = await cookies()
-  const session = cookieStore.get(ACCOUNT_SESSION_COOKIE)?.value
-
-  if (!isValidAccountSession(session)) {
-    redirect('/account/login?next=/account')
-  }
 }
 
 async function getDashboardStats() {
@@ -55,7 +44,7 @@ async function getDashboardStats() {
 }
 
 export default async function AccountDashboardPage() {
-  await requireAccountSession()
+  const accountUser = await requireAccountUser('/account')
   const stats = await getDashboardStats()
 
   const cards = [
@@ -82,6 +71,10 @@ export default async function AccountDashboardPage() {
                 </h1>
                 <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
                   Manage InteropMed content operations, create insights, and keep an eye on the core database relationships that power published articles.
+                </p>
+                <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
+                  Signed in as <span className="font-semibold text-slate-900 dark:text-slate-100">{accountUser.username}</span>
+                  {' '}({accountUser.email})
                 </p>
               </div>
               <AccountLogoutButton />
@@ -118,6 +111,19 @@ export default async function AccountDashboardPage() {
                 <h2 className="mb-3 text-xl font-bold text-slate-950 dark:text-white">Open Studio</h2>
                 <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
                   Launch the protected external Studio workspace for browser-side mapping and packaging.
+                </p>
+              </Link>
+
+              <Link
+                href="/account/users"
+                className="rounded-lg border border-slate-200 bg-white p-6 transition hover:border-teal-400 dark:border-slate-800 dark:bg-slate-950 dark:hover:border-teal-500"
+              >
+                <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
+                  Access
+                </p>
+                <h2 className="mb-3 text-xl font-bold text-slate-950 dark:text-white">Manage users</h2>
+                <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
+                  Create real account users with unique usernames, emails, and passwords.
                 </p>
               </Link>
 

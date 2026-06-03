@@ -1,8 +1,17 @@
+import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
-import { ACCOUNT_SESSION_COOKIE } from '@/lib/account-auth'
+import {
+  ACCOUNT_SESSION_COOKIE,
+  deleteAccountSession,
+} from '@/lib/account-auth'
 import { ApiResponse } from '@/types'
 
 export async function POST() {
+  const cookieStore = await cookies()
+  const rawToken = cookieStore.get(ACCOUNT_SESSION_COOKIE)?.value
+
+  await deleteAccountSession(rawToken)
+
   const response = NextResponse.json<ApiResponse>({
     success: true,
     timestamp: new Date().toISOString(),

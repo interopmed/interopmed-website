@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { ACCOUNT_SESSION_COOKIE, isValidAccountSession } from '@/lib/account-auth'
+import { ACCOUNT_SESSION_COOKIE, getAccountSessionUserFromToken } from '@/lib/account-auth'
 import { db } from '@/lib/db'
 import {
   GeminiAccessError,
@@ -54,9 +54,11 @@ function normalizePlatforms(value: unknown): SocialPlatform[] {
 
 export async function POST(request: NextRequest) {
   try {
-    const session = request.cookies.get(ACCOUNT_SESSION_COOKIE)?.value
+    const accountUser = await getAccountSessionUserFromToken(
+      request.cookies.get(ACCOUNT_SESSION_COOKIE)?.value
+    )
 
-    if (!isValidAccountSession(session)) {
+    if (!accountUser) {
       return NextResponse.json<ApiResponse>(
         {
           success: false,

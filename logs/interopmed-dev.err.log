@@ -1,0 +1,32 @@
+⚠ Slow filesystem detected. The benchmark took 1454ms. If D:\Web Server\GitHub\interopmed\.next/dev is a network drive, consider moving it to a local folder.
+See more: https://nextjs.org/docs/app/guides/local-development
+⨯ SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at POST (src\app\api\account\login\route.ts:11:30)
+   9 |
+  10 | export async function POST(request: NextRequest) {
+> 11 |   const body = await request.json()
+     |                              ^
+  12 |   const identifier = String(body.identifier || '')
+  13 |   const password = String(body.password || '')
+  14 |
+(node:24124) Warning: SECURITY WARNING: The SSL modes 'prefer', 'require', and 'verify-ca' are treated as aliases for 'verify-full'.
+In the next major version (pg-connection-string v3.0.0 and pg v9.0.0), these modes will adopt standard libpq semantics, which have weaker security guarantees.
+
+To prepare for this change:
+- If you want the current behavior, explicitly use 'sslmode=verify-full'
+- If you want libpq compatibility now, use 'uselibpqcompat=true&sslmode=require'
+
+See https://www.postgresql.org/docs/current/libpq-ssl.html for libpq SSL mode definitions.
+(Use `node --trace-warnings ...` to show where the warning was created)
+⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from "127.0.0.1".
+Cross-origin access to Next.js dev resources is blocked by default for safety.
+
+To allow this host in development, add it to "allowedDevOrigins" in next.config.js and restart the dev server:
+
+// next.config.js
+module.exports = {
+  allowedDevOrigins: ['127.0.0.1'],
+}
+
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins

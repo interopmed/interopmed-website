@@ -1,0 +1,86 @@
+
+> interopmed@0.1.0 dev
+> next dev --port 3000
+
+▲ Next.js 16.2.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://172.29.128.1:3000
+- Environments: .env.local, .env
+✓ Ready in 3.7s
+Creating turbopack project { dir: 'D:\\Web Server\\GitHub\\interopmed', testMode: true }
+
+○ Compiling /api/account/login ...
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 59s (next.js: 58s, application-code: 498ms)
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."AuthUser"."id" FROM "public"."AuthUser" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:query INSERT INTO "public"."AuthUser" ("id","username","email","passwordHash","displayName","role","isActive","createdAt","updatedAt") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING "public"."AuthUser"."id", "public"."AuthUser"."username", "public"."AuthUser"."email", "public"."AuthUser"."passwordHash", "public"."AuthUser"."displayName", "public"."AuthUser"."role", "public"."AuthUser"."isActive", "public"."AuthUser"."lastLoginAt", "public"."AuthUser"."createdAt", "public"."AuthUser"."updatedAt"
+prisma:query SELECT "public"."AuthUser"."id", "public"."AuthUser"."username", "public"."AuthUser"."email", "public"."AuthUser"."passwordHash", "public"."AuthUser"."displayName", "public"."AuthUser"."role", "public"."AuthUser"."isActive", "public"."AuthUser"."lastLoginAt", "public"."AuthUser"."createdAt", "public"."AuthUser"."updatedAt" FROM "public"."AuthUser" WHERE ("public"."AuthUser"."isActive" = $1 AND ("public"."AuthUser"."username" = $2 OR "public"."AuthUser"."email" = $3)) LIMIT $4 OFFSET $5
+prisma:query UPDATE "public"."AuthUser" SET "lastLoginAt" = $1, "updatedAt" = $2 WHERE ("public"."AuthUser"."id" = $3 AND 1=1) RETURNING "public"."AuthUser"."id", "public"."AuthUser"."username", "public"."AuthUser"."email", "public"."AuthUser"."passwordHash", "public"."AuthUser"."displayName", "public"."AuthUser"."role", "public"."AuthUser"."isActive", "public"."AuthUser"."lastLoginAt", "public"."AuthUser"."createdAt", "public"."AuthUser"."updatedAt"
+prisma:query INSERT INTO "public"."AuthSession" ("id","sessionTokenHash","expiresAt","createdAt","userId") VALUES ($1,$2,$3,$4,$5) RETURNING "public"."AuthSession"."id", "public"."AuthSession"."sessionTokenHash", "public"."AuthSession"."expiresAt", "public"."AuthSession"."createdAt", "public"."AuthSession"."userId"
+ POST /api/account/login 200 in 70s (next.js: 65s, application-code: 4.9s)
+prisma:query SELECT "public"."AuthSession"."id", "public"."AuthSession"."sessionTokenHash", "public"."AuthSession"."expiresAt", "public"."AuthSession"."createdAt", "public"."AuthSession"."userId" FROM "public"."AuthSession" WHERE ("public"."AuthSession"."sessionTokenHash" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."AuthUser"."id", "public"."AuthUser"."username", "public"."AuthUser"."email", "public"."AuthUser"."passwordHash", "public"."AuthUser"."displayName", "public"."AuthUser"."role", "public"."AuthUser"."isActive", "public"."AuthUser"."lastLoginAt", "public"."AuthUser"."createdAt", "public"."AuthUser"."updatedAt" FROM "public"."AuthUser" WHERE "public"."AuthUser"."id" = $1 OFFSET $2
+ HEAD /studio 307 in 2.7s (next.js: 621ms, application-code: 2.0s)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 99ms (next.js: 4ms, application-code: 95ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 84ms (next.js: 3ms, application-code: 81ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 92ms (next.js: 6ms, application-code: 86ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 84ms (next.js: 4ms, application-code: 80ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 91ms (next.js: 5ms, application-code: 86ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 88ms (next.js: 3ms, application-code: 85ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 82ms (next.js: 2ms, application-code: 79ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 83ms (next.js: 3ms, application-code: 80ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 84ms (next.js: 3ms, application-code: 81ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 80ms (next.js: 5ms, application-code: 76ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 80ms (next.js: 2ms, application-code: 77ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 80ms (next.js: 3ms, application-code: 77ms)
+ GET /account/login?identifier=neranjansb%40gmail.com&password=jkjjjhjh 200 in 89ms (next.js: 3ms, application-code: 86ms)
+ GET / 200 in 963ms (next.js: 681ms, application-code: 282ms)
+ GET /studio 307 in 156ms (next.js: 3ms, application-code: 154ms)
+ GET /account/login?next=%2Fstudio 200 in 77ms (next.js: 3ms, application-code: 74ms)
+ GET /technology 200 in 948ms (next.js: 644ms, application-code: 304ms)
+ GET /codex 200 in 786ms (next.js: 619ms, application-code: 167ms)
+ GET /studio 307 in 144ms (next.js: 3ms, application-code: 141ms)
+ GET /account/login?next=%2Fstudio 200 in 75ms (next.js: 3ms, application-code: 72ms)
+ GET /studio 307 in 135ms (next.js: 2ms, application-code: 132ms)
+ GET /account/login?next=%2Fstudio 200 in 75ms (next.js: 3ms, application-code: 72ms)
+ GET /technology 200 in 117ms (next.js: 3ms, application-code: 114ms)
+ GET /studio 307 in 146ms (next.js: 2ms, application-code: 144ms)
+ GET /account/login?next=%2Fstudio 200 in 72ms (next.js: 1995µs, application-code: 70ms)
+ GET /codex 200 in 93ms (next.js: 3ms, application-code: 91ms)
+ GET /solutions 200 in 1037ms (next.js: 854ms, application-code: 183ms)
+ GET /contact 200 in 894ms (next.js: 742ms, application-code: 152ms)
+ GET /insights 200 in 5.2s (next.js: 4.9s, application-code: 262ms)
+prisma:query SELECT "public"."Article"."id", "public"."Article"."title", "public"."Article"."slug", "public"."Article"."excerpt", "public"."Article"."content", "public"."Article"."companyId", "public"."Article"."authorId", "public"."Article"."type", "public"."Article"."category", "public"."Article"."tags", "public"."Article"."featuredImage", "public"."Article"."status", "public"."Article"."viewCount", "public"."Article"."likes", "public"."Article"."metaDescription", "public"."Article"."metaKeywords", "public"."Article"."createdAt", "public"."Article"."updatedAt", "public"."Article"."publishedAt" FROM "public"."Article" WHERE ("public"."Article"."type" = $1 AND "public"."Article"."status" = $2) ORDER BY "public"."Article"."createdAt" DESC OFFSET $3
+prisma:query SELECT "public"."Employee"."id", "public"."Employee"."firstName", "public"."Employee"."lastName", "public"."Employee"."email", "public"."Employee"."phone", "public"."Employee"."employeeId", "public"."Employee"."title", "public"."Employee"."startDate", "public"."Employee"."endDate", "public"."Employee"."status", "public"."Employee"."departmentId", "public"."Employee"."companyId", "public"."Employee"."skills", "public"."Employee"."expertise", "public"."Employee"."bio", "public"."Employee"."profileImage", "public"."Employee"."role", "public"."Employee"."permissions", "public"."Employee"."createdAt", "public"."Employee"."updatedAt" FROM "public"."Employee" WHERE "public"."Employee"."id" IN ($1,$2,$3) OFFSET $4
+○ Compiling /about ...
+prisma:query SELECT "public"."Company"."id", "public"."Company"."name", "public"."Company"."slug", "public"."Company"."description", "public"."Company"."logo", "public"."Company"."website", "public"."Company"."email", "public"."Company"."phone", "public"."Company"."street", "public"."Company"."city", "public"."Company"."state", "public"."Company"."zipCode", "public"."Company"."country", "public"."Company"."founded", "public"."Company"."headcount", "public"."Company"."headquarters", "public"."Company"."createdAt", "public"."Company"."updatedAt" FROM "public"."Company" WHERE "public"."Company"."id" IN ($1,$2,$3) OFFSET $4
+ GET /about 200 in 12.9s (next.js: 12.4s, application-code: 500ms)
+ GET /about 200 in 7.5s (next.js: 7.4s, application-code: 158ms)
+ GET /studio 307 in 1608ms (next.js: 509ms, application-code: 1098ms)
+ GET /account/login?next=%2Fstudio 200 in 853ms (next.js: 384ms, application-code: 470ms)
+○ Compiling /account/register ...
+ GET /account/register 200 in 33.0s (next.js: 32.8s, application-code: 187ms)
+ GET /account/register 200 in 84ms (next.js: 3ms, application-code: 80ms)
+○ Compiling /api/account/register ...
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."AuthUser"."id" FROM "public"."AuthUser" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:query SELECT "public"."AuthUser"."id", "public"."AuthUser"."username", "public"."AuthUser"."email", "public"."AuthUser"."passwordHash", "public"."AuthUser"."displayName", "public"."AuthUser"."role", "public"."AuthUser"."isActive", "public"."AuthUser"."lastLoginAt", "public"."AuthUser"."createdAt", "public"."AuthUser"."updatedAt" FROM "public"."AuthUser" WHERE ("public"."AuthUser"."username" = $1 OR "public"."AuthUser"."email" = $2) LIMIT $3 OFFSET $4
+prisma:query INSERT INTO "public"."AuthUser" ("id","username","email","passwordHash","displayName","role","isActive","createdAt","updatedAt") VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING "public"."AuthUser"."id", "public"."AuthUser"."username", "public"."AuthUser"."email", "public"."AuthUser"."passwordHash", "public"."AuthUser"."displayName", "public"."AuthUser"."role", "public"."AuthUser"."isActive", "public"."AuthUser"."lastLoginAt", "public"."AuthUser"."createdAt", "public"."AuthUser"."updatedAt"
+prisma:query INSERT INTO "public"."AuthSession" ("id","sessionTokenHash","expiresAt","createdAt","userId") VALUES ($1,$2,$3,$4,$5) RETURNING "public"."AuthSession"."id", "public"."AuthSession"."sessionTokenHash", "public"."AuthSession"."expiresAt", "public"."AuthSession"."createdAt", "public"."AuthSession"."userId"
+ POST /api/account/register 201 in 10.3s (next.js: 7.3s, application-code: 3.0s)
+ GET /account/register 200 in 82ms (next.js: 2ms, application-code: 79ms)
+ GET /account/register 200 in 80ms (next.js: 2ms, application-code: 78ms)
+ GET /account/register 200 in 82ms (next.js: 3ms, application-code: 79ms)
+ GET /account/register 200 in 85ms (next.js: 2ms, application-code: 83ms)
+ GET /account/register 200 in 84ms (next.js: 2ms, application-code: 82ms)
+ GET /account/register 200 in 87ms (next.js: 2ms, application-code: 85ms)
+ GET /account/register 200 in 87ms (next.js: 2ms, application-code: 84ms)
+ GET /account/register 200 in 91ms (next.js: 4ms, application-code: 87ms)
+ GET /account/register 200 in 82ms (next.js: 2ms, application-code: 80ms)
+ GET /account/register 200 in 89ms (next.js: 6ms, application-code: 83ms)
+ GET /account/login 200 in 95ms (next.js: 3ms, application-code: 92ms)
+ GET /account/register 200 in 82ms (next.js: 2ms, application-code: 79ms)
+ GET /account/register 200 in 82ms (next.js: 3ms, application-code: 79ms)
+ GET /account/register?username=infowebdevix&email=infowebdevix%40gmail.com&displayName=Webdevix&password=1230588162&confirmPassword=1230588162 200 in 83ms (next.js: 4ms, application-code: 79ms)
+ GET /account/login 200 in 77ms (next.js: 2ms, application-code: 75ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 81ms (next.js: 2ms, application-code: 79ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 84ms (next.js: 3ms, application-code: 81ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 93ms (next.js: 3ms, application-code: 90ms)

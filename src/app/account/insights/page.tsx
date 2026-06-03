@@ -1,11 +1,9 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 import Footer from '@/components/Footer'
 import InsightAgentForm from '@/components/InsightAgentForm'
 import InsightChat from '@/components/InsightChat'
 import InsightCreateForm from '@/components/InsightCreateForm'
 import Navbar from '@/components/Navbar'
-import { ACCOUNT_SESSION_COOKIE, isValidAccountSession } from '@/lib/account-auth'
+import { requireAccountUser } from '@/lib/account-auth'
 import { db } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
@@ -13,15 +11,6 @@ export const dynamic = 'force-dynamic'
 export const metadata = {
   title: 'Codex Workspace | InteropMed',
   description: 'Use InteropMed Codex to review interoperability strategy and create standards-aware insight articles.',
-}
-
-async function requireAccountSession() {
-  const cookieStore = await cookies()
-  const session = cookieStore.get(ACCOUNT_SESSION_COOKIE)?.value
-
-  if (!isValidAccountSession(session)) {
-    redirect('/account/login?next=/account/insights')
-  }
 }
 
 async function getRecentInsights() {
@@ -34,7 +23,7 @@ async function getRecentInsights() {
 }
 
 export default async function AccountInsightsPage() {
-  await requireAccountSession()
+  const accountUser = await requireAccountUser('/account/insights')
   const insights = await getRecentInsights()
 
   return (
@@ -52,6 +41,9 @@ export default async function AccountInsightsPage() {
               </h1>
               <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
                 Use Codex to challenge architecture assumptions, clarify standards risk, shape implementation guidance, and generate InteropMed articles with healthcare-specific governance context.
+              </p>
+              <p className="mt-4 text-sm text-slate-500 dark:text-slate-400">
+                Active account: {accountUser.displayName ?? accountUser.username}
               </p>
             </div>
           </div>

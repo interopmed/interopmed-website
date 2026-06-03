@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { FormEvent, useState } from 'react'
 
 type LoginState = {
@@ -19,6 +20,7 @@ export default function AccountLoginForm({ redirectTo = '/account' }: { redirect
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        identifier: formData.get('identifier'),
         password: formData.get('password'),
       }),
     })
@@ -40,10 +42,23 @@ export default function AccountLoginForm({ redirectTo = '/account' }: { redirect
     <form onSubmit={handleSubmit} className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-950 dark:shadow-black/20 md:p-8">
       <h1 className="mb-3 text-3xl font-bold text-slate-950 dark:text-white">Account login</h1>
       <p className="mb-6 text-sm leading-6 text-slate-600 dark:text-slate-400">
-        Sign in to manage InteropMed insights and internal content.
+        Sign in with your InteropMed account to manage Studio access, insights, and internal operations.
       </p>
 
       <label className="block">
+        <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">
+          Username or email
+        </span>
+        <input
+          required
+          type="text"
+          name="identifier"
+          autoComplete="username"
+          className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+        />
+      </label>
+
+      <label className="mt-4 block">
         <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Password</span>
         <input
           required
@@ -65,6 +80,13 @@ export default function AccountLoginForm({ redirectTo = '/account' }: { redirect
       {state.message && (
         <p className="mt-4 text-sm text-red-600 dark:text-red-400">{state.message}</p>
       )}
+
+      <p className="mt-6 text-sm text-slate-600 dark:text-slate-400">
+        Need an account?{' '}
+        <Link href="/account/register" className="font-semibold text-teal-700 hover:text-teal-600 dark:text-teal-300 dark:hover:text-teal-200">
+          Register
+        </Link>
+      </p>
     </form>
   )
 }

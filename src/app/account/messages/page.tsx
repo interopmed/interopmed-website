@@ -1,8 +1,6 @@
-import { cookies } from 'next/headers'
-import { redirect } from 'next/navigation'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
-import { ACCOUNT_SESSION_COOKIE, isValidAccountSession } from '@/lib/account-auth'
+import { requireAccountUser } from '@/lib/account-auth'
 import { prisma } from '@/lib/prisma'
 
 export const dynamic = 'force-dynamic'
@@ -10,15 +8,6 @@ export const dynamic = 'force-dynamic'
 export const metadata = {
   title: 'Contact Messages | InteropMed Account',
   description: 'Review contact form messages submitted through the InteropMed website.',
-}
-
-async function requireAccountSession() {
-  const cookieStore = await cookies()
-  const session = cookieStore.get(ACCOUNT_SESSION_COOKIE)?.value
-
-  if (!isValidAccountSession(session)) {
-    redirect('/account/login?next=/account/messages')
-  }
 }
 
 async function getContactMessages() {
@@ -44,7 +33,7 @@ function formatDate(value: Date) {
 }
 
 export default async function AccountMessagesPage() {
-  await requireAccountSession()
+  await requireAccountUser('/account/messages')
   const messages = await getContactMessages()
 
   return (
