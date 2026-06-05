@@ -1,0 +1,357 @@
+import { slugify } from './slugify'
+
+const GROQ_CHAT_COMPLETIONS_URL = 'https://api.groq.com/openai/v1/chat/completions'
+
+const INTEROPMED_CODEX_SYSTEM_PROMPT = `
+You are InteropMed Codex, a specialized healthcare interoperability engine for clinical standards, integration architecture, and compliant product strategy.
+
+Act as a senior healthcare integration architect, FHIR specialist, compliance-aware product strategist, and full-stack developer. Prioritize practical implementation, cloud-native zero-local-footprint SaaS patterns, and strict PHI safety.
+
+Core expertise:
+- HL7 FHIR R4, R4B, and R5 resources, profiles, extensions, bundles, operations, and SearchParameters.
+- HL7 v2.x and v3 messages including ADT, ORU, ORM, MLLP workflows, parsing, validation, and brittle feed handling.
+- DICOM and DICOMweb including WADO-RS, QIDO-RS, and STOW-RS.
+- CDA and C-CDA clinical document structures.
+- US Core Implementation Guides, ONC Cures Act Final Rule, HIPAA, HITECH, consent, audit logging, RBAC, ABAC, de-identification, tokenization, and PHI handling.
+
+Response rules:
+- Be direct, technical, practical, and opinionated.
+- Identify ambiguity and standards-version risk early.
+- Never use real PHI, hardcoded credentials, active API keys, access tokens, or production secrets.
+- Use synthetic but clinically realistic examples.
+- Prefer secure APIs, API gateways, queues, serverless workflows, webhooks, managed databases, encrypted object storage, and cloud endpoints over on-premise deployment unless the user explicitly requires on-premise.
+- When mapping legacy formats to FHIR, include a markdown mapping table with Source field, Transformation logic, and Target FHIR element.
+- When providing code, include defensive handling for missing fields, invalid dates, malformed identifiers, and invalid terminology.
+`
+
+type GroqResponse = {
+  choices?: {
+    message?: {
+      content?: string | null
+    }
+  }[]
+  error?: {
+    message?: string
+  }
+}
+
+export class GroqAccessError extends Error {
+  constructor(message: string) {
+    super(message)
+    this.name = 'GroqAccessError'
+  }
+}
+
+export type GeneratedInsightDraft = {
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  category: string
+  tags: string[]
+  metaDescription: string
+  metaKeywords: string[]
+  imagePrompt: string
+  socialPosts: {
+    linkedin: string
+    x: string
+  }
+}
+
+export type InsightAgentInput = {
+  topic: string
+  audience?: string
+  category?: string
+  tone?: string
+}
+
+export type InsightChatMessage = {
+  role: 'user' | 'assistant'
+  content: string
+}
+
+export type InsightChatTopic = {
+  title: string
+  brief: string
+  category: string
+  audience: string
+}
+
+export type InsightChatResponse = {
+  reply: string
+  topics: InsightChatTopic[]
+  refinedArticle?: string
+  generatorBrief?: {
+    topic: string
+    audience: string
+    category: string
+    tone: string
+  }
+}
+
+function getGroqApiKey() {
+  return process.env.GROQ_API_KEY || ''
+}
+
+function getGroqTextModel() {
+  return process.env.GROQ_TEXT_MODEL || 'llama-3.3-70b-versatile'
+}
+
+async function callGroqJson(prompt: string, temperature: number) {
+  const apiKey = getGroqApiKey()
+
+  if (!apiKey) {
+    throw new Error('GROQ_API_KEY is not configured')
+  }
+
+  const response = await fetch(GROQ_CHAT_COMPLETIONS_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      model: getGroqTextModel(),
+      messages: [
+        {
+          role: 'user',
+          content: prompt,
+        },
+      ],
+      temperature,
+      response_format: { type: 'json_object' },
+    }),
+  })
+  const result = (await response.json()) as GroqResponse
+
+  if (!response.ok) {
+    const message = result.error?.message || 'Groq request failed'
+
+    if (response.status === 401 || response.status === 403 || /denied access|permission/i.test(message)) {
+      throw new GroqAccessError(
+        `${message} Check that GROQ_API_KEY is valid and has access to the configured Groq model.`
+      )
+    }
+
+    throw new Error(message)
+  }
+
+  return result
+}
+
+function getTextFromGroq(result: GroqResponse) {
+  return result.choices?.[0]?.message?.content?.trim() || ''
+}
+
+function parseJsonObject(value: string) {
+  const fenced = value.match(/```(?:json)?\s*([\s\S]*?)```/i)?.[1]
+  const source = fenced || value
+  const start = source.indexOf('{')
+  const end = source.lastIndexOf('}')
+
+  if (start === -1 || end === -1 || end <= start) {
+    throw new Error('Groq did not return a JSON object')
+  }
+
+  return JSON.parse(source.slice(start, end + 1)) as Partial<GeneratedInsightDraft>
+}
+
+function parseChatJsonObject(value: string) {
+  const fenced = value.match(/```(?:json)?\s*([\s\S]*?)```/i)?.[1]
+  const source = fenced || value
+  const start = source.indexOf('{')
+  const end = source.lastIndexOf('}')
+
+  if (start === -1 || end === -1 || end <= start) {
+    return {
+      reply: value.trim(),
+      topics: [],
+    } satisfies InsightChatResponse
+  }
+
+  return JSON.parse(source.slice(start, end + 1)) as Partial<InsightChatResponse>
+}
+
+function normalizeStringArray(value: unknown) {
+  if (!Array.isArray(value)) {
+    return []
+  }
+
+  return value.map((item) => String(item).trim()).filter(Boolean)
+}
+
+function normalizeDraft(value: Partial<GeneratedInsightDraft>, fallbackTopic: string): GeneratedInsightDraft {
+  const title = String(value.title || fallbackTopic).trim()
+  const content = String(value.content || '').trim()
+
+  if (!title || !content) {
+    throw new Error('Groq returned an incomplete insight draft')
+  }
+
+  const excerpt = String(value.excerpt || content.slice(0, 180)).trim()
+  const category = String(value.category || 'interoperability').trim()
+  const socialPosts = value.socialPosts || { linkedin: '', x: '' }
+
+  return {
+    title,
+    slug: slugify(String(value.slug || title)) || slugify(fallbackTopic),
+    excerpt,
+    content,
+    category,
+    tags: normalizeStringArray(value.tags),
+    metaDescription: String(value.metaDescription || excerpt).trim().slice(0, 180),
+    metaKeywords: normalizeStringArray(value.metaKeywords),
+    imagePrompt: String(
+      value.imagePrompt ||
+        `Editorial featured image for a healthcare interoperability insight titled "${title}".`
+    ).trim(),
+    socialPosts: {
+      linkedin: String(socialPosts.linkedin || `${title}\n\n${excerpt}`).trim(),
+      x: String(socialPosts.x || `${title}: ${excerpt}`).trim(),
+    },
+  }
+}
+
+export async function generateInsightDraft(input: InsightAgentInput) {
+  const topic = input.topic.trim()
+  const prompt = `
+${INTEROPMED_CODEX_SYSTEM_PROMPT}
+
+You are creating an InteropMed executive insight article based on the Codex engine's perspective.
+
+Create one original executive insight article for a B2B healthcare technology audience.
+
+Return only valid JSON with this exact shape:
+{
+  "title": "string",
+  "slug": "string",
+  "excerpt": "string",
+  "content": "string",
+  "category": "string",
+  "tags": ["string"],
+  "metaDescription": "string",
+  "metaKeywords": ["string"],
+  "imagePrompt": "string",
+  "socialPosts": {
+    "linkedin": "string",
+    "x": "string"
+  }
+}
+
+Rules:
+- Write in a practical, credible InteropMed voice.
+- Use plain paragraphs separated by blank lines in content.
+- Do not use markdown headings in content.
+- Keep the article between 700 and 1,000 words.
+- Keep x under 260 characters before the URL is appended.
+- Do not invent statistics, customer names, or regulatory claims.
+- Mention concrete interoperability standards only when they are relevant to the topic.
+- Surface security, governance, or compliance considerations where they affect implementation.
+
+Topic: ${topic}
+Audience: ${input.audience?.trim() || 'healthcare technology leaders'}
+Category: ${input.category?.trim() || 'interoperability'}
+Tone: ${input.tone?.trim() || 'strategic and practical'}
+`
+
+  const result = await callGroqJson(prompt, 0.7)
+
+  return normalizeDraft(parseJsonObject(getTextFromGroq(result)), topic)
+}
+
+function normalizeChatResponse(value: Partial<InsightChatResponse>, fallbackReply: string): InsightChatResponse {
+  const topics = Array.isArray(value.topics)
+    ? value.topics
+        .map((topic) => ({
+          title: String(topic.title || '').trim(),
+          brief: String(topic.brief || '').trim(),
+          category: String(topic.category || 'interoperability').trim(),
+          audience: String(topic.audience || 'healthcare technology leaders').trim(),
+        }))
+        .filter((topic) => topic.title && topic.brief)
+    : []
+  const generatorBrief = value.generatorBrief
+    ? {
+        topic: String(value.generatorBrief.topic || '').trim(),
+        audience: String(value.generatorBrief.audience || 'healthcare technology leaders').trim(),
+        category: String(value.generatorBrief.category || 'interoperability').trim(),
+        tone: String(value.generatorBrief.tone || 'strategic and practical').trim(),
+      }
+    : undefined
+
+  return {
+    reply: String(value.reply || fallbackReply || '').trim(),
+    topics,
+    refinedArticle: value.refinedArticle ? String(value.refinedArticle).trim() : undefined,
+    generatorBrief: generatorBrief?.topic ? generatorBrief : undefined,
+  }
+}
+
+export async function chatWithInsightAgent(input: {
+  messages: InsightChatMessage[]
+  draft?: string
+  context?: string
+}) {
+  const conversation = input.messages
+    .slice(-12)
+    .map((message) => `${message.role.toUpperCase()}: ${message.content}`)
+    .join('\n\n')
+  const prompt = `
+${INTEROPMED_CODEX_SYSTEM_PROMPT}
+
+Help the account user evaluate InteropMed product ideas, architecture choices, interoperability mappings, compliance tradeoffs, article topics, positioning, and implementation plans.
+
+Return only valid JSON with this exact shape:
+{
+  "reply": "string",
+  "topics": [
+    {
+      "title": "string",
+      "brief": "string",
+      "category": "string",
+      "audience": "string"
+    }
+  ],
+  "refinedArticle": "string or empty string",
+  "generatorBrief": {
+    "topic": "string",
+    "audience": "string",
+    "category": "string",
+    "tone": "string"
+  }
+}
+
+Rules:
+- If the user asks for healthcare interoperability architecture or implementation advice, answer directly in reply with concrete recommendations.
+- If the user asks for mappings, include a compact markdown mapping table in reply.
+- When brainstorming content, return 3 to 5 practical topic options in topics.
+- When refining a draft, preserve the core claim and improve clarity, structure, and executive usefulness.
+- Keep reply concise and action-oriented.
+- Do not invent customer names, citations, or statistics.
+- If there is a clear topic to generate, set generatorBrief.topic to a strong one-paragraph brief.
+- If standards, versions, or payload structures are ambiguous, state the risk and ask for the missing version or structure.
+
+Optional context:
+${input.context?.trim() || 'No extra context provided.'}
+
+Draft to refine:
+${input.draft?.trim() || 'No draft provided.'}
+
+Conversation:
+${conversation}
+`
+
+  const result = await callGroqJson(prompt, 0.65)
+  const text = getTextFromGroq(result)
+
+  return normalizeChatResponse(parseChatJsonObject(text), text)
+}
+
+export async function generateAndStoreFeaturedImage(
+  prompt: string,
+  slug: string
+): Promise<{ url: string; mimeType: string }> {
+  void prompt
+  void slug
+  throw new Error('Groq text generation is configured. Featured image generation is not available through Groq.')
+}

@@ -24,10 +24,9 @@
     "types": [
       "node"
     ],
-    "baseUrl": ".",
     "paths": {
       "@/*": [
-        "./src/*"
+        "./*"
       ]
     },
     "allowJs": true,
@@ -42,11 +41,15 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts",
+    ".next-workspace/types/**/*.ts",
+    ".next-workspace/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     ".next",
+    ".next-workspace",
+    "generated-src",
     "out",
     "dist"
   ]

@@ -30,3 +30,189 @@ module.exports = {
 }
 
 Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+⨯ ./src/generated/prisma/client.ts:23:1
+Module not found: Can't resolve './enums.ts'
+  [90m21 |[0m [36mimport[0m * [36mas[0m [33mPrisma[0m [36mfrom[0m [32m"./internal/prismaNamespace.ts"[0m
+  [90m22 |[0m
+[31m[1m>[0m [90m23 |[0m [36mexport[0m * [36mas[0m $Enums [36mfrom[0m [32m'./enums.ts'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m24 |[0m [36mexport[0m * [36mfrom[0m [32m"./enums.ts"[0m
+  [90m25 |[0m /**
+  [90m26 |[0m  * ## [33mPrisma[0m [33mClient[0m
+
+
+
+Import trace:
+  Server Component:
+    ./src/generated/prisma/client.ts
+    ./src/lib/prisma.ts
+    ./src/lib/account-auth.ts
+    ./src/app/account/register/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/generated/prisma/client.ts:24:1
+Module not found: Can't resolve './enums.ts'
+  [90m22 |[0m
+  [90m23 |[0m [36mexport[0m * [36mas[0m $Enums [36mfrom[0m [32m'./enums.ts'[0m
+[31m[1m>[0m [90m24 |[0m [36mexport[0m * [36mfrom[0m [32m"./enums.ts"[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m25 |[0m /**
+  [90m26 |[0m  * ## [33mPrisma[0m [33mClient[0m
+  [90m27 |[0m  *
+
+
+
+Import trace:
+  Server Component:
+    ./src/generated/prisma/client.ts
+    ./src/lib/prisma.ts
+    ./src/lib/account-auth.ts
+    ./src/app/account/register/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/generated/prisma/client.ts:23:1
+Module not found: Can't resolve './enums.ts'
+  [90m21 |[0m [36mimport[0m * [36mas[0m [33mPrisma[0m [36mfrom[0m [32m"./internal/prismaNamespace.ts"[0m
+  [90m22 |[0m
+[31m[1m>[0m [90m23 |[0m [36mexport[0m * [36mas[0m $Enums [36mfrom[0m [32m'./enums.ts'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m24 |[0m [36mexport[0m * [36mfrom[0m [32m"./enums.ts"[0m
+  [90m25 |[0m /**
+  [90m26 |[0m  * ## [33mPrisma[0m [33mClient[0m
+
+
+
+Import trace:
+  Server Component:
+    ./src/generated/prisma/client.ts
+    ./src/lib/prisma.ts
+    ./src/lib/db.ts
+    ./src/app/insights/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/generated/prisma/client.ts:24:1
+Module not found: Can't resolve './enums.ts'
+  [90m22 |[0m
+  [90m23 |[0m [36mexport[0m * [36mas[0m $Enums [36mfrom[0m [32m'./enums.ts'[0m
+[31m[1m>[0m [90m24 |[0m [36mexport[0m * [36mfrom[0m [32m"./enums.ts"[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m25 |[0m /**
+  [90m26 |[0m  * ## [33mPrisma[0m [33mClient[0m
+  [90m27 |[0m  *
+
+
+
+Import trace:
+  Server Component:
+    ./src/generated/prisma/client.ts
+    ./src/lib/prisma.ts
+    ./src/lib/db.ts
+    ./src/app/insights/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/generated/prisma/client.ts:23:1
+Module not found: Can't resolve './enums.ts'
+  [90m21 |[0m [36mimport[0m * [36mas[0m [33mPrisma[0m [36mfrom[0m [32m"./internal/prismaNamespace.ts"[0m
+  [90m22 |[0m
+[31m[1m>[0m [90m23 |[0m [36mexport[0m * [36mas[0m $Enums [36mfrom[0m [32m'./enums.ts'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m24 |[0m [36mexport[0m * [36mfrom[0m [32m"./enums.ts"[0m
+  [90m25 |[0m /**
+  [90m26 |[0m  * ## [33mPrisma[0m [33mClient[0m
+
+
+
+Import trace:
+  Server Component:
+    ./src/generated/prisma/client.ts
+    ./src/lib/prisma.ts
+    ./src/lib/account-auth.ts
+    ./src/app/studio/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/generated/prisma/client.ts:24:1
+Module not found: Can't resolve './enums.ts'
+  [90m22 |[0m
+  [90m23 |[0m [36mexport[0m * [36mas[0m $Enums [36mfrom[0m [32m'./enums.ts'[0m
+[31m[1m>[0m [90m24 |[0m [36mexport[0m * [36mfrom[0m [32m"./enums.ts"[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m25 |[0m /**
+  [90m26 |[0m  * ## [33mPrisma[0m [33mClient[0m
+  [90m27 |[0m  *
+
+
+
+Import trace:
+  Server Component:
+    ./src/generated/prisma/client.ts
+    ./src/lib/prisma.ts
+    ./src/lib/account-auth.ts
+    ./src/app/studio/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/generated/prisma/client.ts:23:1
+Module not found: Can't resolve './enums.ts'
+  [90m21 |[0m [36mimport[0m * [36mas[0m [33mPrisma[0m [36mfrom[0m [32m"./internal/prismaNamespace.ts"[0m
+  [90m22 |[0m
+[31m[1m>[0m [90m23 |[0m [36mexport[0m * [36mas[0m $Enums [36mfrom[0m [32m'./enums.ts'[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m24 |[0m [36mexport[0m * [36mfrom[0m [32m"./enums.ts"[0m
+  [90m25 |[0m /**
+  [90m26 |[0m  * ## [33mPrisma[0m [33mClient[0m
+
+
+
+Import trace:
+  Server Component:
+    ./src/generated/prisma/client.ts
+    ./src/lib/prisma.ts
+    ./src/lib/account-auth.ts
+    ./src/app/account/login/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+⨯ ./src/generated/prisma/client.ts:24:1
+Module not found: Can't resolve './enums.ts'
+  [90m22 |[0m
+  [90m23 |[0m [36mexport[0m * [36mas[0m $Enums [36mfrom[0m [32m'./enums.ts'[0m
+[31m[1m>[0m [90m24 |[0m [36mexport[0m * [36mfrom[0m [32m"./enums.ts"[0m
+  [90m   |[0m [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+  [90m25 |[0m /**
+  [90m26 |[0m  * ## [33mPrisma[0m [33mClient[0m
+  [90m27 |[0m  *
+
+
+
+Import trace:
+  Server Component:
+    ./src/generated/prisma/client.ts
+    ./src/lib/prisma.ts
+    ./src/lib/account-auth.ts
+    ./src/app/account/login/page.tsx
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+Error creating password reset token: TypeError: Cannot read properties of undefined (reading 'deleteMany')
+    at createPasswordResetToken (src\lib\account-auth.ts:252:39)
+    at async POST (src\app\api\account\password-reset\request\route.ts:16:24)
+  250 |   }
+  251 |
+> 252 |   await prisma.authPasswordResetToken.deleteMany({
+      |                                       ^
+  253 |     where: { userId: user.id },
+  254 |   })
+  255 |

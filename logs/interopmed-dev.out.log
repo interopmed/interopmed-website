@@ -84,3 +84,52 @@ prisma:query INSERT INTO "public"."AuthSession" ("id","sessionTokenHash","expire
  GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 81ms (next.js: 2ms, application-code: 79ms)
  GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 84ms (next.js: 3ms, application-code: 81ms)
  GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 93ms (next.js: 3ms, application-code: 90ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 83ms (next.js: 3ms, application-code: 80ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 80ms (next.js: 2ms, application-code: 78ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 107ms (next.js: 2ms, application-code: 105ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 101ms (next.js: 4ms, application-code: 97ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 84ms (next.js: 3ms, application-code: 82ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 86ms (next.js: 2ms, application-code: 84ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 117ms (next.js: 3ms, application-code: 114ms)
+  Reload env: .env.local
+✓ Compiled in 3s
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 302ms (next.js: 100ms, application-code: 202ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 83ms (next.js: 5ms, application-code: 79ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 98ms (next.js: 2ms, application-code: 96ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 83ms (next.js: 4ms, application-code: 79ms)
+✓ Compiled in 1045ms
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 81ms (next.js: 3ms, application-code: 78ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 97ms (next.js: 3ms, application-code: 94ms)
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 85ms (next.js: 2ms, application-code: 83ms)
+  Reload env: .env.local
+✓ Compiled in 4.5s
+ GET /account/login?identifier=infowebdevix%40gmail.com&password=1230588162 200 in 336ms (next.js: 110ms, application-code: 225ms)
+ GET /account/login?identifier=demo-user-20260603&password=123 200 in 93ms (next.js: 3ms, application-code: 90ms)
+✓ Compiled in 439ms
+✓ Finished filesystem cache database compaction in 36.2s
+ GET /account/login?identifier=demo-user-20260603&password=123 200 in 389ms (next.js: 128ms, application-code: 261ms)
+✓ Compiled in 17.2s
+ GET /account/login?identifier=demo-user-20260603&password=123 200 in 352ms (next.js: 113ms, application-code: 238ms)
+✓ Compiled in 11.3s
+prisma:query SELECT COUNT(*) AS "_count$_all" FROM (SELECT "public"."AuthUser"."id" FROM "public"."AuthUser" WHERE 1=1 OFFSET $1) AS "sub"
+prisma:query SELECT "public"."AuthUser"."id", "public"."AuthUser"."username", "public"."AuthUser"."email", "public"."AuthUser"."passwordHash", "public"."AuthUser"."displayName", "public"."AuthUser"."role", "public"."AuthUser"."isActive", "public"."AuthUser"."lastLoginAt", "public"."AuthUser"."createdAt", "public"."AuthUser"."updatedAt" FROM "public"."AuthUser" WHERE ("public"."AuthUser"."isActive" = $1 AND ("public"."AuthUser"."username" = $2 OR "public"."AuthUser"."email" = $3)) LIMIT $4 OFFSET $5
+ POST /api/account/password-reset/request 500 in 17.3s (next.js: 2.5s, application-code: 14.8s)
+  Reload env: .env.local
+  Reload env: .env.local
+✓ Compiled in 4s
+ GET /account/login?identifier=demo-user-20260603&password=123 200 in 293ms (next.js: 100ms, application-code: 193ms)
+✓ Finished filesystem cache database compaction in 43s
+ GET /account/login?identifier=demo-user-20260603&password=123 200 in 75ms (next.js: 2ms, application-code: 73ms)
+○ Compiling /account/reset-password ...
+ GET /account/reset-password 200 in 5.9s (next.js: 5.8s, application-code: 153ms)
+ GET /account/reset-password 200 in 89ms (next.js: 10ms, application-code: 79ms)
+✓ Finished filesystem cache database compaction in 53s
+ GET /account/reset-password?identifier=demo-user-20260603 200 in 110ms (next.js: 4ms, application-code: 106ms)
+ GET /account/reset-password?identifier=demo-user-20260603 200 in 1727ms (next.js: 1512ms, application-code: 214ms)
+ GET /account/reset-password?identifier=demo-user-20260603 200 in 92ms (next.js: 4ms, application-code: 88ms)
+ GET /account/reset-password?identifier=demo-user-20260603 200 in 96ms (next.js: 2ms, application-code: 94ms)
+ GET /account/reset-password?identifier=demo-user-20260603 200 in 226ms (next.js: 47ms, application-code: 178ms)
+ GET /account/reset-password?identifier=demo-user-20260603 200 in 88ms (next.js: 2ms, application-code: 86ms)
+ GET /account/reset-password?identifier=demo-user-20260603 200 in 92ms (next.js: 2ms, application-code: 90ms)
+✓ Compiled in 3.8s
+ GET /account/reset-password?identifier=demo-user-20260603 200 in 1985ms (next.js: 1314ms, application-code: 672ms)
