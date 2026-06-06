@@ -532,6 +532,7 @@ model AuthUser {
 
   sessions            AuthSession[]
   passwordResetTokens AuthPasswordResetToken[]
+  notificationPreference AuthNotificationPreference?
   articles            Article[]
 
   @@index([isActive, createdAt])
@@ -562,6 +563,20 @@ model AuthPasswordResetToken {
 
   @@index([userId, expiresAt])
   @@index([expiresAt, usedAt])
+}
+
+model AuthNotificationPreference {
+  id              String   @id @default(cuid())
+  accountUpdates  Boolean  @default(true)
+  productNotes    Boolean  @default(false)
+  supportReplies  Boolean  @default(true)
+  securityAlerts  Boolean  @default(true)
+  weeklyDigest    Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  userId String   @unique
+  user   AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // =====================

@@ -41,6 +41,10 @@ function sha256(value: string) {
   return createHash('sha256').update(value).digest('hex')
 }
 
+export function hashAccountSessionToken(rawToken: string) {
+  return sha256(rawToken)
+}
+
 function encodePasswordHash(salt: Buffer, derivedKey: Buffer) {
   return `${salt.toString('hex')}:${derivedKey.toString('hex')}`
 }
@@ -245,7 +249,7 @@ export async function deleteAccountSession(rawToken: string | undefined) {
 
   await prisma.authSession.deleteMany({
     where: {
-      sessionTokenHash: sha256(rawToken),
+      sessionTokenHash: hashAccountSessionToken(rawToken),
     },
   })
 }
@@ -349,7 +353,7 @@ export async function getAccountSessionUserFromToken(rawToken: string | undefine
 
   const session = await prisma.authSession.findUnique({
     where: {
-      sessionTokenHash: sha256(rawToken),
+      sessionTokenHash: hashAccountSessionToken(rawToken),
     },
     include: {
       user: true,

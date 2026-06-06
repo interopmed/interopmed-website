@@ -32,8 +32,6 @@ export default function AccountSettingsForm({ user }: AccountSettingsFormProps) 
       body: JSON.stringify({
         email: formData.get('email'),
         displayName: formData.get('displayName'),
-        currentPassword: formData.get('currentPassword'),
-        newPassword: formData.get('newPassword'),
       }),
     })
     const result = await response.json().catch(() => ({
@@ -47,8 +45,6 @@ export default function AccountSettingsForm({ user }: AccountSettingsFormProps) 
     }
 
     const form = event.currentTarget
-    form.currentPassword.value = ''
-    form.newPassword.value = ''
     setState({ status: 'success', message: 'Settings saved.' })
     router.refresh()
   }
@@ -90,31 +86,6 @@ export default function AccountSettingsForm({ user }: AccountSettingsFormProps) 
             className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
           />
         </label>
-      </div>
-
-      <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-900">
-        <p className="text-sm font-semibold text-slate-950 dark:text-white">Change password</p>
-        <div className="mt-4 grid gap-5 lg:grid-cols-2">
-          <label className="block">
-            <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Current password</span>
-            <input
-              type="password"
-              name="currentPassword"
-              autoComplete="current-password"
-              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
-            />
-          </label>
-          <label className="block">
-            <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">New password</span>
-            <input
-              type="password"
-              name="newPassword"
-              autoComplete="new-password"
-              minLength={8}
-              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
-            />
-          </label>
-        </div>
       </div>
 
       <button
