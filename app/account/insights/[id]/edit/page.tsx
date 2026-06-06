@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import AccountBreadcrumb from '@/components/AccountBreadcrumb'
 import InsightEditorForm from '@/components/InsightEditorForm'
-import { requireAccountUser } from '@/lib/account-auth'
+import { requireAdminUser } from '@/lib/account-auth'
 import { db } from '@/lib/db'
 import { getInsightTaxonomyOptions } from '@/lib/taxonomies'
 
@@ -19,7 +19,7 @@ type EditInsightPageProps = {
 }
 
 export default async function EditInsightPage({ params }: EditInsightPageProps) {
-  await requireAccountUser('/account/insights')
+  await requireAdminUser('/account/insights')
   const { id } = await params
   const [insight, taxonomyOptions] = await Promise.all([
     db.prisma.article.findFirst({

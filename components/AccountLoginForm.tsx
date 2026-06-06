@@ -8,7 +8,19 @@ type LoginState = {
   message: string
 }
 
-export default function AccountLoginForm({ redirectTo = '/account' }: { redirectTo?: string }) {
+type AccountLoginFormProps = {
+  redirectTo?: string
+  title?: string
+  description?: string
+  registerHref?: string | null
+}
+
+export default function AccountLoginForm({
+  redirectTo = '/account',
+  title = 'Account login',
+  description = 'Sign in with your InteropMed account. Admins go to the admin dashboard, and members go to their user account.',
+  registerHref = '/account/register',
+}: AccountLoginFormProps) {
   const [state, setState] = useState<LoginState>({ status: 'idle', message: '' })
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -35,33 +47,55 @@ export default function AccountLoginForm({ redirectTo = '/account' }: { redirect
 
     setState({ status: 'submitting', message: '' })
 
-    const response = await fetch('/api/account/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        identifier,
-        password,
-      }),
-    })
+    try {
+      const response = await fetch('/api/account/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          identifier,
+          password,
+        }),
+      })
 
-    const result = await response.json()
+      const result = await response.json().catch(() => ({
+        success: false,
+        error: 'The login endpoint returned an unreadable response.',
+      }))
 
-    if (!response.ok || !result.success) {
+      if (!response.ok || !result.success) {
+        setState({
+          status: 'error',
+          message: result.error || 'Login failed',
+        })
+        return
+      }
+
+      const role = String(result.data?.user?.role || '')
+      const roleHome = String(result.data?.redirectTo || (role === 'admin' ? '/account' : '/user'))
+      const nextPath =
+        redirectTo.startsWith('/studio') ||
+        (role === 'admin' && redirectTo.startsWith('/account')) ||
+        (role !== 'admin' && redirectTo.startsWith('/user'))
+          ? redirectTo
+          : roleHome
+
+      window.location.assign(nextPath)
+    } catch (error) {
       setState({
         status: 'error',
-        message: result.error || 'Login failed',
+        message:
+          error instanceof Error
+            ? `Could not reach the login endpoint: ${error.message}`
+            : 'Could not reach the login endpoint.',
       })
-      return
     }
-
-    window.location.assign(redirectTo)
   }
 
   return (
     <form onSubmit={handleSubmit} noValidate className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-6 shadow-xl shadow-slate-200/60 dark:border-slate-800 dark:bg-slate-950 dark:shadow-black/20 md:p-8">
-      <h1 className="mb-3 text-3xl font-bold text-slate-950 dark:text-white">Account login</h1>
+      <h1 className="mb-3 text-3xl font-bold text-slate-950 dark:text-white">{title}</h1>
       <p className="mb-6 text-sm leading-6 text-slate-600 dark:text-slate-400">
-        Sign in with your InteropMed account to manage Studio access, insights, and internal operations.
+        {description}
       </p>
 
       <div
@@ -117,12 +151,14 @@ export default function AccountLoginForm({ redirectTo = '/account' }: { redirect
         </Link>
       </p>
 
-      <p className="mt-6 text-sm text-slate-600 dark:text-slate-400">
-        Need an account?{' '}
-        <Link href="/account/register" className="font-semibold text-teal-700 hover:text-teal-600 dark:text-teal-300 dark:hover:text-teal-200">
-          Register
-        </Link>
-      </p>
+      {registerHref && (
+        <p className="mt-6 text-sm text-slate-600 dark:text-slate-400">
+          Need an account?{' '}
+          <Link href={registerHref} className="font-semibold text-teal-700 hover:text-teal-600 dark:text-teal-300 dark:hover:text-teal-200">
+            Register
+          </Link>
+        </p>
+      )}
     </form>
   )
 }

@@ -35,12 +35,13 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    const role = body.role === 'admin' ? 'admin' : 'member'
     const user = await createAuthUser({
       username: body.username,
       email: body.email,
       displayName: body.displayName,
       password: body.password,
-      role: 'admin',
+      role,
     })
 
     return NextResponse.json<ApiResponse>(

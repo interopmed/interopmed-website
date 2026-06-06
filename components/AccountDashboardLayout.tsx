@@ -30,6 +30,7 @@ const accountNav = [
     items: [
       { href: '/account/messages', label: 'Messages', detail: 'Contact inbox', badge: '', icon: 'message' },
       { href: '/account/users', label: 'Users', detail: 'Access control', badge: 'Admin', icon: 'users' },
+      { href: '/account/settings', label: 'Settings', detail: 'Account preferences', badge: '', icon: 'settings' },
     ],
   },
 ]
@@ -114,6 +115,15 @@ function SidebarIcon({ name }: { name: string }) {
     )
   }
 
+  if (name === 'settings') {
+    return (
+      <svg {...commonProps}>
+        <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.09a2 2 0 0 1-1-1.74v-.51a2 2 0 0 1 1-1.72l.15-.1a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+    )
+  }
+
   return (
     <svg {...commonProps}>
       <rect width="7" height="9" x="3" y="3" rx="1" />
@@ -128,6 +138,7 @@ export default function AccountDashboardLayout({ children }: AccountDashboardLay
   const pathname = usePathname()
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isHeaderProfileOpen, setIsHeaderProfileOpen] = useState(false)
+  const showAuthHeaderLogin = pathname !== '/account/login'
 
   if (isPublicAccountPath(pathname)) {
     return (
@@ -139,9 +150,16 @@ export default function AccountDashboardLayout({ children }: AccountDashboardLay
             </span>
             <span className="text-sm font-semibold text-slate-900 dark:text-white">InteropMed</span>
           </Link>
-          <Link href="/" className="text-sm font-semibold text-slate-500 transition hover:text-slate-950 dark:text-slate-400 dark:hover:text-white">
-            Back to site
-          </Link>
+          <div className="flex items-center gap-4">
+            {showAuthHeaderLogin && (
+              <Link href="/account/login" className="text-sm font-semibold text-slate-600 transition hover:text-slate-950 dark:text-slate-300 dark:hover:text-white">
+                Login
+              </Link>
+            )}
+            <Link href="/" className="text-sm font-semibold text-slate-500 transition hover:text-slate-950 dark:text-slate-400 dark:hover:text-white">
+              Back to site
+            </Link>
+          </div>
         </header>
         {children}
       </div>
@@ -314,7 +332,7 @@ export default function AccountDashboardLayout({ children }: AccountDashboardLay
                         Profile
                       </Link>
                       <Link
-                        href="/account/users"
+                        href="/account/settings"
                         onClick={() => setIsHeaderProfileOpen(false)}
                         className="block rounded-md px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
                       >

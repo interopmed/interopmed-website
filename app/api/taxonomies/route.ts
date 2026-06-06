@@ -72,6 +72,17 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    if (accountUser.role !== 'admin') {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: 'Admin access is required',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 403 }
+      )
+    }
+
     const body = await request.json()
     const name = String(body.name || '').trim()
     const taxonomy = normalizeTaxonomy(body.taxonomy)

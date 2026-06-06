@@ -3,7 +3,7 @@ import AccountBreadcrumb from '@/components/AccountBreadcrumb'
 import InsightAgentForm from '@/components/InsightAgentForm'
 import InsightChat from '@/components/InsightChat'
 import InsightCreateForm from '@/components/InsightCreateForm'
-import { requireAccountUser } from '@/lib/account-auth'
+import { requireAdminUser } from '@/lib/account-auth'
 import { getArticleAuthorName } from '@/lib/article-author'
 import { db } from '@/lib/db'
 import { getInsightTaxonomyOptions } from '@/lib/taxonomies'
@@ -33,7 +33,7 @@ function formatDate(value: Date) {
 }
 
 export default async function AccountInsightsPage() {
-  await requireAccountUser('/account/insights')
+  await requireAdminUser('/account/insights')
   const [insights, taxonomyOptions] = await Promise.all([
     getRecentInsights(),
     getInsightTaxonomyOptions(),

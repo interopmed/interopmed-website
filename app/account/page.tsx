@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import AccountBreadcrumb from '@/components/AccountBreadcrumb'
-import { requireAccountUser } from '@/lib/account-auth'
+import { requireAdminUser } from '@/lib/account-auth'
 import { getArticleAuthorName } from '@/lib/article-author'
 import { db } from '@/lib/db'
 
@@ -92,7 +92,7 @@ async function getDashboardStats(): Promise<DashboardStats> {
 }
 
 export default async function AccountDashboardPage() {
-  await requireAccountUser('/account')
+  await requireAdminUser('/account')
   const stats = await getDashboardStats()
   const publishRate = stats.totalInsights === 0 ? 0 : clampPercent(Math.round((stats.publishedInsights / stats.totalInsights) * 100))
   const draftRate = stats.totalInsights === 0 ? 0 : clampPercent(Math.round((stats.draftInsights / stats.totalInsights) * 100))

@@ -53,10 +53,13 @@ export default function Navbar() {
     window.location.assign('/account/login')
   }
 
-  const authAction = accountUser ? (
+  const hasAccountSession = isSessionLoaded && accountUser
+  const accountHref = accountUser?.role === 'admin' ? '/account' : '/user'
+  const accountLabel = accountUser?.role === 'admin' ? 'Admin' : 'Account'
+  const authAction = hasAccountSession ? (
     <>
-      <Link href="/account" className="text-sm font-semibold text-slate-700 transition-colors hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-400">
-        Account
+      <Link href={accountHref} className="text-sm font-semibold text-slate-700 transition-colors hover:text-teal-600 dark:text-slate-300 dark:hover:text-teal-400">
+        {accountLabel}
       </Link>
       <button
         type="button"
@@ -117,7 +120,7 @@ export default function Navbar() {
 
         {/* CTA Button */}
         <div className="hidden md:flex items-center gap-3">
-          {isSessionLoaded && authAction}
+          {authAction}
           <Link href="/contact" className="px-6 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg hover:shadow-teal-500/25 transition-all duration-300 transform hover:scale-105">
             Request Demo
           </Link>
@@ -165,29 +168,27 @@ export default function Navbar() {
             <Link href="/contact" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
               Contact
             </Link>
-            {isSessionLoaded && (
-              <div className="flex flex-col gap-3 border-t border-slate-200 pt-4 dark:border-slate-800">
-                {accountUser ? (
-                  <>
-                    <Link href="/account" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-                      Account
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={handleLogout}
-                      disabled={isLoggingOut}
-                      className="w-full rounded-lg border border-slate-300 px-6 py-2 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-70 dark:border-slate-700 dark:text-slate-200"
-                    >
-                      {isLoggingOut ? 'Signing out...' : 'Sign out'}
-                    </button>
-                  </>
-                ) : (
-                  <Link href="/account/login" className="block w-full rounded-lg border border-slate-300 px-6 py-2 text-center text-sm font-semibold text-slate-700 dark:border-slate-700 dark:text-slate-200">
-                    Login
+            <div className="flex flex-col gap-3 border-t border-slate-200 pt-4 dark:border-slate-800">
+              {hasAccountSession ? (
+                <>
+                  <Link href={accountHref} className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
+                    {accountLabel}
                   </Link>
-                )}
-              </div>
-            )}
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    disabled={isLoggingOut}
+                    className="w-full rounded-lg border border-slate-300 px-6 py-2 text-sm font-semibold text-slate-700 disabled:cursor-not-allowed disabled:opacity-70 dark:border-slate-700 dark:text-slate-200"
+                  >
+                    {isLoggingOut ? 'Signing out...' : 'Sign out'}
+                  </button>
+                </>
+              ) : (
+                <Link href="/account/login" className="block w-full rounded-lg border border-slate-300 px-6 py-2 text-center text-sm font-semibold text-slate-700 dark:border-slate-700 dark:text-slate-200">
+                  Login
+                </Link>
+              )}
+            </div>
             <Link href="/contact" className="block w-full mt-4 px-6 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-lg text-sm font-semibold text-center">
               Request Demo
             </Link>

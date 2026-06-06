@@ -28,6 +28,7 @@ export default function AccountUserCreateForm() {
         email: formData.get('email'),
         displayName: formData.get('displayName'),
         password: formData.get('password'),
+        role: formData.get('role'),
       }),
     })
     const result = await response.json()
@@ -90,6 +91,17 @@ export default function AccountUserCreateForm() {
             minLength={8}
             className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
           />
+        </label>
+        <label className="block md:col-span-2">
+          <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Account system</span>
+          <select
+            name="role"
+            defaultValue="member"
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+          >
+            <option value="member">Member / user account</option>
+            <option value="admin">Admin account</option>
+          </select>
         </label>
       </div>
       <button

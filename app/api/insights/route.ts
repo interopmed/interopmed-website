@@ -55,6 +55,17 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    if (accountUser.role !== 'admin') {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: 'Admin access is required',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 403 }
+      )
+    }
+
     const body = await request.json()
     const title = String(body.title || '').trim()
     const content = String(body.content || '').trim()

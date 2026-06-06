@@ -4,15 +4,16 @@ import { useState } from 'react'
 
 type AccountLogoutButtonProps = {
   variant?: 'button' | 'sidebar' | 'menu'
+  redirectTo?: string
 }
 
-export default function AccountLogoutButton({ variant = 'button' }: AccountLogoutButtonProps) {
+export default function AccountLogoutButton({ variant = 'button', redirectTo = '/account/login' }: AccountLogoutButtonProps) {
   const [isLoggingOut, setIsLoggingOut] = useState(false)
 
   async function handleLogout() {
     setIsLoggingOut(true)
     await fetch('/api/account/logout', { method: 'POST' })
-    window.location.assign('/account/login')
+    window.location.assign(redirectTo)
   }
 
   if (variant === 'sidebar') {

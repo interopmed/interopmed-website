@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import AccountBreadcrumb from '@/components/AccountBreadcrumb'
 import AccountUserCreateForm from '@/components/AccountUserCreateForm'
-import { requireAccountUser } from '@/lib/account-auth'
+import { requireAdminUser } from '@/lib/account-auth'
 import { prisma } from '@/lib/prisma'
 
 export const dynamic = 'force-dynamic'
@@ -47,7 +47,7 @@ function formatDate(value: Date | null) {
 }
 
 export default async function AccountUsersPage() {
-  const accountUser = await requireAccountUser('/account/users')
+  const accountUser = await requireAdminUser('/account/users')
 
   if (accountUser.role !== 'admin') {
     redirect('/account')

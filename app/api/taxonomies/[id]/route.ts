@@ -50,6 +50,17 @@ export async function PATCH(request: NextRequest, { params }: TaxonomyRouteProps
       )
     }
 
+    if (accountUser.role !== 'admin') {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: 'Admin access is required',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 403 }
+      )
+    }
+
     const { id } = await params
     const existing = await getTermTaxonomy(id)
 
@@ -159,6 +170,17 @@ export async function DELETE(request: NextRequest, { params }: TaxonomyRouteProp
           timestamp: new Date().toISOString(),
         },
         { status: 401 }
+      )
+    }
+
+    if (accountUser.role !== 'admin') {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: 'Admin access is required',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 403 }
       )
     }
 

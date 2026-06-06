@@ -1,5 +1,5 @@
 import AccountBreadcrumb from '@/components/AccountBreadcrumb'
-import { requireAccountUser } from '@/lib/account-auth'
+import { requireAdminUser } from '@/lib/account-auth'
 import { prisma } from '@/lib/prisma'
 
 export const dynamic = 'force-dynamic'
@@ -32,7 +32,7 @@ function formatDate(value: Date) {
 }
 
 export default async function AccountMessagesPage() {
-  await requireAccountUser('/account/messages')
+  await requireAdminUser('/account/messages')
   const messages = await getContactMessages()
 
   return (

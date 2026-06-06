@@ -30,6 +30,17 @@ export async function PATCH(request: NextRequest, { params }: InsightRouteProps)
       )
     }
 
+    if (accountUser.role !== 'admin') {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: 'Admin access is required',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 403 }
+      )
+    }
+
     const { id } = await params
     const existing = await db.prisma.article.findFirst({
       where: {

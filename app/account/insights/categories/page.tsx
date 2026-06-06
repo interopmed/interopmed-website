@@ -1,6 +1,6 @@
 import AccountBreadcrumb from '@/components/AccountBreadcrumb'
 import TaxonomyManager from '@/components/TaxonomyManager'
-import { requireAccountUser } from '@/lib/account-auth'
+import { requireAdminUser } from '@/lib/account-auth'
 import { getInsightTaxonomyOptions } from '@/lib/taxonomies'
 
 export const dynamic = 'force-dynamic'
@@ -11,7 +11,7 @@ export const metadata = {
 }
 
 export default async function InsightCategoriesPage() {
-  await requireAccountUser('/account/insights/categories')
+  await requireAdminUser('/account/insights/categories')
   const taxonomyOptions = await getInsightTaxonomyOptions()
 
   return (

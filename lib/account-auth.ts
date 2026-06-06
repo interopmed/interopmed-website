@@ -392,6 +392,30 @@ export async function requireAccountUser(nextPath = '/account') {
   return user
 }
 
+export async function requireAdminUser(nextPath = '/account') {
+  const user = await requireAccountUser(nextPath)
+
+  if (user.role !== 'admin') {
+    redirect('/user')
+  }
+
+  return user
+}
+
+export async function requireMemberUser(nextPath = '/user') {
+  const user = await getAccountSessionUser()
+
+  if (!user) {
+    redirect(`/account/login?next=${encodeURIComponent(nextPath)}`)
+  }
+
+  if (user.role === 'admin') {
+    redirect('/account')
+  }
+
+  return user
+}
+
 export function getSafeAccountRedirectPath(
   value: string | string[] | undefined,
   fallback = '/account'
@@ -404,7 +428,7 @@ export function getSafeAccountRedirectPath(
     return fallback
   }
 
-  if (value.startsWith('/account') || value.startsWith('/studio')) {
+  if (value.startsWith('/account') || value.startsWith('/user') || value.startsWith('/studio')) {
     return value
   }
 
