@@ -310,7 +310,7 @@ export default async function UserAccountPage() {
                         <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Interoperability workspace</p>
                         <h1 className="mt-1 truncate text-3xl font-bold">{displayName}</h1>
                         <p className="mt-1 break-words text-sm text-slate-600 dark:text-slate-300">
-                          {account.email} · FHIR, HL7 v2, API, and implementation support
+                          {account.email} - FHIR, HL7 v2, API, and implementation support
                         </p>
                       </div>
                     </div>
