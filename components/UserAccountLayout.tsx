@@ -34,7 +34,7 @@ const userNav = [
       { href: '/user/profile', label: 'Profile', detail: 'Identity details', badge: '', icon: 'user' },
       { href: '/user/settings', label: 'Settings', detail: 'Account preferences', badge: '', icon: 'settings' },
       { href: '/user/security', label: 'Security', detail: 'Password and access', badge: '', icon: 'shield' },
-      { href: '/user/notifications', label: 'Notifications', detail: 'Email preferences', badge: '', icon: 'bell' },
+      { href: '/user/notifications', label: 'Notifications', detail: 'Received updates', badge: '', icon: 'bell' },
     ],
   },
   {

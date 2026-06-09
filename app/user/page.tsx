@@ -264,8 +264,8 @@ export default async function UserAccountPage() {
       action: 'Review access',
     },
     {
-      href: '/user/notifications',
-      title: 'Notifications',
+      href: '/user/settings',
+      title: 'Notification settings',
       detail: `${enabledNotificationCount} of 5 email preferences are enabled.`,
       action: 'Manage preferences',
     },
