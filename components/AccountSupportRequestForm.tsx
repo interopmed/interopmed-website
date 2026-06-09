@@ -46,8 +46,11 @@ export default function AccountSupportRequestForm() {
 
   return (
     <form onSubmit={handleSubmit} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Support</p>
+      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Support request</p>
       <h1 className="mt-3 text-3xl font-bold text-slate-950 dark:text-white">Create request</h1>
+      <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
+        Share account, Studio, FHIR, HL7, API, or implementation details so the request can be routed to the right support queue.
+      </p>
       <div className="mt-6 grid gap-5 md:grid-cols-2">
         <label className="block">
           <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Topic</span>
@@ -84,7 +87,7 @@ export default function AccountSupportRequestForm() {
             name="message"
             rows={7}
             minLength={20}
-            placeholder="Describe what happened, what you expected, and any affected workflow."
+            placeholder="Describe the affected workflow, standard/version, source and target systems, expected result, actual result, and any validation or API error."
             className="w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
           />
         </label>
