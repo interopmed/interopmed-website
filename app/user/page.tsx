@@ -65,6 +65,33 @@ function statusTone(status: string) {
   return 'bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-300'
 }
 
+const interoperabilityTracks = [
+  {
+    href: '/documentation/fhir-implementation',
+    label: 'FHIR R4',
+    title: 'Resource mapping',
+    detail: 'Review resource modeling, profile alignment, and implementation guide patterns.',
+  },
+  {
+    href: '/documentation/getting-started',
+    label: 'HL7 v2',
+    title: 'Message intake',
+    detail: 'Prepare ADT, ORM, ORU, and interface migration workflows for validation.',
+  },
+  {
+    href: '/api-reference',
+    label: 'API',
+    title: 'Service contracts',
+    detail: 'Inspect endpoints for patient, record, taxonomy, insight, and account workflows.',
+  },
+  {
+    href: '/compliance',
+    label: 'Trust',
+    title: 'Security posture',
+    detail: 'Review access controls, privacy expectations, and implementation safeguards.',
+  },
+]
+
 export default async function UserAccountPage() {
   const user = await requireMemberUser('/user')
   const cookieStore = await cookies()
@@ -155,6 +182,12 @@ export default async function UserAccountPage() {
     preferences.weeklyDigest,
   ].filter(Boolean).length
   const openSupportCount = supportRequests.filter((request) => request.status === 'new' || request.status === 'reviewed').length
+  const interoperabilitySupportCount = supportRequests.filter((request) =>
+    request.topic.toLowerCase().includes('fhir') ||
+    request.topic.toLowerCase().includes('hl7') ||
+    request.message.toLowerCase().includes('fhir') ||
+    request.message.toLowerCase().includes('hl7')
+  ).length
   const profileChecks = [
     Boolean(account.displayName),
     Boolean(account.email),
@@ -238,11 +271,23 @@ export default async function UserAccountPage() {
     },
     {
       href: '/user/support',
-      title: 'Support',
+      title: 'FHIR/HL7 support',
       detail: openSupportCount > 0
-        ? `${openSupportCount} support request${openSupportCount === 1 ? '' : 's'} open.`
-        : 'Create and track account support requests.',
-      action: 'Open support',
+        ? `${openSupportCount} support request${openSupportCount === 1 ? '' : 's'} open, ${interoperabilitySupportCount} interoperability-focused.`
+        : 'Route mapping, validation, interface, and implementation questions.',
+      action: 'Request guidance',
+    },
+    {
+      href: '/implementation',
+      title: 'Implementation guide',
+      detail: 'Plan clinical data exchange workflows across API, FHIR, HL7 v2, and operations.',
+      action: 'Review guide',
+    },
+    {
+      href: '/shin',
+      title: 'SHIN architecture',
+      detail: 'Explore shared health information network patterns and interoperability layers.',
+      action: 'View architecture',
     },
   ]
 
@@ -262,9 +307,11 @@ export default async function UserAccountPage() {
                         {displayName.slice(0, 1).toUpperCase()}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Member dashboard</p>
+                        <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Interoperability workspace</p>
                         <h1 className="mt-1 truncate text-3xl font-bold">{displayName}</h1>
-                        <p className="mt-1 break-words text-sm text-slate-600 dark:text-slate-300">{account.email}</p>
+                        <p className="mt-1 break-words text-sm text-slate-600 dark:text-slate-300">
+                          {account.email} · FHIR, HL7 v2, API, and implementation support
+                        </p>
                       </div>
                     </div>
                     <Link href="/studio" className="inline-flex w-fit items-center rounded-lg bg-slate-950 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-200">
@@ -285,15 +332,44 @@ export default async function UserAccountPage() {
                     <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Active browsers</p>
                   </div>
                   <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Support</p>
-                    <p className="mt-2 text-2xl font-bold">{openSupportCount}</p>
-                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Open requests</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Interop</p>
+                    <p className="mt-2 text-2xl font-bold">{interoperabilitySupportCount}</p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">FHIR/HL7 requests</p>
                   </div>
                   <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
-                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Content</p>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Studio</p>
                     <p className="mt-2 text-2xl font-bold">{authoredArticleCount}</p>
-                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Studio articles</p>
+                    <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">Insights authored</p>
                   </div>
+                </div>
+              </div>
+
+              <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Interoperability focus</p>
+                    <h2 className="mt-2 text-2xl font-bold">Standards workflow center</h2>
+                    <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
+                      Use this account area to move from implementation questions into concrete standards work: FHIR resources, HL7 v2 interface planning, API contracts, and compliance review.
+                    </p>
+                  </div>
+                  <Link href="/documentation" className="w-fit rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
+                    Documentation
+                  </Link>
+                </div>
+                <div className="mt-6 grid gap-4 md:grid-cols-2">
+                  {interoperabilityTracks.map((track) => (
+                    <Link key={track.href} href={track.href} className="group rounded-lg border border-slate-200 bg-slate-50 p-4 transition hover:border-teal-400 hover:bg-white dark:border-slate-800 dark:bg-slate-950 dark:hover:border-teal-500 dark:hover:bg-slate-900">
+                      <span className="rounded-md bg-white px-2.5 py-1 text-xs font-bold text-slate-600 shadow-sm dark:bg-slate-900 dark:text-slate-300">
+                        {track.label}
+                      </span>
+                      <span className="mt-3 block text-base font-bold text-slate-950 dark:text-white">{track.title}</span>
+                      <span className="mt-1 block text-sm leading-6 text-slate-600 dark:text-slate-300">{track.detail}</span>
+                      <span className="mt-3 block text-sm font-semibold text-teal-700 group-hover:text-teal-800 dark:text-teal-300 dark:group-hover:text-teal-200">
+                        Open track
+                      </span>
+                    </Link>
+                  ))}
                 </div>
               </div>
 
@@ -302,7 +378,7 @@ export default async function UserAccountPage() {
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Workspace readiness</p>
-                      <h2 className="mt-2 text-2xl font-bold">Account health</h2>
+                      <h2 className="mt-2 text-2xl font-bold">Interop readiness</h2>
                     </div>
                     <span className="rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300">
                       {account.isActive ? 'Active' : 'Inactive'}
@@ -313,7 +389,7 @@ export default async function UserAccountPage() {
                       { label: 'Display name', done: Boolean(account.displayName), value: account.displayName || 'Missing' },
                       { label: 'Email', done: Boolean(account.email), value: account.email },
                       { label: 'Account access', done: account.isActive, value: account.role },
-                      { label: 'Notification coverage', done: enabledNotificationCount >= 3, value: `${enabledNotificationCount}/5 enabled` },
+                      { label: 'Standards alerts', done: enabledNotificationCount >= 3, value: `${enabledNotificationCount}/5 notification paths enabled` },
                     ].map((item) => (
                       <div key={item.label} className="flex items-center justify-between gap-4 rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950">
                         <div className="min-w-0">
@@ -335,8 +411,8 @@ export default async function UserAccountPage() {
                 <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Security</p>
-                      <h2 className="mt-2 text-2xl font-bold">Current access</h2>
+                      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Secure exchange</p>
+                      <h2 className="mt-2 text-2xl font-bold">Access and trust</h2>
                     </div>
                     <Link href="/user/security" className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
                       Manage
@@ -351,7 +427,7 @@ export default async function UserAccountPage() {
                       <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
                         {otherActiveSessions.length > 0
                           ? `${otherActiveSessions.length} other active session${otherActiveSessions.length === 1 ? '' : 's'} can be revoked.`
-                          : 'No other active sessions are recorded.'}
+                          : 'No other active sessions are recorded for this workspace.'}
                       </p>
                     </div>
                     <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
@@ -366,7 +442,7 @@ export default async function UserAccountPage() {
                           : 'No reset requests recorded'}
                       </p>
                       <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
-                        Last login: {account.lastLoginAt ? formatDateTime(account.lastLoginAt) : 'No login recorded'}
+                        Last login: {account.lastLoginAt ? formatDateTime(account.lastLoginAt) : 'No login recorded'} for protected standards resources
                       </p>
                     </div>
                   </div>
@@ -405,7 +481,7 @@ export default async function UserAccountPage() {
 
             <div className="space-y-5">
               <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Quick actions</p>
+                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Interop actions</p>
                 <div className="mt-5 grid gap-3">
                   {quickActions.map((item) => (
                     <Link key={item.href} href={item.href} className="group rounded-lg border border-slate-200 bg-slate-50 p-4 transition hover:border-teal-400 hover:bg-white dark:border-slate-800 dark:bg-slate-950 dark:hover:border-teal-500 dark:hover:bg-slate-900">
@@ -418,17 +494,17 @@ export default async function UserAccountPage() {
               </div>
 
               <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Notifications</p>
+                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Standards alerts</p>
                 <p className="mt-3 text-3xl font-bold">{enabledNotificationCount}/5</p>
                 <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                  Preferences enabled. Last saved {formatRelative(preferences.updatedAt)}.
+                  Email paths enabled for account, security, support, product, and digest updates. Last saved {formatRelative(preferences.updatedAt)}.
                 </p>
                 <div className="mt-5 grid grid-cols-2 gap-2 text-xs font-semibold">
                   {[
                     ['Account', preferences.accountUpdates],
                     ['Security', preferences.securityAlerts],
                     ['Support', preferences.supportReplies],
-                    ['Product', preferences.productNotes],
+                    ['Releases', preferences.productNotes],
                     ['Digest', preferences.weeklyDigest],
                   ].map(([label, enabled]) => (
                     <span key={String(label)} className={`rounded-md px-2.5 py-2 ${
@@ -445,8 +521,8 @@ export default async function UserAccountPage() {
               <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                 <div className="flex items-start justify-between gap-4">
                   <div>
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Support</p>
-                    <h2 className="mt-2 text-xl font-bold">Recent requests</h2>
+                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Implementation support</p>
+                    <h2 className="mt-2 text-xl font-bold">FHIR/HL7 requests</h2>
                   </div>
                   <Link href="/user/support" className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
                     New
@@ -466,7 +542,7 @@ export default async function UserAccountPage() {
                   ))}
                   {supportRequests.length === 0 && (
                     <div className="rounded-lg border border-dashed border-slate-300 p-4 text-sm leading-6 text-slate-600 dark:border-slate-700 dark:text-slate-300">
-                      No support requests have been opened from this account.
+                      No implementation requests yet. Use support for FHIR profiles, HL7 v2 mapping, API contracts, or compliance questions.
                     </div>
                   )}
                 </div>
