@@ -27,10 +27,10 @@ export async function PATCH(request: NextRequest) {
 
     const body = await request.json()
     const data = {
-      accountUpdates: Boolean(body.accountUpdates),
+      accountUpdates: true,
       productNotes: Boolean(body.productNotes),
       supportReplies: Boolean(body.supportReplies),
-      securityAlerts: Boolean(body.securityAlerts),
+      securityAlerts: true,
       weeklyDigest: Boolean(body.weeklyDigest),
     }
 

@@ -44,7 +44,6 @@ export default function AccountSettingsForm({ user }: AccountSettingsFormProps) 
       return
     }
 
-    const form = event.currentTarget
     setState({ status: 'success', message: 'Settings saved.' })
     router.refresh()
   }

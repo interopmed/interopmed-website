@@ -2,11 +2,23 @@
 
 import Link from 'next/link'
 import type { ReactNode } from 'react'
-import { usePathname } from 'next/navigation'
-import { useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react'
 import AccountLogoutButton from './AccountLogoutButton'
 
 const publicUserPaths = ['/user/login']
+
+type UserAccountLayoutUser = {
+  username: string
+  email: string
+  displayName: string | null
+  role: string
+} | null
+
+type UserAccountLayoutProps = {
+  children: ReactNode
+  user: UserAccountLayoutUser
+}
 
 const userNav = [
   {
@@ -32,6 +44,14 @@ const userNav = [
     ],
   },
 ]
+
+const searchableItems = userNav.flatMap((section) =>
+  section.items.map((item) => ({
+    ...item,
+    section: section.label,
+    keywords: `${section.label} ${item.label} ${item.detail}`.toLowerCase(),
+  }))
+)
 
 function isPublicUserPath(pathname: string) {
   return publicUserPaths.some((path) => pathname === path || pathname.startsWith(`${path}/`))
@@ -124,10 +144,66 @@ function SidebarIcon({ name }: { name: string }) {
   )
 }
 
-export default function UserAccountLayout({ children }: { children: ReactNode }) {
+export default function UserAccountLayout({ children, user }: UserAccountLayoutProps) {
   const pathname = usePathname()
+  const router = useRouter()
+  const searchInputRef = useRef<HTMLInputElement>(null)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isHeaderProfileOpen, setIsHeaderProfileOpen] = useState(false)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const displayName = user?.displayName || user?.username || 'Member'
+  const userEmail = user?.email || 'User'
+  const userInitial = displayName.slice(0, 1).toUpperCase()
+  const filteredItems = useMemo(() => {
+    const normalizedTerm = searchTerm.trim().toLowerCase()
+
+    if (!normalizedTerm) {
+      return searchableItems
+    }
+
+    return searchableItems.filter((item) => item.keywords.includes(normalizedTerm))
+  }, [searchTerm])
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      const isSearchShortcut = (event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k'
+
+      if (isSearchShortcut) {
+        event.preventDefault()
+        searchInputRef.current?.focus()
+        setIsSearchOpen(true)
+      }
+
+      if (event.key === 'Escape') {
+        setIsSearchOpen(false)
+        searchInputRef.current?.blur()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [])
+
+  function handleSearchSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    const nextItem = filteredItems[0]
+
+    if (!nextItem) {
+      return
+    }
+
+    setIsSearchOpen(false)
+    setSearchTerm('')
+    router.push(nextItem.href)
+  }
+
+  function openSearchResult(href: string) {
+    setIsSearchOpen(false)
+    setSearchTerm('')
+    router.push(href)
+  }
 
   if (isPublicUserPath(pathname)) {
     return (
@@ -244,19 +320,19 @@ export default function UserAccountLayout({ children }: { children: ReactNode })
               <div className={`flex items-center gap-3 rounded-lg px-2 py-2 ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
                 <div className={`min-w-0 items-center gap-3 ${isCollapsed ? 'hidden' : 'flex'}`}>
                   <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-950 text-xs font-bold text-white dark:bg-white dark:text-slate-950">
-                    M
+                    {userInitial}
                   </div>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold text-slate-950 dark:text-white">Member</p>
-                    <p className="truncate text-xs text-slate-500 dark:text-slate-400">User</p>
+                    <p className="truncate text-sm font-semibold text-slate-950 dark:text-white">{displayName}</p>
+                    <p className="truncate text-xs text-slate-500 dark:text-slate-400">{userEmail}</p>
                   </div>
                 </div>
                 {isCollapsed && (
                   <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-950 text-xs font-bold text-white dark:bg-white dark:text-slate-950">
-                    M
+                    {userInitial}
                   </div>
                 )}
-                <AccountLogoutButton variant="sidebar" redirectTo="/account/login" />
+                <AccountLogoutButton variant="sidebar" redirectTo="/user/login" />
               </div>
             </div>
           </div>
@@ -265,17 +341,50 @@ export default function UserAccountLayout({ children }: { children: ReactNode })
         <div className="min-w-0">
           <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
             <div className="flex min-h-16 flex-col gap-3 px-4 py-3 md:flex-row md:items-center md:justify-between md:px-6">
-              <label className="relative block w-full max-w-xl">
+              <form onSubmit={handleSearchSubmit} className="relative block w-full max-w-xl">
                 <span className="sr-only">Search user workspace</span>
                 <input
+                  ref={searchInputRef}
                   type="search"
+                  value={searchTerm}
+                  onChange={(event) => {
+                    setSearchTerm(event.target.value)
+                    setIsSearchOpen(true)
+                  }}
+                  onFocus={() => setIsSearchOpen(true)}
                   placeholder="Search pages and account actions..."
                   className="h-10 w-full rounded-lg border border-slate-200 bg-slate-50 px-4 pr-16 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-500 focus:bg-white focus:ring-4 focus:ring-teal-500/10 dark:border-slate-800 dark:bg-slate-900 dark:text-white dark:focus:bg-slate-950"
                 />
                 <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 rounded-md border border-slate-200 bg-white px-1.5 py-0.5 text-[11px] font-semibold text-slate-400 dark:border-slate-700 dark:bg-slate-950">
                   Ctrl K
                 </span>
-              </label>
+                {isSearchOpen && (
+                  <div className="absolute left-0 right-0 top-full z-40 mt-2 rounded-lg border border-slate-200 bg-white p-1.5 shadow-xl shadow-slate-200/70 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/30">
+                    {filteredItems.map((item) => (
+                      <button
+                        key={item.href}
+                        type="button"
+                        onMouseDown={(event) => event.preventDefault()}
+                        onClick={() => openSearchResult(item.href)}
+                        className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-left transition hover:bg-slate-100 dark:hover:bg-slate-800"
+                      >
+                        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-slate-200 text-slate-500 dark:border-slate-700 dark:text-slate-300">
+                          <SidebarIcon name={item.icon} />
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block truncate text-sm font-semibold text-slate-950 dark:text-white">{item.label}</span>
+                          <span className="block truncate text-xs text-slate-500 dark:text-slate-400">{item.section} - {item.detail}</span>
+                        </span>
+                      </button>
+                    ))}
+                    {filteredItems.length === 0 && (
+                      <div className="px-3 py-3 text-sm text-slate-500 dark:text-slate-400">
+                        No account pages match that search.
+                      </div>
+                    )}
+                  </div>
+                )}
+              </form>
               <div className="flex items-center gap-2">
                 <Link
                   href="/user/notifications"
@@ -298,18 +407,18 @@ export default function UserAccountLayout({ children }: { children: ReactNode })
                     aria-haspopup="menu"
                     className="grid h-10 w-10 place-items-center rounded-lg border border-slate-200 bg-slate-50 text-sm font-bold text-slate-700 transition hover:bg-white hover:text-slate-950 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-white"
                   >
-                    M
+                    {userInitial}
                   </button>
 
                   {isHeaderProfileOpen && (
                     <div className="absolute right-0 top-full z-40 mt-2 w-64 rounded-lg border border-slate-200 bg-white p-1.5 shadow-xl shadow-slate-200/70 dark:border-slate-800 dark:bg-slate-900 dark:shadow-black/30">
                       <div className="flex items-center gap-3 rounded-md px-3 py-3">
                         <div className="grid h-9 w-9 place-items-center rounded-full bg-slate-950 text-xs font-bold text-white dark:bg-white dark:text-slate-950">
-                          M
+                          {userInitial}
                         </div>
                         <div className="min-w-0">
-                          <p className="truncate text-sm font-semibold text-slate-950 dark:text-white">Member</p>
-                          <p className="truncate text-xs text-slate-500 dark:text-slate-400">User</p>
+                          <p className="truncate text-sm font-semibold text-slate-950 dark:text-white">{displayName}</p>
+                          <p className="truncate text-xs text-slate-500 dark:text-slate-400">{userEmail}</p>
                         </div>
                       </div>
                       <div className="my-1 border-t border-slate-200 dark:border-slate-800" />
@@ -328,7 +437,7 @@ export default function UserAccountLayout({ children }: { children: ReactNode })
                         Account settings
                       </Link>
                       <div className="my-1 border-t border-slate-200 dark:border-slate-800" />
-                      <AccountLogoutButton variant="menu" redirectTo="/account/login" />
+                      <AccountLogoutButton variant="menu" redirectTo="/user/login" />
                     </div>
                   )}
                 </div>

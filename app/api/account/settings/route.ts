@@ -12,6 +12,8 @@ import { ApiResponse } from '@/types'
 
 export const dynamic = 'force-dynamic'
 
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
 export async function PATCH(request: NextRequest) {
   try {
     const accountUser = await getAccountSessionUserFromToken(
@@ -55,6 +57,28 @@ export async function PATCH(request: NextRequest) {
         {
           success: false,
           error: 'email is required',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      )
+    }
+
+    if (!EMAIL_PATTERN.test(email)) {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: 'Please enter a valid email address',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      )
+    }
+
+    if (displayName && displayName.length > 120) {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: 'Display name must be 120 characters or fewer',
           timestamp: new Date().toISOString(),
         },
         { status: 400 }

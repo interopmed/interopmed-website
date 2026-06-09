@@ -8,6 +8,16 @@ import { ApiResponse } from '@/types'
 
 export const dynamic = 'force-dynamic'
 
+const allowedTopics = new Set([
+  'Account help',
+  'Studio access',
+  'FHIR or HL7 workflow',
+  'Billing or subscription',
+  'Bug report',
+  'Other',
+])
+const allowedUrgencies = new Set(['normal', 'high', 'urgent'])
+
 function getClientIp(request: NextRequest) {
   return (
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
@@ -64,6 +74,28 @@ export async function POST(request: NextRequest) {
         {
           success: false,
           error: 'Please describe the request in at least 20 characters',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      )
+    }
+
+    if (!allowedTopics.has(topic)) {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: 'Please choose a valid support topic',
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      )
+    }
+
+    if (!allowedUrgencies.has(urgency)) {
+      return NextResponse.json<ApiResponse>(
+        {
+          success: false,
+          error: 'Please choose a valid urgency',
           timestamp: new Date().toISOString(),
         },
         { status: 400 }
