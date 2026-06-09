@@ -53,6 +53,36 @@ export default async function UserSupportPage() {
   })
 
   const openCount = supportRequests.filter((request) => request.status === 'new' || request.status === 'reviewed').length
+  const routingQueues = [
+    {
+      label: 'Account help',
+      match: 'Account help',
+      detail: 'Login, password, profile, notification, and account access requests.',
+    },
+    {
+      label: 'Studio access',
+      match: 'Studio access',
+      detail: 'Workspace launch, permissions, and authenticated Studio access requests.',
+    },
+    {
+      label: 'FHIR or HL7 workflow',
+      match: 'FHIR or HL7 workflow',
+      detail: 'Mapping, validation, implementation guide, HL7 v2, and FHIR workflow requests.',
+    },
+    {
+      label: 'Billing or subscription',
+      match: 'Billing or subscription',
+      detail: 'Plan, invoice, subscription, and commercial account requests.',
+    },
+    {
+      label: 'Bug report',
+      match: 'Bug report',
+      detail: 'Unexpected behavior, errors, broken UI, and failed API workflow reports.',
+    },
+  ].map((queue) => ({
+    ...queue,
+    count: supportRequests.filter((request) => request.topic.startsWith(queue.match)).length,
+  }))
 
   return (
     <main className="bg-slate-100 py-4 text-slate-950 dark:bg-slate-950 dark:text-white md:py-6">
@@ -100,31 +130,19 @@ export default async function UserSupportPage() {
 
             <div className="space-y-5">
               <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Support identity</p>
-                <p className="mt-3 break-words text-lg font-bold">{user.email}</p>
-                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                  Requests are filed under your signed-in account email so the team can match them to your workspace.
-                </p>
-              </div>
-              <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">What to include</p>
-                <ul className="mt-4 space-y-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                  <li>The page or Studio workflow you were using.</li>
-                  <li>Any error message, expected result, and actual result.</li>
-                  <li>Whether the issue blocks patient-data mapping, validation, login, or account access.</li>
-                </ul>
-              </div>
-              <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Request routing</p>
+                <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Live request routing</p>
                 <div className="mt-4 grid gap-3 text-sm text-slate-600 dark:text-slate-300">
-                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
-                    <p className="font-semibold text-slate-950 dark:text-white">Account help</p>
-                    <p className="mt-1 leading-6">Login, password, profile, and notification issues.</p>
-                  </div>
-                  <div className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
-                    <p className="font-semibold text-slate-950 dark:text-white">Studio help</p>
-                    <p className="mt-1 leading-6">FHIR, HL7, mapping, and validation workflow questions.</p>
-                  </div>
+                  {routingQueues.map((queue) => (
+                    <div key={queue.label} className="rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+                      <div className="flex items-center justify-between gap-3">
+                        <p className="font-semibold text-slate-950 dark:text-white">{queue.label}</p>
+                        <span className="rounded-md border border-slate-200 bg-white px-2 py-0.5 text-xs font-semibold text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+                          {queue.count}
+                        </span>
+                      </div>
+                      <p className="mt-1 leading-6">{queue.detail}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
