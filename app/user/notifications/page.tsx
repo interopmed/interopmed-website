@@ -240,7 +240,7 @@ export default async function UserNotificationsPage() {
       title: 'InteropMed account created',
       body: `${displayName} can access member resources for FHIR, HL7 v2, API, implementation, and support workflows.`,
       href: '/user',
-      action: 'Open dashboard',
+      action: 'Open home',
       tone: 'teal' as const,
       at: account.createdAt,
     },
@@ -263,7 +263,7 @@ export default async function UserNotificationsPage() {
               <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                 <div>
                   <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Received notifications</p>
-                  <h1 className="mt-3 text-3xl font-bold text-slate-950 dark:text-white">InteropMed inbox</h1>
+                  <h1 className="mt-3 text-3xl font-bold text-slate-950 dark:text-white">Notifications</h1>
                   <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
                     Account, security, support, and interoperability workflow notifications generated from your actual workspace activity.
                   </p>

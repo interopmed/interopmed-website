@@ -24,7 +24,7 @@ const userNav = [
   {
     label: 'Overview',
     items: [
-      { href: '/user', label: 'Dashboard', detail: 'Member home', badge: '', icon: 'dashboard' },
+      { href: '/user', label: 'Home', detail: 'Member home', badge: '', icon: 'dashboard' },
       { href: '/user/activity', label: 'Activity', detail: 'Recent account events', badge: '', icon: 'activity' },
     ],
   },

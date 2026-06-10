@@ -534,6 +534,8 @@ model AuthUser {
   passwordResetTokens AuthPasswordResetToken[]
   notificationPreference AuthNotificationPreference?
   articles            Article[]
+  posts               UserPost[]
+  postComments        UserPostComment[]
 
   @@index([isActive, createdAt])
 }
@@ -577,6 +579,43 @@ model AuthNotificationPreference {
 
   userId String   @unique
   user   AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserPost {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  topic     String   @default("general")
+  visibility String  @default("workspace")
+  status    String   @default("published")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId String
+  author   AuthUser @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  comments UserPostComment[]
+
+  @@index([authorId, createdAt])
+  @@index([status, createdAt])
+  @@index([topic, createdAt])
+}
+
+model UserPostComment {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  status    String   @default("published")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  postId String
+  post   UserPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  authorId String
+  author   AuthUser @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@index([postId, createdAt])
+  @@index([authorId, createdAt])
+  @@index([status, createdAt])
 }
 
 // =====================

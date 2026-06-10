@@ -12,6 +12,14 @@ const prismaClientOptions: PrismaClientOptions = {
   log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
 }
 
-export const prisma = globalForPrisma.prisma || new PrismaClient(prismaClientOptions)
+function hasCurrentPrismaDelegates(client: PrismaClientInstance | undefined) {
+  return Boolean(client && 'userPost' in client && 'userPostComment' in client)
+}
+
+const existingPrisma = globalForPrisma.prisma
+
+export const prisma: PrismaClientInstance = hasCurrentPrismaDelegates(existingPrisma)
+  ? existingPrisma as PrismaClientInstance
+  : new PrismaClient(prismaClientOptions)
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

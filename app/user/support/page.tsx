@@ -149,7 +149,7 @@ export default async function UserSupportPage() {
                 <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Help center</p>
-                    <h1 className="mt-3 text-3xl font-bold text-slate-950 dark:text-white">InteropMed support</h1>
+                    <h1 className="mt-3 text-3xl font-bold text-slate-950 dark:text-white">Support</h1>
                     <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
                       Get help with account access, Studio usage, FHIR and HL7 workflows, API behavior, implementation planning, and operational issues.
                     </p>
