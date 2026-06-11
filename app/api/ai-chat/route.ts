@@ -17,6 +17,7 @@ type ChatRequest = {
   messages?: ChatMessage[]
   context?: string
   threadId?: string
+  editMessageId?: string
 }
 
 type ChatResponse = {
@@ -58,6 +59,8 @@ Help signed-in users with practical healthcare interoperability work:
 Rules:
 - Be clear, practical, and concise.
 - Use short paragraphs, bullet lists, or numbered steps when that makes the answer easier to scan.
+- When explaining workflows, system architecture, message movement, or decision paths, include a compact diagram using a fenced block labeled flow or graph.
+- For diagrams, use one relationship per line, like: EHR -> Interface engine -> FHIR API -> Consumer app.
 - Ask for missing standard versions, message types, workflows, or payload details when needed.
 - Use synthetic examples only. Do not request or expose real PHI.
 - For production, clinical, legal, security, or compliance decisions, recommend human review.
@@ -201,6 +204,36 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
 
     const messages = normalizeMessages(body.messages, message)
     const thread = await getOrCreateThread(accountUser.id, body.threadId, message || messages[messages.length - 1]?.content || 'New chat')
+
+    if (body.editMessageId) {
+      const editedMessage = await prisma.interopMindMessage.findFirst({
+        where: {
+          id: body.editMessageId,
+          threadId: thread.id,
+          role: 'user',
+        },
+        select: {
+          createdAt: true,
+          threadId: true,
+        },
+      })
+
+      if (!editedMessage) {
+        return NextResponse.json(
+          { reply: 'The message to edit was not found.', success: false },
+          { status: 404 }
+        )
+      }
+
+      await prisma.interopMindMessage.deleteMany({
+        where: {
+          threadId: editedMessage.threadId,
+          createdAt: {
+            gte: editedMessage.createdAt,
+          },
+        },
+      })
+    }
 
     const userMessage = await prisma.interopMindMessage.create({
       data: {

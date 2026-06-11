@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { FormEvent, useEffect, useMemo, useState } from 'react'
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react'
 import AccountLogoutButton from './AccountLogoutButton'
 
 type InteropMindUser = {
@@ -29,6 +29,19 @@ type InteropMindWorkspaceProps = {
   user: InteropMindUser
 }
 
+type ThreadModalMode = 'rename' | 'delete' | ''
+
+type MarkdownBlock =
+  | {
+      type: 'code'
+      language: string
+      content: string
+    }
+  | {
+      type: 'text'
+      content: string
+    }
+
 const starterPrompts = [
   'Plan a FHIR API implementation',
   'Explain ADT to FHIR mapping',
@@ -54,6 +67,84 @@ function renderInlineMarkdown(text: string) {
 
     return <span key={`${part}-${index}`}>{part}</span>
   })
+}
+
+function splitMarkdownBlocks(content: string): MarkdownBlock[] {
+  const blocks: MarkdownBlock[] = []
+  const codeBlockPattern = /```(\w+)?\n([\s\S]*?)```/g
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+
+  while ((match = codeBlockPattern.exec(content)) !== null) {
+    const leadingText = content.slice(lastIndex, match.index).trim()
+
+    if (leadingText) {
+      blocks.push({ type: 'text', content: leadingText })
+    }
+
+    blocks.push({
+      type: 'code',
+      language: (match[1] || '').toLowerCase(),
+      content: match[2].trim(),
+    })
+    lastIndex = match.index + match[0].length
+  }
+
+  const trailingText = content.slice(lastIndex).trim()
+
+  if (trailingText) {
+    blocks.push({ type: 'text', content: trailingText })
+  }
+
+  return blocks
+}
+
+function parseDiagramLines(content: string) {
+  return content
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .map((line) => line.split(/\s*->\s*/).map((step) => step.trim()).filter(Boolean))
+    .filter((steps) => steps.length >= 2)
+}
+
+function DiagramBlock({ content, type }: { content: string; type: 'flow' | 'graph' }) {
+  const paths = parseDiagramLines(content)
+
+  if (paths.length === 0) {
+    return (
+      <pre className="overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs leading-6 text-slate-100">
+        <code>{content}</code>
+      </pre>
+    )
+  }
+
+  return (
+    <div className="my-4 overflow-x-auto rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+      <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-normal text-slate-500 dark:text-slate-400">
+        <span className="h-px w-8 bg-teal-500" />
+        {type === 'graph' ? 'Relationship graph' : 'Workflow flow'}
+      </div>
+      <div className="space-y-3">
+        {paths.map((steps, pathIndex) => (
+          <div key={`${steps.join('-')}-${pathIndex}`} className="flex min-w-max items-center">
+            {steps.map((step, stepIndex) => (
+              <div key={`${step}-${stepIndex}`} className="flex items-center">
+                <span className="max-w-48 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-center text-xs font-semibold leading-5 text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+                  {step}
+                </span>
+                {stepIndex < steps.length - 1 && (
+                  <span className="relative mx-2 h-px w-12 bg-teal-500">
+                    <span className="absolute -right-1 -top-1 h-2 w-2 rotate-45 border-r-2 border-t-2 border-teal-500" />
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 function renderTable(lines: string[]) {
@@ -98,57 +189,79 @@ function renderTable(lines: string[]) {
 }
 
 function MessageContent({ content }: { content: string }) {
-  const blocks = content.split(/\n{2,}/).map((block) => block.trim()).filter(Boolean)
+  const blocks = splitMarkdownBlocks(content)
 
   return (
     <div className="space-y-3">
       {blocks.map((block, blockIndex) => {
-        const lines = block.split('\n').map((line) => line.trim()).filter(Boolean)
-        const isTable = lines.length >= 2 && lines.every((line) => line.startsWith('|'))
-        const unorderedItems = lines
-          .map((line) => line.match(/^[-*]\s+(.+)$/)?.[1])
-          .filter((item): item is string => Boolean(item))
-        const orderedItems = lines
-          .map((line) => line.match(/^\d+[.)]\s+(.+)$/)?.[1])
-          .filter((item): item is string => Boolean(item))
+        if (block.type === 'code') {
+          if (block.language === 'flow' || block.language === 'graph') {
+            return (
+              <DiagramBlock
+                key={`${block.language}-${blockIndex}`}
+                content={block.content}
+                type={block.language}
+              />
+            )
+          }
 
-        if (isTable) {
-          return <div key={blockIndex}>{renderTable(lines)}</div>
-        }
-
-        if (unorderedItems.length === lines.length && unorderedItems.length > 0) {
           return (
-            <ul key={blockIndex} className="ml-5 list-disc space-y-1">
-              {unorderedItems.map((item) => (
-                <li key={item}>{renderInlineMarkdown(item)}</li>
-              ))}
-            </ul>
+            <pre key={`${block.language}-${blockIndex}`} className="overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs leading-6 text-slate-100">
+              <code>{block.content}</code>
+            </pre>
           )
         }
 
-        if (orderedItems.length === lines.length && orderedItems.length > 0) {
-          return (
-            <ol key={blockIndex} className="ml-5 list-decimal space-y-1">
-              {orderedItems.map((item) => (
-                <li key={item}>{renderInlineMarkdown(item)}</li>
-              ))}
-            </ol>
-          )
-        }
+        return block.content.split(/\n{2,}/).map((textBlock, textBlockIndex) => {
+          const normalizedBlock = textBlock.trim()
+          const lines = normalizedBlock.split('\n').map((line) => line.trim()).filter(Boolean)
+          const isTable = lines.length >= 2 && lines.every((line) => line.startsWith('|'))
+          const unorderedItems = lines
+            .map((line) => line.match(/^[-*]\s+(.+)$/)?.[1])
+            .filter((item): item is string => Boolean(item))
+          const orderedItems = lines
+            .map((line) => line.match(/^\d+[.)]\s+(.+)$/)?.[1])
+            .filter((item): item is string => Boolean(item))
+          const blockKey = `${blockIndex}-${textBlockIndex}`
 
-        if (/^#{1,3}\s+/.test(block)) {
-          return (
-            <h3 key={blockIndex} className="pt-1 text-base font-bold text-slate-950 dark:text-white">
-              {renderInlineMarkdown(block.replace(/^#{1,3}\s+/, ''))}
-            </h3>
-          )
-        }
+          if (isTable) {
+            return <div key={blockKey}>{renderTable(lines)}</div>
+          }
 
-        return (
-          <p key={blockIndex}>
-            {renderInlineMarkdown(block)}
-          </p>
-        )
+          if (unorderedItems.length === lines.length && unorderedItems.length > 0) {
+            return (
+              <ul key={blockKey} className="ml-5 list-disc space-y-1">
+                {unorderedItems.map((item) => (
+                  <li key={item}>{renderInlineMarkdown(item)}</li>
+                ))}
+              </ul>
+            )
+          }
+
+          if (orderedItems.length === lines.length && orderedItems.length > 0) {
+            return (
+              <ol key={blockKey} className="ml-5 list-decimal space-y-1">
+                {orderedItems.map((item) => (
+                  <li key={item}>{renderInlineMarkdown(item)}</li>
+                ))}
+              </ol>
+            )
+          }
+
+          if (/^#{1,3}\s+/.test(normalizedBlock)) {
+            return (
+              <h3 key={blockKey} className="pt-1 text-base font-bold text-slate-950 dark:text-white">
+                {renderInlineMarkdown(normalizedBlock.replace(/^#{1,3}\s+/, ''))}
+              </h3>
+            )
+          }
+
+          return (
+            <p key={blockKey}>
+              {renderInlineMarkdown(normalizedBlock)}
+            </p>
+          )
+        })
       })}
     </div>
   )
@@ -180,7 +293,7 @@ function formatThreadTime(value: string) {
   }).format(new Date(value))
 }
 
-function Icon({ name }: { name: 'menu' | 'plus' | 'chat' | 'send' }) {
+function Icon({ name }: { name: 'menu' | 'plus' | 'chat' | 'send' | 'dots' | 'edit' | 'trash' | 'copy' }) {
   const commonProps = {
     xmlns: 'http://www.w3.org/2000/svg',
     width: 24,
@@ -221,6 +334,46 @@ function Icon({ name }: { name: 'menu' | 'plus' | 'chat' | 'send' }) {
     )
   }
 
+  if (name === 'dots') {
+    return (
+      <svg {...commonProps}>
+        <path d="M12 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />
+        <path d="M19 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />
+        <path d="M5 13a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" />
+      </svg>
+    )
+  }
+
+  if (name === 'edit') {
+    return (
+      <svg {...commonProps}>
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+      </svg>
+    )
+  }
+
+  if (name === 'trash') {
+    return (
+      <svg {...commonProps}>
+        <path d="M3 6h18" />
+        <path d="M8 6V4h8v2" />
+        <path d="m19 6-1 14H6L5 6" />
+        <path d="M10 11v5" />
+        <path d="M14 11v5" />
+      </svg>
+    )
+  }
+
+  if (name === 'copy') {
+    return (
+      <svg {...commonProps}>
+        <rect width="14" height="14" x="8" y="8" rx="2" />
+        <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+      </svg>
+    )
+  }
+
   return (
     <svg {...commonProps}>
       <path d="M4 6h16" />
@@ -237,7 +390,15 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
   const [isLoading, setIsLoading] = useState(false)
   const [isHistoryLoading, setIsHistoryLoading] = useState(true)
   const [isCollapsed, setIsCollapsed] = useState(false)
+  const [openThreadOptionsId, setOpenThreadOptionsId] = useState('')
+  const [mutatingThreadId, setMutatingThreadId] = useState('')
+  const [threadModalMode, setThreadModalMode] = useState<ThreadModalMode>('')
+  const [selectedThread, setSelectedThread] = useState<ChatThread | null>(null)
+  const [renameTitle, setRenameTitle] = useState('')
+  const [copiedMessageId, setCopiedMessageId] = useState('')
+  const [editingMessageId, setEditingMessageId] = useState('')
   const [error, setError] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
   const displayName = user.displayName || user.username
   const userInitial = displayName.slice(0, 1).toUpperCase()
   const accountHref = user.role === 'admin' ? '/account' : '/user'
@@ -249,6 +410,10 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
     .slice()
     .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
   const hasUserMessages = Boolean(activeThread?.messages.some((message) => message.role === 'user'))
+  const lastUserMessageIndex = activeThread?.messages.reduce(
+    (lastIndex, message, index) => (message.role === 'user' ? index : lastIndex),
+    -1
+  ) ?? -1
 
   useEffect(() => {
     let isMounted = true
@@ -317,6 +482,8 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
     const fallbackThread = createThread()
     setThreads((current) => [fallbackThread, ...current])
     setActiveThreadId(fallbackThread.id)
+    setOpenThreadOptionsId('')
+    setEditingMessageId('')
     setInput('')
     setError('')
 
@@ -347,6 +514,157 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
     )
   }
 
+  function openThread(threadId: string) {
+    setActiveThreadId(threadId)
+    setOpenThreadOptionsId('')
+    setEditingMessageId('')
+    setInput('')
+  }
+
+  function closeThreadModal() {
+    setThreadModalMode('')
+    setSelectedThread(null)
+    setRenameTitle('')
+  }
+
+  function renameThread(thread: ChatThread) {
+    setSelectedThread(thread)
+    setRenameTitle(thread.title)
+    setThreadModalMode('rename')
+    setOpenThreadOptionsId('')
+  }
+
+  function deleteThread(thread: ChatThread) {
+    setSelectedThread(thread)
+    setThreadModalMode('delete')
+    setOpenThreadOptionsId('')
+  }
+
+  async function submitRenameThread() {
+    if (!selectedThread) {
+      return
+    }
+
+    const thread = selectedThread
+    const nextTitle = renameTitle.trim()
+
+    if (!nextTitle || nextTitle === thread.title) {
+      closeThreadModal()
+      return
+    }
+
+    if (thread.id.startsWith('local-')) {
+      setThreads((current) =>
+        current.map((currentThread) =>
+          currentThread.id === thread.id
+            ? { ...currentThread, title: titleFromMessage(nextTitle), updatedAt: new Date().toISOString() }
+            : currentThread
+        )
+      )
+      closeThreadModal()
+      return
+    }
+
+    setMutatingThreadId(thread.id)
+    setError('')
+
+    try {
+      const response = await fetch('/api/interopmind/threads', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          threadId: thread.id,
+          title: nextTitle,
+        }),
+      })
+      const payload = await response.json()
+
+      if (!response.ok || !payload.success) {
+        setError(payload.error || 'Could not rename chat.')
+        return
+      }
+
+      const savedThread = payload.data?.thread as ChatThread
+
+      setThreads((current) =>
+        current.map((currentThread) =>
+          currentThread.id === thread.id ? savedThread : currentThread
+        )
+      )
+      closeThreadModal()
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? `Could not rename chat: ${requestError.message}`
+          : 'Could not rename chat.'
+      )
+    } finally {
+      setMutatingThreadId('')
+    }
+  }
+
+  async function confirmDeleteThread() {
+    if (!selectedThread) {
+      return
+    }
+
+    const thread = selectedThread
+    const remainingThreads = threads.filter((currentThread) => currentThread.id !== thread.id)
+
+    if (thread.id.startsWith('local-')) {
+      setThreads(remainingThreads)
+      closeThreadModal()
+
+      if (activeThreadId === thread.id) {
+        const nextThread = remainingThreads[0]
+
+        if (nextThread) {
+          setActiveThreadId(nextThread.id)
+        } else {
+          await startNewChat()
+        }
+      }
+
+      return
+    }
+
+    setMutatingThreadId(thread.id)
+    setError('')
+
+    try {
+      const response = await fetch(`/api/interopmind/threads?threadId=${encodeURIComponent(thread.id)}`, {
+        method: 'DELETE',
+      })
+      const payload = await response.json()
+
+      if (!response.ok || !payload.success) {
+        setError(payload.error || 'Could not delete chat.')
+        return
+      }
+
+      setThreads(remainingThreads)
+      closeThreadModal()
+
+      if (activeThreadId === thread.id) {
+        const nextThread = remainingThreads[0]
+
+        if (nextThread) {
+          setActiveThreadId(nextThread.id)
+        } else {
+          await startNewChat()
+        }
+      }
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? `Could not delete chat: ${requestError.message}`
+          : 'Could not delete chat.'
+      )
+    } finally {
+      setMutatingThreadId('')
+    }
+  }
+
   async function sendMessage(message: string) {
     const trimmedMessage = message.trim()
 
@@ -354,6 +672,20 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
       return
     }
 
+    const editMessageId = editingMessageId
+    const editMessageIndex = editMessageId
+      ? activeThread.messages.findIndex((threadMessage) => threadMessage.id === editMessageId)
+      : -1
+    const messagesBeforeEdit = editMessageIndex >= 0
+      ? activeThread.messages.slice(0, editMessageIndex)
+      : activeThread.messages
+    const previousMessages = activeThread.messages
+    const pendingUserMessage: ChatMessage = {
+      id: `pending-user-${crypto.randomUUID()}`,
+      role: 'user',
+      content: trimmedMessage,
+      createdAt: new Date().toISOString(),
+    }
     const nextTitle =
       activeThread.title === 'New chat' ? titleFromMessage(trimmedMessage) : activeThread.title
 
@@ -361,17 +693,10 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
       ...thread,
       title: nextTitle,
       updatedAt: new Date().toISOString(),
-      messages: [
-        ...thread.messages,
-        {
-          id: `pending-user-${Date.now()}`,
-          role: 'user',
-          content: trimmedMessage,
-          createdAt: new Date().toISOString(),
-        },
-      ],
+      messages: [...messagesBeforeEdit, pendingUserMessage],
     }))
     setInput('')
+    setEditingMessageId('')
     setError('')
     setIsLoading(true)
 
@@ -381,9 +706,10 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: trimmedMessage,
-          messages: [...activeThread.messages, { role: 'user', content: trimmedMessage }],
+          messages: [...messagesBeforeEdit, { role: 'user', content: trimmedMessage }],
           context: 'interopmind_workspace',
           threadId: activeThread.id.startsWith('local-') ? undefined : activeThread.id,
+          editMessageId: editMessageId || undefined,
         }),
       })
       const payload = await response.json().catch(() => ({
@@ -392,6 +718,13 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
       }))
 
       if (!response.ok || !payload.success) {
+        setThreads((current) =>
+          current.map((thread) =>
+            thread.id === activeThread.id ? { ...thread, messages: previousMessages } : thread
+          )
+        )
+        setInput(trimmedMessage)
+        setEditingMessageId(editMessageId)
         setError(payload.reply || 'InteropMind could not process that request.')
         return
       }
@@ -421,6 +754,13 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
         setActiveThreadId(payload.thread.id)
       }
     } catch (requestError) {
+      setThreads((current) =>
+        current.map((thread) =>
+          thread.id === activeThread.id ? { ...thread, messages: previousMessages } : thread
+        )
+      )
+      setInput(trimmedMessage)
+      setEditingMessageId(editMessageId)
       setError(
         requestError instanceof Error
           ? `Could not reach InteropMind: ${requestError.message}`
@@ -434,6 +774,49 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     await sendMessage(input)
+  }
+
+  async function copyMessage(content: string, messageId: string) {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(content)
+      } else {
+        const textArea = document.createElement('textarea')
+        textArea.value = content
+        textArea.style.position = 'fixed'
+        textArea.style.left = '-9999px'
+        document.body.appendChild(textArea)
+        textArea.focus()
+        textArea.select()
+        document.execCommand('copy')
+        document.body.removeChild(textArea)
+      }
+
+      setCopiedMessageId(messageId)
+      window.setTimeout(() => setCopiedMessageId(''), 1600)
+    } catch (requestError) {
+      setError(
+        requestError instanceof Error
+          ? `Could not copy answer: ${requestError.message}`
+          : 'Could not copy answer.'
+      )
+    }
+  }
+
+  function editMessage(message: ChatMessage) {
+    if (!message.id || isLoading) {
+      return
+    }
+
+    setInput(message.content)
+    setEditingMessageId(message.id)
+    setError('')
+    window.setTimeout(() => inputRef.current?.focus(), 0)
+  }
+
+  function cancelMessageEdit() {
+    setInput('')
+    setEditingMessageId('')
   }
 
   return (
@@ -488,33 +871,86 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
               )}
               {chatHistory.map((thread) => {
                 const active = thread.id === activeThread?.id
+                const optionsOpen = openThreadOptionsId === thread.id
 
                 return (
-                  <button
-                    key={thread.id}
-                    type="button"
-                    onClick={() => setActiveThreadId(thread.id)}
-                    title={isCollapsed ? thread.title : undefined}
-                    className={`flex h-11 w-full items-center rounded-full text-left text-sm transition ${
-                      isCollapsed ? 'justify-center px-0' : 'gap-3 px-3'
-                    } ${
-                      active
-                        ? 'bg-slate-200 text-slate-950 dark:bg-slate-800 dark:text-white'
-                        : 'text-slate-700 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'
-                    }`}
-                  >
-                    <span className="shrink-0 text-slate-500 dark:text-slate-400">
-                      <Icon name="chat" />
-                    </span>
-                    {!isCollapsed && (
-                      <span className="min-w-0 flex-1">
-                        <span className="block truncate font-medium">{thread.title}</span>
-                        <span className="block truncate text-xs text-slate-500 dark:text-slate-400">
-                          {formatThreadTime(thread.updatedAt)}
-                        </span>
+                  <div key={thread.id} className="group relative">
+                    <button
+                      type="button"
+                      onClick={() => openThread(thread.id)}
+                      title={isCollapsed ? thread.title : undefined}
+                      className={`flex h-11 w-full items-center rounded-full text-left text-sm transition ${
+                        isCollapsed ? 'justify-center px-0' : 'gap-3 px-3 pr-10'
+                      } ${
+                        active
+                          ? 'bg-slate-200 text-slate-950 dark:bg-slate-800 dark:text-white'
+                          : 'text-slate-700 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800'
+                      }`}
+                    >
+                      <span className="shrink-0 text-slate-500 dark:text-slate-400">
+                        <Icon name="chat" />
                       </span>
+                      {!isCollapsed && (
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate font-medium">{thread.title}</span>
+                          <span className="block truncate text-xs text-slate-500 dark:text-slate-400">
+                            {formatThreadTime(thread.updatedAt)}
+                          </span>
+                        </span>
+                      )}
+                    </button>
+
+                    {!isCollapsed && (
+                      <button
+                        type="button"
+                        onClick={(event) => {
+                          event.stopPropagation()
+                          setOpenThreadOptionsId((current) => (current === thread.id ? '' : thread.id))
+                        }}
+                        aria-label={`Options for ${thread.title}`}
+                        title="Chat options"
+                        className={`absolute right-2 top-1.5 grid h-8 w-8 place-items-center rounded-full text-slate-500 transition hover:bg-slate-300 hover:text-slate-950 dark:text-slate-400 dark:hover:bg-slate-700 dark:hover:text-white ${
+                          active || optionsOpen ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'
+                        }`}
+                      >
+                        <Icon name="dots" />
+                      </button>
                     )}
-                  </button>
+
+                    {!isCollapsed && optionsOpen && (
+                      <div className="absolute right-2 top-10 z-30 w-44 rounded-xl border border-slate-200 bg-white p-1 text-sm shadow-lg dark:border-slate-800 dark:bg-slate-950">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setActiveThreadId(thread.id)
+                            setOpenThreadOptionsId('')
+                          }}
+                          className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-900"
+                        >
+                          <Icon name="chat" />
+                          Open chat
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => renameThread(thread)}
+                          disabled={mutatingThreadId === thread.id}
+                          className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60 dark:text-slate-200 dark:hover:bg-slate-900"
+                        >
+                          <Icon name="edit" />
+                          Rename
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => deleteThread(thread)}
+                          disabled={mutatingThreadId === thread.id}
+                          className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60 dark:text-red-300 dark:hover:bg-red-950/40"
+                        >
+                          <Icon name="trash" />
+                          Delete
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 )
               })}
             </div>
@@ -598,19 +1034,61 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                       return null
                     }
 
+                    const messageKey = message.id || `${activeThread.id}-${message.role}-${index}`
+                    const copied = copiedMessageId === messageKey
+                    const canEditMessage = message.role === 'user' && index === lastUserMessageIndex
+
                     return (
-                      <div key={message.id || `${message.role}-${index}`} className={message.role === 'user' ? 'flex justify-end' : 'flex justify-start'}>
-                        <div
-                          className={
-                            message.role === 'user'
-                              ? 'max-w-2xl rounded-3xl bg-slate-100 px-5 py-3 text-sm leading-6 text-slate-800 dark:bg-slate-800 dark:text-slate-100'
-                              : 'max-w-3xl px-1 py-1 text-sm leading-7 text-slate-700 dark:text-slate-200'
-                          }
-                        >
+                      <div key={messageKey} className={`group flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div className={message.role === 'user' ? 'flex max-w-2xl flex-col items-end' : 'flex max-w-3xl flex-col items-start'}>
                           {message.role === 'assistant' ? (
-                            <MessageContent content={message.content} />
+                            <>
+                              <div className="px-1 py-1 text-sm leading-7 text-slate-700 dark:text-slate-200">
+                                <MessageContent content={message.content} />
+                              </div>
+                              <div className="mt-1 flex h-8 items-center gap-1 opacity-0 transition group-hover:opacity-100 group-focus-within:opacity-100">
+                                <button
+                                  type="button"
+                                  onClick={() => void copyMessage(message.content, messageKey)}
+                                  className="grid h-8 w-8 place-items-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-white"
+                                  aria-label="Copy answer"
+                                  title={copied ? 'Copied' : 'Copy answer'}
+                                >
+                                  <Icon name="copy" />
+                                </button>
+                                {copied && <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Copied</span>}
+                              </div>
+                            </>
                           ) : (
-                            message.content
+                            <>
+                              <div className="rounded-3xl bg-slate-100 px-5 py-3 text-sm leading-6 text-slate-800 dark:bg-slate-800 dark:text-slate-100">
+                                <p>{message.content}</p>
+                              </div>
+                              <div className="mt-1 flex h-8 items-center justify-end gap-1 opacity-0 transition group-hover:opacity-100 group-focus-within:opacity-100">
+                                <button
+                                  type="button"
+                                  onClick={() => void copyMessage(message.content, messageKey)}
+                                  className="grid h-8 w-8 place-items-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-white"
+                                  aria-label="Copy message"
+                                  title={copied ? 'Copied' : 'Copy message'}
+                                >
+                                  <Icon name="copy" />
+                                </button>
+                                {canEditMessage && (
+                                  <button
+                                    type="button"
+                                    onClick={() => editMessage(message)}
+                                    disabled={isLoading || !message.id}
+                                    className="grid h-8 w-8 place-items-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-900 disabled:cursor-not-allowed disabled:opacity-50 dark:text-slate-400 dark:hover:bg-slate-900 dark:hover:text-white"
+                                    aria-label="Edit last message"
+                                    title="Edit last message"
+                                  >
+                                    <Icon name="edit" />
+                                  </button>
+                                )}
+                                {copied && <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Copied</span>}
+                              </div>
+                            </>
                           )}
                         </div>
                       </div>
@@ -633,12 +1111,26 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                   {error}
                 </p>
               )}
+              {editingMessageId && (
+                <div className="mb-3 flex items-center justify-between gap-3 rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-teal-800 dark:border-teal-900 dark:bg-teal-950/40 dark:text-teal-200">
+                  <span className="font-semibold">Editing your last message</span>
+                  <button
+                    type="button"
+                    onClick={cancelMessageEdit}
+                    disabled={isLoading}
+                    className="rounded-full px-3 py-1 text-xs font-bold transition hover:bg-teal-100 disabled:cursor-not-allowed disabled:opacity-60 dark:hover:bg-teal-900"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
               <div className="flex min-h-16 items-center gap-3 rounded-3xl bg-slate-100 px-5 py-3 shadow-sm dark:bg-slate-900">
                 <input
+                  ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
-                  placeholder="Ask InteropMind"
+                  placeholder={editingMessageId ? 'Edit your message' : 'Ask InteropMind'}
                   disabled={isLoading}
                   className="min-w-0 flex-1 bg-transparent text-base text-slate-950 outline-none placeholder:text-slate-500 disabled:opacity-70 dark:text-white dark:placeholder:text-slate-400"
                 />
@@ -658,6 +1150,75 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
           </div>
         </section>
       </div>
+
+      {threadModalMode && selectedThread && (
+        <div className="fixed inset-0 z-50 grid place-items-center bg-slate-950/40 px-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl dark:border-slate-800 dark:bg-slate-950">
+            {threadModalMode === 'rename' ? (
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault()
+                  void submitRenameThread()
+                }}
+              >
+                <h2 className="text-lg font-semibold text-slate-950 dark:text-white">Rename chat</h2>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                  Give this conversation a clear name for your history.
+                </p>
+                <input
+                  type="text"
+                  value={renameTitle}
+                  onChange={(event) => setRenameTitle(event.target.value)}
+                  autoFocus
+                  className="mt-5 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-950 outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 dark:border-slate-800 dark:bg-slate-900 dark:text-white"
+                />
+                <div className="mt-5 flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={closeThreadModal}
+                    disabled={mutatingThreadId === selectedThread.id}
+                    className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60 dark:text-slate-300 dark:hover:bg-slate-900"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={mutatingThreadId === selectedThread.id || !renameTitle.trim()}
+                    className="rounded-full bg-slate-950 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-200 dark:disabled:bg-slate-700"
+                  >
+                    {mutatingThreadId === selectedThread.id ? 'Saving...' : 'Save'}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div>
+                <h2 className="text-lg font-semibold text-slate-950 dark:text-white">Delete chat?</h2>
+                <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+                  This will remove <span className="font-semibold text-slate-800 dark:text-slate-200">{selectedThread.title}</span> from your InteropMind history.
+                </p>
+                <div className="mt-5 flex justify-end gap-2">
+                  <button
+                    type="button"
+                    onClick={closeThreadModal}
+                    disabled={mutatingThreadId === selectedThread.id}
+                    className="rounded-full px-4 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-60 dark:text-slate-300 dark:hover:bg-slate-900"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void confirmDeleteThread()}
+                    disabled={mutatingThreadId === selectedThread.id}
+                    className="rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300 dark:disabled:bg-red-950"
+                  >
+                    {mutatingThreadId === selectedThread.id ? 'Deleting...' : 'Delete'}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </main>
   )
 }
