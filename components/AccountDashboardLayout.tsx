@@ -176,7 +176,9 @@ export default function AccountDashboardLayout({ children }: AccountDashboardLay
                 IM
               </div>
               <div className={isCollapsed ? 'hidden' : 'min-w-0'}>
-                <p className="text-sm font-bold text-slate-950 dark:text-white">InteropMed</p>
+                <Link href="/" className="text-sm font-bold text-slate-950 transition hover:text-teal-600 dark:text-white dark:hover:text-teal-300">
+                  InteropMed
+                </Link>
                 <p className="text-xs text-slate-500 dark:text-slate-400">Account Dashboard</p>
               </div>
             </div>
