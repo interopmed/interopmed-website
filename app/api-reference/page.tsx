@@ -42,7 +42,7 @@ export default function ApiReferencePage() {
       <Navbar />
       <main>
         <section className="bg-white py-20 dark:bg-slate-950 md:py-28">
-          <div className="mx-auto max-w-4xl px-6">
+          <div className="mx-auto max-w-7xl px-6">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
               API Reference
             </p>
@@ -56,7 +56,7 @@ export default function ApiReferencePage() {
         </section>
 
         <section className="bg-slate-50 py-16 dark:bg-slate-900">
-          <div className="mx-auto max-w-5xl px-6">
+          <div className="mx-auto max-w-7xl px-6">
             <div className="overflow-hidden rounded-lg border border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-950">
               {endpoints.map((endpoint) => (
                 <div

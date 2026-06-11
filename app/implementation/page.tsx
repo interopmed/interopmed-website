@@ -16,6 +16,7 @@ const packages = [
       'Architecture and data-flow review',
       'One priority workflow mapped to HL7 FHIR resources',
       'Initial SHIN configuration and sandbox deployment',
+      'AI-assisted workflow checklist and learning path',
       'Validation rules and exception review model',
     ],
   },
@@ -26,6 +27,7 @@ const packages = [
     includes: [
       'Multiple source and destination integrations',
       'Production-grade access, audit, and monitoring model',
+      'AI-managed knowledge routing and support triage',
       'HL7 FHIR profile, terminology, and identifier governance',
       'Implementation runbook and operational handoff',
     ],
@@ -37,6 +39,7 @@ const packages = [
     includes: [
       'Recurring platform subscription and support cadence',
       'Connector maintenance and mapping updates',
+      'AI-assisted exception summaries and remediation drafts',
       'Exception triage and data quality reporting',
       'Security, compliance, and change-management reviews',
     ],
@@ -59,10 +62,19 @@ const freeLayer = [
 
 const premiumLayer = [
   'SHIN Platform subscription',
+  'AI-managed service layer',
   'Managed connectors',
   'Governance console',
   'Implementation packages',
   'Managed operations',
+]
+
+const aiManagedServices = [
+  'Workflow recommendations and implementation checklists',
+  'Learning path guidance for FHIR, HL7, security, and terminology',
+  'Knowledge base answers linked to standards and tools',
+  'Support request classification and response drafting',
+  'Exception summaries, data quality notes, and operational review',
 ]
 
 export default function ImplementationPage() {
@@ -80,7 +92,7 @@ export default function ImplementationPage() {
                 Buy the platform with a repeatable path to production.
               </h1>
               <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
-                InteropMed is an HL7 FHIR-aligned interoperability platform that helps healthcare organizations implement, govern, and operate clinical data exchange through SHIN platform subscription, implementation packages, and ongoing operational support.
+                InteropMed is an HL7 FHIR-aligned interoperability platform that helps healthcare organizations implement, govern, and operate clinical data exchange through SHIN platform subscription, AI-managed services, implementation packages, and ongoing operational support.
               </p>
             </div>
             <div className="rounded-lg border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900">
@@ -91,6 +103,37 @@ export default function ImplementationPage() {
                 {buyers.map((buyer) => (
                   <div key={buyer} className="rounded-lg bg-white p-4 text-sm font-medium text-slate-700 dark:bg-slate-950 dark:text-slate-300">
                     {buyer}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-16 dark:bg-slate-950">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="grid gap-8 rounded-lg border border-teal-200 bg-white p-6 dark:border-teal-900 dark:bg-slate-950 md:p-8 lg:grid-cols-[0.82fr_1.18fr]">
+              <div>
+                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
+                  AI-managed services
+                </p>
+                <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+                  Run workflows, support, knowledge, and operations through one assisted layer.
+                </h2>
+                <p className="mt-5 text-base leading-7 text-slate-600 dark:text-slate-300">
+                  AI helps manage the service experience across the hub, while production, clinical, compliance, and security decisions remain reviewable and accountable.
+                </p>
+                <Link
+                  href="/ai-services"
+                  className="mt-7 inline-block rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25"
+                >
+                  Explore AI services
+                </Link>
+              </div>
+              <div className="grid gap-3">
+                {aiManagedServices.map((service) => (
+                  <div key={service} className="rounded-lg border border-slate-200 bg-slate-50 p-4 text-sm font-semibold leading-6 text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200">
+                    {service}
                   </div>
                 ))}
               </div>

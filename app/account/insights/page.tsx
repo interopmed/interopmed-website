@@ -11,8 +11,8 @@ import { getInsightTaxonomyOptions } from '@/lib/taxonomies'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Codex Workspace | InteropMed',
-  description: 'Use InteropMed Codex to review interoperability strategy and create standards-aware insight articles.',
+  title: 'InteropMind Workspace | InteropMed',
+  description: 'Use InteropMind to review interoperability strategy and create standards-aware insight articles.',
 }
 
 async function getRecentInsights() {

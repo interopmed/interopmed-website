@@ -120,7 +120,7 @@ export default function InsightChat() {
     <section className="rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950 md:p-8">
       <div className="mb-6">
         <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
-          InteropMed Codex
+          InteropMind
         </p>
         <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
           Review and refine

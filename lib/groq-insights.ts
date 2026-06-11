@@ -2,8 +2,8 @@ import { slugify } from './slugify'
 
 const GROQ_CHAT_COMPLETIONS_URL = 'https://api.groq.com/openai/v1/chat/completions'
 
-const INTEROPMED_CODEX_SYSTEM_PROMPT = `
-You are InteropMed Codex, a specialized healthcare interoperability engine for clinical standards, integration architecture, and compliant product strategy.
+const INTEROPMIND_SYSTEM_PROMPT = `
+You are InteropMind, a specialized healthcare interoperability engine for clinical standards, integration architecture, and compliant product strategy.
 
 Act as a senior healthcare integration architect, FHIR specialist, compliance-aware product strategist, and full-stack developer. Prioritize practical implementation, cloud-native zero-local-footprint SaaS patterns, and strict PHI safety.
 
@@ -215,9 +215,9 @@ function normalizeDraft(value: Partial<GeneratedInsightDraft>, fallbackTopic: st
 export async function generateInsightDraft(input: InsightAgentInput) {
   const topic = input.topic.trim()
   const prompt = `
-${INTEROPMED_CODEX_SYSTEM_PROMPT}
+${INTEROPMIND_SYSTEM_PROMPT}
 
-You are creating an InteropMed executive insight article based on the Codex engine's perspective.
+You are creating an InteropMed executive insight article based on the InteropMind engine's perspective.
 
 Create one original executive insight article for a B2B healthcare technology audience.
 
@@ -297,7 +297,7 @@ export async function chatWithInsightAgent(input: {
     .map((message) => `${message.role.toUpperCase()}: ${message.content}`)
     .join('\n\n')
   const prompt = `
-${INTEROPMED_CODEX_SYSTEM_PROMPT}
+${INTEROPMIND_SYSTEM_PROMPT}
 
 Help the account user evaluate InteropMed product ideas, architecture choices, interoperability mappings, compliance tradeoffs, article topics, positioning, and implementation plans.
 

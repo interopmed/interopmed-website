@@ -15,30 +15,31 @@ export default function Footer() {
               <span className="font-semibold text-slate-900 dark:text-white">InteropMed</span>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              InteropMed is an HL7 FHIR-aligned interoperability platform that helps healthcare organizations implement, govern, and operate clinical data exchange.
+              InteropMed is an interoperability hub for healthcare workflows, standards education, implementation tools, and governed clinical data exchange.
             </p>
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Product</h3>
+            <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Hub</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/shin" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">SHIN Platform</Link></li>
-              <li><Link href="/codex" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Codex Engine</Link></li>
-              <li><Link href="/open-source" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Open Source</Link></li>
-              <li><Link href="/api-reference" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">API Reference</Link></li>
-              <li><Link href="/documentation" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Documentation</Link></li>
+              <li><Link href="/workflows" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Workflows</Link></li>
+              <li><Link href="/learn" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Learning Center</Link></li>
+              <li><Link href="/knowledge" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Knowledge Base</Link></li>
+              <li><Link href="/tools" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Tools</Link></li>
+              <li><Link href="/ai-services" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">AI Services</Link></li>
+              <li><Link href="/documentation" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Standards</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Resources</h3>
+            <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Platform</h3>
             <ul className="space-y-2 text-sm">
+              <li><Link href="/studio" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Studio</Link></li>
+              <li><Link href="/shin" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">SHIN Platform</Link></li>
+              <li><Link href="/interopmind" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">InteropMind AI</Link></li>
               <li><Link href="/technology" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Technology</Link></li>
-              <li><Link href="/solutions" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Solutions</Link></li>
               <li><Link href="/implementation" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Implementation</Link></li>
               <li><Link href="/insights" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Insights</Link></li>
-              <li><Link href="/about" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">About</Link></li>
-              <li><Link href="/contact" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Contact</Link></li>
             </ul>
           </div>
 
@@ -48,6 +49,8 @@ export default function Footer() {
               <li><Link href="/privacy" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Privacy Policy</Link></li>
               <li><Link href="/terms" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Terms of Service</Link></li>
               <li><Link href="/compliance" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Compliance</Link></li>
+              <li><Link href="/about" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">About</Link></li>
+              <li><Link href="/contact" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Contact</Link></li>
             </ul>
           </div>
         </div>

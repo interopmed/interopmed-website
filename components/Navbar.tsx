@@ -11,6 +11,16 @@ type AccountSessionUser = {
   role: string
 }
 
+const navItems = [
+  { href: '/workflows', label: 'Workflows' },
+  { href: '/learn', label: 'Learn' },
+  { href: '/knowledge', label: 'Knowledge' },
+  { href: '/tools', label: 'Tools' },
+  { href: '/ai-services', label: 'AI Services' },
+  { href: '/documentation', label: 'Standards' },
+  { href: '/contact', label: 'Contact' },
+]
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [accountUser, setAccountUser] = useState<AccountSessionUser | null>(null)
@@ -89,33 +99,11 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6">
-          <Link href="/studio" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            Studio
-          </Link>
-          <Link href="/technology" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            Technology
-          </Link>
-          <Link href="/codex" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            Codex
-          </Link>
-          <Link href="/solutions" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            Solutions
-          </Link>
-          <Link href="/open-source" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            Open Source
-          </Link>
-          <Link href="/implementation" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            Implementation
-          </Link>
-          <Link href="/insights" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            Insights
-          </Link>
-          <Link href="/about" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            About
-          </Link>
-          <Link href="/contact" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-            Contact
-          </Link>
+          {navItems.map((item) => (
+            <Link key={item.href} href={item.href} className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+              {item.label}
+            </Link>
+          ))}
         </div>
 
         {/* CTA Button */}
@@ -138,33 +126,11 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
           <div className="px-6 py-4 space-y-3">
-            <Link href="/studio" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-              Studio
-            </Link>
-            <Link href="/technology" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-              Technology
-            </Link>
-            <Link href="/codex" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-              Codex
-            </Link>
-            <Link href="/solutions" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-              Solutions
-            </Link>
-            <Link href="/open-source" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-              Open Source
-            </Link>
-            <Link href="/implementation" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-              Implementation
-            </Link>
-            <Link href="/insights" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-              Insights
-            </Link>
-            <Link href="/about" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-              About
-            </Link>
-            <Link href="/contact" className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-              Contact
-            </Link>
+            {navItems.map((item) => (
+              <Link key={item.href} href={item.href} className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
+                {item.label}
+              </Link>
+            ))}
             <div className="flex flex-col gap-3 border-t border-slate-200 pt-4 dark:border-slate-800">
               {hasAccountSession ? (
                 <>

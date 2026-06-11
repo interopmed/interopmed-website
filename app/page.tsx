@@ -47,7 +47,7 @@ const premiumLayer = [
   'Managed operations',
 ]
 
-const codexCapabilities = [
+const interopMindCapabilities = [
   'FHIR, HL7, DICOM, and C-CDA implementation guidance',
   'Legacy payload to FHIR mapping tables',
   'Cloud-native integration architecture review',
@@ -108,22 +108,22 @@ export default function HomePage() {
                   <div className="mb-6 flex items-center justify-between">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
-                        SHIN node
+                        Start here
                       </p>
                       <h2 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">
-                        Live interoperability fabric
+                        What do you need today?
                       </h2>
                     </div>
                     <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700 dark:bg-teal-950 dark:text-teal-300">
-                      Healthy
+                      AI assisted
                     </span>
                   </div>
 
                   <div className="mb-6 grid gap-4 md:grid-cols-3">
                     {[
-                      { label: 'Resources', value: '18.4k' },
-                      { label: 'Latency', value: '47ms' },
-                      { label: 'Policy checks', value: '100%' },
+                      { label: 'Workflows', value: 'Plan' },
+                      { label: 'Standards', value: 'Learn' },
+                      { label: 'Tools', value: 'Use' },
                     ].map((item) => (
                       <div key={item.label} className="rounded-lg bg-slate-50 p-4 dark:bg-slate-900">
                         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
@@ -136,10 +136,10 @@ export default function HomePage() {
 
                   <div className="grid gap-3">
                     {[
-                      { label: 'Source systems', value: 'EHR / Labs / Imaging', status: 'connected' },
-                      { label: 'FHIR normalization', value: 'Patient, Encounter, Observation', status: 'validated' },
-                      { label: 'Governance', value: 'RBAC, audit, policy checks', status: 'enforced' },
-                      { label: 'Consumers', value: 'Dashboards, APIs, analytics', status: 'available' },
+                      { label: 'Solve a workflow', value: 'Get steps for FHIR APIs, HL7 migration, referrals, labs, or ADT events.', status: 'Open' },
+                      { label: 'Understand a standard', value: 'Learn FHIR, HL7 v2, terminology, consent, and API security in plain language.', status: 'Learn' },
+                      { label: 'Use a practical tool', value: 'Parse messages, validate resources, build mappings, and prepare checklists.', status: 'Try' },
+                      { label: 'Get AI support', value: 'Ask for guidance, risk notes, learning paths, and implementation next steps.', status: 'Ask' },
                     ].map((row) => (
                       <div key={row.label} className="grid gap-3 rounded-lg border border-slate-200 p-4 dark:border-slate-800 md:grid-cols-[0.8fr_1fr_0.6fr]">
                         <p className="text-sm font-semibold text-slate-950 dark:text-white">{row.label}</p>
@@ -152,14 +152,14 @@ export default function HomePage() {
 
                 <div className="mt-4 grid gap-4 md:grid-cols-2">
                   <div className="rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-950">
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Rejected payloads</p>
-                    <p className="mt-3 text-3xl font-bold text-slate-950 dark:text-white">0.8%</p>
-                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Terminology and identifier review queue</p>
+                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Popular starting point</p>
+                    <p className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">Build a FHIR API</p>
+                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Plan resources, security, testing, and launch steps.</p>
                   </div>
                   <div className="rounded-lg border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-950">
-                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Audit coverage</p>
-                    <p className="mt-3 text-3xl font-bold text-slate-950 dark:text-white">100%</p>
-                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Access, transform, and publish events</p>
+                    <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Need help?</p>
+                    <p className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">Ask AI guidance</p>
+                    <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">Get simple answers and suggested next actions.</p>
                   </div>
                 </div>
               </div>
@@ -173,20 +173,20 @@ export default function HomePage() {
           <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[0.88fr_1.12fr] lg:items-center">
             <div>
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-300">
-                InteropMed Codex Engine
+                InteropMind AI
               </p>
               <h2 className="text-4xl font-bold md:text-5xl">
                 Standards-aware AI for the hard parts of clinical data exchange.
               </h2>
               <p className="mt-6 text-lg leading-8 text-slate-300">
-                Codex turns InteropMed into a practical advisory layer for founders, architects, and developers working through FHIR mappings, HL7 feeds, DICOM workflows, API design, and compliance-sensitive decisions.
+                InteropMind turns InteropMed into a practical advisory layer for founders, architects, and developers working through FHIR mappings, HL7 feeds, DICOM workflows, API design, and compliance-sensitive decisions.
               </p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <Link
-                  href="/codex"
+                  href="/interopmind"
                   className="rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-7 py-3 text-center text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25"
                 >
-                  Explore Codex
+                  Explore InteropMind
                 </Link>
                 <Link
                   href="/studio"
@@ -198,10 +198,10 @@ export default function HomePage() {
             </div>
             <div className="rounded-lg border border-slate-800 bg-slate-900 p-6 md:p-8">
               <p className="mb-5 text-sm font-semibold uppercase tracking-[0.24em] text-slate-400">
-                Codex can review
+                InteropMind can review
               </p>
               <div className="space-y-3">
-                {codexCapabilities.map((capability) => (
+                {interopMindCapabilities.map((capability) => (
                   <div key={capability} className="rounded-lg border border-slate-800 bg-slate-950 p-4 text-sm leading-6 text-slate-300">
                     {capability}
                   </div>

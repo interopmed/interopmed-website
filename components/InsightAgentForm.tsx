@@ -117,7 +117,7 @@ export default function InsightAgentForm() {
     <form onSubmit={handleSubmit} className="rounded-lg border border-teal-200 bg-white p-6 shadow-sm dark:border-teal-900 dark:bg-slate-950 md:p-8">
       <div className="mb-6 flex flex-col gap-2">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
-          Codex publisher
+          InteropMind publisher
         </p>
         <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
           Generate standards-aware insight
@@ -204,7 +204,7 @@ export default function InsightAgentForm() {
         disabled={state.status === 'submitting'}
         className="mt-6 rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25 disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {state.status === 'submitting' ? 'Generating...' : 'Run Codex'}
+        {state.status === 'submitting' ? 'Generating...' : 'Run InteropMind'}
       </button>
 
       {state.message && (

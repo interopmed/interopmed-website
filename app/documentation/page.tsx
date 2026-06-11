@@ -14,7 +14,7 @@ export default function DocumentationPage() {
       <Navbar />
       <main>
         <section className="bg-white py-20 dark:bg-slate-950 md:py-28">
-          <div className="mx-auto max-w-4xl px-6">
+          <div className="mx-auto max-w-7xl px-6">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
               Documentation
             </p>
