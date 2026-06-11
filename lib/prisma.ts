@@ -13,7 +13,7 @@ const prismaClientOptions: PrismaClientOptions = {
 }
 
 function hasCurrentPrismaDelegates(client: PrismaClientInstance | undefined) {
-  return Boolean(client && 'userPost' in client && 'userPostComment' in client)
+  return Boolean(client && 'userPost' in client && 'userPostComment' in client && 'interopMindThread' in client && 'interopMindMessage' in client)
 }
 
 const existingPrisma = globalForPrisma.prisma

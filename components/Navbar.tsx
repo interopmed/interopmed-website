@@ -16,6 +16,7 @@ const navItems = [
   { href: '/learn', label: 'Learn' },
   { href: '/knowledge', label: 'Knowledge' },
   { href: '/tools', label: 'Tools' },
+  { href: '/interopmind', label: 'InteropMind' },
   { href: '/ai-services', label: 'AI Services' },
   { href: '/documentation', label: 'Standards' },
   { href: '/contact', label: 'Contact' },

@@ -432,7 +432,7 @@ export function getSafeAccountRedirectPath(
     return fallback
   }
 
-  if (value.startsWith('/account') || value.startsWith('/user') || value.startsWith('/studio')) {
+  if (value.startsWith('/account') || value.startsWith('/user') || value.startsWith('/studio') || value.startsWith('/interopmind')) {
     return value
   }
 

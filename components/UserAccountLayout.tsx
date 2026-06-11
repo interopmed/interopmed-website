@@ -29,6 +29,12 @@ const userNav = [
     ],
   },
   {
+    label: 'AI Workspace',
+    items: [
+      { href: '/interopmind', label: 'InteropMind', detail: 'Guidance hub', badge: 'AI', icon: 'ai' },
+    ],
+  },
+  {
     label: 'Account',
     items: [
       { href: '/user/profile', label: 'Profile', detail: 'Identity details', badge: '', icon: 'user' },
@@ -130,6 +136,22 @@ function SidebarIcon({ name }: { name: string }) {
         <circle cx="12" cy="12" r="10" />
         <path d="M9.1 9a3 3 0 1 1 5.8 1c-.4 1.3-1.9 1.8-2.5 2.8" />
         <path d="M12 17h.01" />
+      </svg>
+    )
+  }
+
+  if (name === 'ai') {
+    return (
+      <svg {...commonProps}>
+        <path d="M12 3v3" />
+        <path d="M12 18v3" />
+        <path d="M3 12h3" />
+        <path d="M18 12h3" />
+        <path d="m5.6 5.6 2.1 2.1" />
+        <path d="m16.3 16.3 2.1 2.1" />
+        <path d="m18.4 5.6-2.1 2.1" />
+        <path d="m7.7 16.3-2.1 2.1" />
+        <circle cx="12" cy="12" r="3" />
       </svg>
     )
   }
