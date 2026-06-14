@@ -97,25 +97,7 @@ const interoperabilityTracks = [
 export default async function UserAccountPage() {
   const user = await requireMemberUser('/user')
 
-  return (
-    <Suspense fallback={<DashboardDataLoading />}>
-      <UserAccountDashboard user={user} />
-    </Suspense>
-  )
-}
-
-function DashboardDataLoading() {
-  return (
-    <main className="bg-slate-100 py-4 text-slate-950 dark:bg-slate-950 dark:text-white md:py-6">
-      <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-        <p className="text-sm font-semibold text-teal-700 dark:text-teal-300">Account ready</p>
-        <h1 className="mt-2 text-2xl font-bold">Loading dashboard data...</h1>
-        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-          Your workspace is open while the latest account activity is fetched.
-        </p>
-      </div>
-    </main>
-  )
+  return <UserAccountDashboard user={user} />
 }
 
 function PostFeedLoading() {

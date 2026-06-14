@@ -5,7 +5,15 @@ type PrismaClientInstance = InstanceType<typeof PrismaClient>
 type PrismaClientOptions = ConstructorParameters<typeof PrismaClient>[0]
 
 const globalForPrisma = global as unknown as { prisma?: PrismaClientInstance }
-const connectionString = process.env.DATABASE_URL || ''
+
+function normalizePostgresSslMode(connectionString: string) {
+  return connectionString.replace(
+    /([?&]sslmode=)(prefer|require|verify-ca)(?=&|$)/i,
+    '$1verify-full'
+  )
+}
+
+const connectionString = normalizePostgresSslMode(process.env.DATABASE_URL || '')
 
 const prismaClientOptions: PrismaClientOptions = {
   adapter: new PrismaPg({ connectionString }),

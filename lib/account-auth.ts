@@ -22,6 +22,23 @@ type SessionUser = {
   role: string
 }
 
+type CachedSessionUser = {
+  cacheExpiresAt: number
+  sessionExpiresAt: number
+  user: SessionUser
+}
+
+const SESSION_CACHE_TTL_MS = 30_000
+const globalForAccountAuth = globalThis as typeof globalThis & {
+  accountSessionCache?: Map<string, CachedSessionUser>
+}
+const accountSessionCache =
+  globalForAccountAuth.accountSessionCache || new Map<string, CachedSessionUser>()
+
+if (process.env.NODE_ENV !== 'production') {
+  globalForAccountAuth.accountSessionCache = accountSessionCache
+}
+
 type CreateAuthUserInput = {
   username: string
   email: string
@@ -247,14 +264,23 @@ export async function deleteAccountSession(rawToken: string | undefined) {
     return
   }
 
+  const tokenHash = hashAccountSessionToken(rawToken)
+  accountSessionCache.delete(tokenHash)
+
   await prisma.authSession.deleteMany({
     where: {
-      sessionTokenHash: hashAccountSessionToken(rawToken),
+      sessionTokenHash: tokenHash,
     },
   })
 }
 
 export async function deleteAccountSessionsForUser(userId: string) {
+  for (const [tokenHash, session] of accountSessionCache) {
+    if (session.user.id === userId) {
+      accountSessionCache.delete(tokenHash)
+    }
+  }
+
   await prisma.authSession.deleteMany({
     where: { userId },
   })
@@ -351,12 +377,36 @@ export async function getAccountSessionUserFromToken(rawToken: string | undefine
     return null
   }
 
+  const now = Date.now()
+  const tokenHash = hashAccountSessionToken(rawToken)
+  const cachedSession = accountSessionCache.get(tokenHash)
+
+  if (
+    cachedSession &&
+    cachedSession.cacheExpiresAt > now &&
+    cachedSession.sessionExpiresAt > now
+  ) {
+    return cachedSession.user
+  }
+
+  accountSessionCache.delete(tokenHash)
+
   const session = await prisma.authSession.findUnique({
     where: {
-      sessionTokenHash: hashAccountSessionToken(rawToken),
+      sessionTokenHash: tokenHash,
     },
-    include: {
-      user: true,
+    select: {
+      expiresAt: true,
+      user: {
+        select: {
+          id: true,
+          username: true,
+          email: true,
+          displayName: true,
+          role: true,
+          isActive: true,
+        },
+      },
     },
   })
 
@@ -365,13 +415,21 @@ export async function getAccountSessionUserFromToken(rawToken: string | undefine
     return null
   }
 
-  return {
+  const user = {
     id: session.user.id,
     username: session.user.username,
     email: session.user.email,
     displayName: session.user.displayName,
     role: session.user.role,
   }
+
+  accountSessionCache.set(tokenHash, {
+    cacheExpiresAt: Math.min(now + SESSION_CACHE_TTL_MS, session.expiresAt.getTime()),
+    sessionExpiresAt: session.expiresAt.getTime(),
+    user,
+  })
+
+  return user
 }
 
 export const getAccountSessionUser = cache(async (): Promise<SessionUser | null> => {

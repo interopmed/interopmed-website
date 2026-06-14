@@ -1,5 +1,5 @@
 import UserPageLoading from '@/components/UserPageLoading'
 
-export default function InteropMindRedirectLoading() {
+export default function InteropMindLoading() {
   return <UserPageLoading variant="dashboard" />
 }
