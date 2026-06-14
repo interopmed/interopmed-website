@@ -100,7 +100,7 @@ export default async function UserAccountPage() {
   const currentSessionHash = rawToken ? hashAccountSessionToken(rawToken) : null
   const now = new Date()
 
-  const [account, preferences, supportRequests, authoredArticleCount, posts] = await Promise.all([
+  const [account, savedPreferences, supportRequests, posts] = await Promise.all([
     prisma.authUser.findUnique({
       where: { id: user.id },
       select: {
@@ -132,12 +132,15 @@ export default async function UserAccountPage() {
             usedAt: true,
           },
         },
+        _count: {
+          select: {
+            articles: true,
+          },
+        },
       },
     }),
-    prisma.authNotificationPreference.upsert({
+    prisma.authNotificationPreference.findUnique({
       where: { userId: user.id },
-      create: { userId: user.id },
-      update: {},
       select: {
         accountUpdates: true,
         productNotes: true,
@@ -162,13 +165,10 @@ export default async function UserAccountPage() {
         createdAt: true,
       },
     }),
-    prisma.article.count({
-      where: { accountAuthorId: user.id },
-    }),
     prisma.userPost.findMany({
       where: { status: 'published' },
       orderBy: { createdAt: 'desc' },
-      take: 12,
+      take: 8,
       select: {
         id: true,
         content: true,
@@ -187,7 +187,7 @@ export default async function UserAccountPage() {
         comments: {
           where: { status: 'published' },
           orderBy: { createdAt: 'asc' },
-          take: 8,
+          take: 4,
           select: {
             id: true,
             content: true,
@@ -213,6 +213,15 @@ export default async function UserAccountPage() {
     return null
   }
 
+  const preferences = savedPreferences || {
+    accountUpdates: true,
+    productNotes: false,
+    supportReplies: true,
+    securityAlerts: true,
+    weeklyDigest: false,
+    updatedAt: account.createdAt,
+  }
+  const authoredArticleCount = account._count.articles
   const displayName = account.displayName || account.username
   const activeSessions = account.sessions.filter((session) => session.expiresAt > now)
   const otherActiveSessions = activeSessions.filter((session) => session.sessionTokenHash !== currentSessionHash)
