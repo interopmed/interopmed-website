@@ -133,7 +133,7 @@ export default function APIPlayground() {
   const handleFetch = async () => {
     setLoading(true)
     // Simulate API call delay
-    await new Promise(resolve => setTimeout(resolve, 800))
+    await new Promise(resolve => setTimeout(resolve, 100))
     setResponse(mockData[selectedResource as keyof typeof mockData])
     setLoading(false)
   }
