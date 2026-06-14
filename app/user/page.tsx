@@ -1,5 +1,6 @@
 import { cookies } from 'next/headers'
 import Link from 'next/link'
+import { Suspense } from 'react'
 import AccountBreadcrumb from '@/components/AccountBreadcrumb'
 import AccountPostFeed from '@/components/AccountPostFeed'
 import {
@@ -95,12 +96,127 @@ const interoperabilityTracks = [
 
 export default async function UserAccountPage() {
   const user = await requireMemberUser('/user')
+
+  return (
+    <Suspense fallback={<DashboardDataLoading />}>
+      <UserAccountDashboard user={user} />
+    </Suspense>
+  )
+}
+
+function DashboardDataLoading() {
+  return (
+    <main className="bg-slate-100 py-4 text-slate-950 dark:bg-slate-950 dark:text-white md:py-6">
+      <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+        <p className="text-sm font-semibold text-teal-700 dark:text-teal-300">Account ready</p>
+        <h1 className="mt-2 text-2xl font-bold">Loading dashboard data...</h1>
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
+          Your workspace is open while the latest account activity is fetched.
+        </p>
+      </div>
+    </main>
+  )
+}
+
+function PostFeedLoading() {
+  return (
+    <section className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Workspace feed</p>
+      <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Loading recent posts...</p>
+    </section>
+  )
+}
+
+async function DashboardPostFeed({
+  currentUser,
+}: {
+  currentUser: {
+    id: string
+    username: string
+    displayName: string | null
+    role: string
+  }
+}) {
+  const posts = await prisma.userPost.findMany({
+    where: { status: 'published' },
+    orderBy: { createdAt: 'desc' },
+    take: 8,
+    select: {
+      id: true,
+      content: true,
+      topic: true,
+      visibility: true,
+      createdAt: true,
+      updatedAt: true,
+      author: {
+        select: {
+          id: true,
+          username: true,
+          displayName: true,
+          role: true,
+        },
+      },
+      comments: {
+        where: { status: 'published' },
+        orderBy: { createdAt: 'asc' },
+        take: 4,
+        select: {
+          id: true,
+          content: true,
+          createdAt: true,
+          author: {
+            select: {
+              id: true,
+              username: true,
+              displayName: true,
+              role: true,
+            },
+          },
+        },
+      },
+      _count: {
+        select: { comments: true },
+      },
+    },
+  })
+
+  const serializedPosts = posts.map((post) => ({
+    id: post.id,
+    content: post.content,
+    topic: post.topic,
+    visibility: post.visibility,
+    createdAt: post.createdAt.toISOString(),
+    updatedAt: post.updatedAt.toISOString(),
+    author: post.author,
+    comments: post.comments.map((comment) => ({
+      id: comment.id,
+      content: comment.content,
+      createdAt: comment.createdAt.toISOString(),
+      author: comment.author,
+    })),
+    commentCount: post._count.comments,
+  }))
+
+  return <AccountPostFeed currentUser={currentUser} initialPosts={serializedPosts} />
+}
+
+async function UserAccountDashboard({
+  user,
+}: {
+  user: {
+    id: string
+    username: string
+    email: string
+    displayName: string | null
+    role: string
+  }
+}) {
   const cookieStore = await cookies()
   const rawToken = cookieStore.get(ACCOUNT_SESSION_COOKIE)?.value
   const currentSessionHash = rawToken ? hashAccountSessionToken(rawToken) : null
   const now = new Date()
 
-  const [account, savedPreferences, supportRequests, posts] = await Promise.all([
+  const [account, savedPreferences, supportRequests] = await Promise.all([
     prisma.authUser.findUnique({
       where: { id: user.id },
       select: {
@@ -165,48 +281,6 @@ export default async function UserAccountPage() {
         createdAt: true,
       },
     }),
-    prisma.userPost.findMany({
-      where: { status: 'published' },
-      orderBy: { createdAt: 'desc' },
-      take: 8,
-      select: {
-        id: true,
-        content: true,
-        topic: true,
-        visibility: true,
-        createdAt: true,
-        updatedAt: true,
-        author: {
-          select: {
-            id: true,
-            username: true,
-            displayName: true,
-            role: true,
-          },
-        },
-        comments: {
-          where: { status: 'published' },
-          orderBy: { createdAt: 'asc' },
-          take: 4,
-          select: {
-            id: true,
-            content: true,
-            createdAt: true,
-            author: {
-              select: {
-                id: true,
-                username: true,
-                displayName: true,
-                role: true,
-              },
-            },
-          },
-        },
-        _count: {
-          select: { comments: true },
-        },
-      },
-    }),
   ])
 
   if (!account) {
@@ -248,22 +322,6 @@ export default async function UserAccountPage() {
   ]
   const profileCompletion = Math.round((profileChecks.filter(Boolean).length / profileChecks.length) * 100)
   const latestResetToken = account.passwordResetTokens[0]
-  const serializedPosts = posts.map((post) => ({
-    id: post.id,
-    content: post.content,
-    topic: post.topic,
-    visibility: post.visibility,
-    createdAt: post.createdAt.toISOString(),
-    updatedAt: post.updatedAt.toISOString(),
-    author: post.author,
-    comments: post.comments.map((comment) => ({
-      id: comment.id,
-      content: comment.content,
-      createdAt: comment.createdAt.toISOString(),
-      author: comment.author,
-    })),
-    commentCount: post._count.comments,
-  }))
   const currentFeedUser = {
     id: user.id,
     username: user.username,
@@ -493,7 +551,9 @@ export default async function UserAccountPage() {
                 </div>
               </div>
 
-              <AccountPostFeed currentUser={currentFeedUser} initialPosts={serializedPosts} />
+              <Suspense fallback={<PostFeedLoading />}>
+                <DashboardPostFeed currentUser={currentFeedUser} />
+              </Suspense>
 
               <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
