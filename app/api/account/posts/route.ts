@@ -47,8 +47,9 @@ export async function GET(request: NextRequest) {
         author: {
           select: {
             id: true,
-            username: true,
+            publicHandle: true,
             displayName: true,
+            profileImage: true,
             role: true,
           },
         },
@@ -63,8 +64,9 @@ export async function GET(request: NextRequest) {
             author: {
               select: {
                 id: true,
-                username: true,
+                publicHandle: true,
                 displayName: true,
+                profileImage: true,
                 role: true,
               },
             },
@@ -154,8 +156,9 @@ export async function POST(request: NextRequest) {
         author: {
           select: {
             id: true,
-            username: true,
+            publicHandle: true,
             displayName: true,
+            profileImage: true,
             role: true,
           },
         },
@@ -167,8 +170,9 @@ export async function POST(request: NextRequest) {
             author: {
               select: {
                 id: true,
-                username: true,
+                publicHandle: true,
                 displayName: true,
+                profileImage: true,
                 role: true,
               },
             },

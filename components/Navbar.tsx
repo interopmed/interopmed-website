@@ -12,6 +12,8 @@ type AccountSessionUser = {
 }
 
 const navItems = [
+  { href: '/stream', label: 'Stream' },
+  { href: '/people', label: 'People' },
   { href: '/workflows', label: 'Workflows' },
   { href: '/learn', label: 'Learn' },
   { href: '/knowledge', label: 'Knowledge' },

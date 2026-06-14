@@ -1,11 +1,12 @@
 'use client'
 
 import { FormEvent, useState } from 'react'
+import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 type FeedAuthor = {
   id: string
-  username: string
+  publicHandle: string
   displayName: string | null
   role: string
 }
@@ -32,6 +33,7 @@ type FeedPost = {
 type AccountPostFeedProps = {
   currentUser: FeedAuthor
   initialPosts: FeedPost[]
+  variant?: 'account' | 'network'
 }
 
 type SubmitState = {
@@ -72,7 +74,7 @@ function formatRelative(value: string) {
 }
 
 function displayName(author: FeedAuthor) {
-  return author.displayName || author.username
+  return author.displayName || author.publicHandle
 }
 
 function initialFor(author: FeedAuthor) {
@@ -83,11 +85,12 @@ function topicLabel(value: string) {
   return topicOptions.find((option) => option.value === value)?.label || 'General'
 }
 
-export default function AccountPostFeed({ currentUser, initialPosts }: AccountPostFeedProps) {
+export default function AccountPostFeed({ currentUser, initialPosts, variant = 'account' }: AccountPostFeedProps) {
   const router = useRouter()
   const [posts, setPosts] = useState(initialPosts)
   const [postState, setPostState] = useState<SubmitState>({ status: 'idle', message: '' })
   const [commentStates, setCommentStates] = useState<Record<string, SubmitState>>({})
+  const isNetwork = variant === 'network'
 
   async function handlePostSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -187,7 +190,7 @@ export default function AccountPostFeed({ currentUser, initialPosts }: AccountPo
   }
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <div className={isNetwork ? 'space-y-4' : 'rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900'}>
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <div>
           <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Professional feed</p>
@@ -198,7 +201,12 @@ export default function AccountPostFeed({ currentUser, initialPosts }: AccountPo
         </div>
       </div>
 
-      <form onSubmit={handlePostSubmit} className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
+      <form
+        onSubmit={handlePostSubmit}
+        className={isNetwork
+          ? 'rounded-2xl bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.06),0_8px_30px_rgba(15,23,42,0.04)] dark:bg-slate-900'
+          : 'mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950'}
+      >
         <div className="flex gap-3">
           <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-slate-950 text-sm font-bold text-white dark:bg-white dark:text-slate-950">
             {initialFor(currentUser)}
@@ -209,10 +217,10 @@ export default function AccountPostFeed({ currentUser, initialPosts }: AccountPo
               <textarea
                 required
                 name="content"
-                rows={4}
+                rows={isNetwork ? 3 : 4}
                 maxLength={1200}
                 placeholder="Start a post: share an update, implementation question, workflow note, or field observation..."
-                className="w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                className={`${isNetwork ? 'min-h-24 rounded-xl border-slate-200 bg-slate-50' : 'rounded-lg border-slate-300 bg-white'} w-full resize-y border px-4 py-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-950 dark:text-white`}
               />
             </label>
             <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -247,16 +255,26 @@ export default function AccountPostFeed({ currentUser, initialPosts }: AccountPo
         </div>
       </form>
 
-      <div className="mt-6 space-y-4">
+      <div className={isNetwork ? 'space-y-4' : 'mt-6 space-y-4'}>
         {posts.map((post) => (
-          <article key={post.id} className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+          <article
+            key={post.id}
+            className={isNetwork
+              ? 'rounded-2xl bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.06),0_8px_30px_rgba(15,23,42,0.04)] dark:bg-slate-900'
+              : 'rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950'}
+          >
             <div className="flex gap-3">
               <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-slate-950 text-sm font-bold text-white dark:bg-white dark:text-slate-950">
                 {initialFor(post.author)}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <p className="font-semibold text-slate-950 dark:text-white">{displayName(post.author)}</p>
+                  <Link
+                    href={`/people/${encodeURIComponent(post.author.publicHandle)}`}
+                    className="font-semibold text-slate-950 transition hover:text-teal-700 dark:text-white dark:hover:text-teal-300"
+                  >
+                    {displayName(post.author)}
+                  </Link>
                   <span className="text-sm text-slate-400">{formatRelative(post.createdAt)}</span>
                   <span className="rounded-md border border-slate-200 bg-slate-50 px-2 py-0.5 text-[11px] font-semibold text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
                     {topicLabel(post.topic)}
@@ -277,7 +295,12 @@ export default function AccountPostFeed({ currentUser, initialPosts }: AccountPo
                       </div>
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
-                          <p className="text-sm font-semibold text-slate-950 dark:text-white">{displayName(comment.author)}</p>
+                          <Link
+                            href={`/people/${encodeURIComponent(comment.author.publicHandle)}`}
+                            className="text-sm font-semibold text-slate-950 transition hover:text-teal-700 dark:text-white dark:hover:text-teal-300"
+                          >
+                            {displayName(comment.author)}
+                          </Link>
                           <span className="text-xs text-slate-400">{formatRelative(comment.createdAt)}</span>
                         </div>
                         <p className="mt-1 whitespace-pre-wrap text-sm leading-6 text-slate-600 dark:text-slate-300">{comment.content}</p>

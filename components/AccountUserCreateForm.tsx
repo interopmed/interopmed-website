@@ -25,6 +25,7 @@ export default function AccountUserCreateForm() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: formData.get('username'),
+        publicHandle: formData.get('publicHandle'),
         email: formData.get('email'),
         displayName: formData.get('displayName'),
         password: formData.get('password'),
@@ -61,6 +62,15 @@ export default function AccountUserCreateForm() {
             required
             name="username"
             autoComplete="username"
+            className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+          />
+        </label>
+        <label className="block">
+          <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Public handle</span>
+          <input
+            required
+            name="publicHandle"
+            pattern="[a-zA-Z0-9-]+"
             className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
           />
         </label>

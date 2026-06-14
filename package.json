@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "prisma generate",
     "dev": "next dev",
     "prebuild": "prisma generate",
     "build": "next build",
     "start": "next start",
+    "seed:social": "node scripts/seed-social-users.mjs",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit"
   },

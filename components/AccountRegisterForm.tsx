@@ -32,6 +32,7 @@ export default function AccountRegisterForm({ redirectTo = '/account' }: { redir
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: formData.get('username'),
+        publicHandle: formData.get('publicHandle'),
         email: formData.get('email'),
         displayName: formData.get('displayName'),
         password,
@@ -58,7 +59,7 @@ export default function AccountRegisterForm({ redirectTo = '/account' }: { redir
     >
       <h1 className="mb-3 text-3xl font-bold text-slate-950 dark:text-white">Create account</h1>
       <p className="mb-6 text-sm leading-6 text-slate-600 dark:text-slate-400">
-        Register a real InteropMed account with your own username, email, and password.
+        Your login username stays private. Your public handle is used for your profile URL and community identity.
       </p>
 
       <label className="block">
@@ -70,6 +71,19 @@ export default function AccountRegisterForm({ redirectTo = '/account' }: { redir
           autoComplete="username"
           className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
         />
+      </label>
+
+      <label className="mt-4 block">
+        <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Public handle</span>
+        <input
+          required
+          type="text"
+          name="publicHandle"
+          placeholder="your-public-name"
+          pattern="[a-zA-Z0-9-]+"
+          className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-slate-950 outline-none transition focus:border-teal-500 focus:ring-4 focus:ring-teal-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+        />
+        <span className="mt-1 block text-xs text-slate-500">Public URL: /people/your-public-name</span>
       </label>
 
       <label className="mt-4 block">

@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
 
     const user = await createAuthUser({
       username: body.username,
+      publicHandle: body.publicHandle,
       email: body.email,
       displayName: body.displayName,
       password: body.password,
@@ -30,6 +31,7 @@ export async function POST(request: NextRequest) {
           user: {
             id: user.id,
             username: user.username,
+            publicHandle: user.publicHandle,
             email: user.email,
             displayName: user.displayName,
             role: user.role,
@@ -53,9 +55,10 @@ export async function POST(request: NextRequest) {
     console.error('Error registering account user:', error)
     const message = error instanceof Error ? error.message : 'Failed to register account'
     const status =
-      message === 'A user with that username or email already exists'
+      message === 'A user with that username, public handle, or email already exists'
         ? 409
-        : message === 'username, email, and a password of at least 8 characters are required'
+        : message === 'username, public handle, email, and a password of at least 8 characters are required' ||
+            message === 'Public handle must be between 3 and 60 characters'
           ? 400
           : 500
 

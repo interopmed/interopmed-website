@@ -91,8 +91,9 @@ export async function POST(request: NextRequest, { params }: CommentRouteProps) 
         author: {
           select: {
             id: true,
-            username: true,
+            publicHandle: true,
             displayName: true,
+            profileImage: true,
             role: true,
           },
         },

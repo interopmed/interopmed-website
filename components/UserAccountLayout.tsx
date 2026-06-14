@@ -10,6 +10,7 @@ const publicUserPaths = ['/user/login']
 
 type UserAccountLayoutUser = {
   username: string
+  publicHandle: string
   email: string
   displayName: string | null
   role: string
@@ -37,7 +38,6 @@ const userNav = [
   {
     label: 'Account',
     items: [
-      { href: '/user/profile', label: 'Profile', detail: 'Identity details', badge: '', icon: 'user' },
       { href: '/user/settings', label: 'Settings', detail: 'Account preferences', badge: '', icon: 'settings' },
       { href: '/user/security', label: 'Security', detail: 'Password and access', badge: '', icon: 'shield' },
       { href: '/user/notifications', label: 'Notifications', detail: 'Received updates', badge: '', icon: 'bell' },
@@ -446,11 +446,11 @@ export default function UserAccountLayout({ children, user }: UserAccountLayoutP
                       </div>
                       <div className="my-1 border-t border-slate-200 dark:border-slate-800" />
                       <Link
-                        href="/user"
+                        href={`/people/${encodeURIComponent(user?.publicHandle || '')}`}
                         onClick={() => setIsHeaderProfileOpen(false)}
                         className="block rounded-md px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 hover:text-slate-950 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
                       >
-                        Profile
+                        View profile
                       </Link>
                       <Link
                         href="/user/settings"

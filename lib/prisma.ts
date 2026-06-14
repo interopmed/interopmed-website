@@ -4,7 +4,12 @@ import { PrismaPg } from '@prisma/adapter-pg'
 type PrismaClientInstance = InstanceType<typeof PrismaClient>
 type PrismaClientOptions = ConstructorParameters<typeof PrismaClient>[0]
 
-const globalForPrisma = global as unknown as { prisma?: PrismaClientInstance }
+const PRISMA_SCHEMA_VERSION = '20260614231500_auth_user_profile_image'
+
+const globalForPrisma = global as unknown as {
+  prisma?: PrismaClientInstance
+  prismaSchemaVersion?: string
+}
 
 function normalizePostgresSslMode(connectionString: string) {
   return connectionString.replace(
@@ -21,13 +26,27 @@ const prismaClientOptions: PrismaClientOptions = {
 }
 
 function hasCurrentPrismaDelegates(client: PrismaClientInstance | undefined) {
-  return Boolean(client && 'userPost' in client && 'userPostComment' in client && 'interopMindThread' in client && 'interopMindMessage' in client)
+  return Boolean(
+    client &&
+      'userPost' in client &&
+      'userPostComment' in client &&
+      'userPostLike' in client &&
+      'userFollow' in client &&
+      'interopMindThread' in client &&
+      'interopMindMessage' in client
+  )
 }
 
-const existingPrisma = globalForPrisma.prisma
+const existingPrisma =
+  globalForPrisma.prismaSchemaVersion === PRISMA_SCHEMA_VERSION
+    ? globalForPrisma.prisma
+    : undefined
 
 export const prisma: PrismaClientInstance = hasCurrentPrismaDelegates(existingPrisma)
   ? existingPrisma as PrismaClientInstance
   : new PrismaClient(prismaClientOptions)
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+if (process.env.NODE_ENV !== 'production') {
+  globalForPrisma.prisma = prisma
+  globalForPrisma.prismaSchemaVersion = PRISMA_SCHEMA_VERSION
+}

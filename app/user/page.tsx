@@ -115,6 +115,7 @@ async function DashboardPostFeed({
   currentUser: {
     id: string
     username: string
+    publicHandle: string
     displayName: string | null
     role: string
   }
@@ -134,6 +135,7 @@ async function DashboardPostFeed({
         select: {
           id: true,
           username: true,
+          publicHandle: true,
           displayName: true,
           role: true,
         },
@@ -150,6 +152,7 @@ async function DashboardPostFeed({
             select: {
               id: true,
               username: true,
+              publicHandle: true,
               displayName: true,
               role: true,
             },
@@ -188,6 +191,7 @@ async function UserAccountDashboard({
   user: {
     id: string
     username: string
+    publicHandle: string
     email: string
     displayName: string | null
     role: string
@@ -203,6 +207,7 @@ async function UserAccountDashboard({
       where: { id: user.id },
       select: {
         username: true,
+        publicHandle: true,
         email: true,
         displayName: true,
         role: true,
@@ -279,6 +284,7 @@ async function UserAccountDashboard({
   }
   const authoredArticleCount = account._count.articles
   const displayName = account.displayName || account.username
+  const memberProfileHref = `/people/${encodeURIComponent(account.publicHandle)}`
   const activeSessions = account.sessions.filter((session) => session.expiresAt > now)
   const otherActiveSessions = activeSessions.filter((session) => session.sessionTokenHash !== currentSessionHash)
   const currentSession = account.sessions.find((session) => session.sessionTokenHash === currentSessionHash)
@@ -307,6 +313,7 @@ async function UserAccountDashboard({
   const currentFeedUser = {
     id: user.id,
     username: user.username,
+    publicHandle: user.publicHandle,
     displayName: user.displayName,
     role: user.role,
   }
@@ -364,7 +371,7 @@ async function UserAccountDashboard({
 
   const quickActions = [
     {
-      href: '/user/profile',
+      href: memberProfileHref,
       title: 'Profile',
       detail: account.displayName ? 'Identity details are present.' : 'Add a display name for a complete profile.',
       action: account.displayName ? 'View profile' : 'Complete profile',
@@ -435,7 +442,7 @@ async function UserAccountDashboard({
                       <p className="text-sm font-bold text-slate-950 dark:text-white">{openSupportCount}</p>
                     </div>
                   </div>
-                  <Link href="/user/profile" className="mt-4 inline-flex w-full justify-center rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
+                  <Link href={memberProfileHref} className="mt-4 inline-flex w-full justify-center rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
                     View profile
                   </Link>
                 </div>
@@ -496,7 +503,7 @@ async function UserAccountDashboard({
                       </div>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                      <Link href="/user/profile" className="inline-flex w-fit items-center rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
+                      <Link href={memberProfileHref} className="inline-flex w-fit items-center rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
                         View profile
                       </Link>
                       <Link href="/user/settings" className="inline-flex w-fit items-center rounded-lg border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">

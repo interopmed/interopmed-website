@@ -17,8 +17,10 @@ const PASSWORD_KEY_LENGTH = 64
 type SessionUser = {
   id: string
   username: string
+  publicHandle: string
   email: string
   displayName: string | null
+  profileImage: string | null
   role: string
 }
 
@@ -41,6 +43,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 type CreateAuthUserInput = {
   username: string
+  publicHandle?: string | null
   email: string
   displayName?: string | null
   password: string
@@ -60,6 +63,12 @@ function sha256(value: string) {
 
 export function hashAccountSessionToken(rawToken: string) {
   return sha256(rawToken)
+}
+
+export function invalidateAccountSessionCache(rawToken: string | undefined) {
+  if (rawToken) {
+    accountSessionCache.delete(hashAccountSessionToken(rawToken))
+  }
 }
 
 function encodePasswordHash(salt: Buffer, derivedKey: Buffer) {
@@ -105,6 +114,15 @@ export function normalizeDisplayName(value: unknown) {
   return normalized || null
 }
 
+export function normalizePublicHandle(value: unknown) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .replace(/-{2,}/g, '-')
+}
+
 export async function hashPassword(password: string) {
   const salt = randomBytes(PASSWORD_SALT_BYTES)
   const derivedKey = (await scrypt(password, salt, PASSWORD_KEY_LENGTH)) as Buffer
@@ -143,6 +161,7 @@ export async function ensureBootstrapAccount() {
   await prisma.authUser.create({
     data: {
       username: bootstrap.username,
+      publicHandle: normalizePublicHandle(bootstrap.displayName || bootstrap.username),
       email: bootstrap.email,
       displayName: bootstrap.displayName,
       role: 'admin',
@@ -202,27 +221,33 @@ export async function authenticateAccountDetailed(
 
 export async function createAuthUser(input: CreateAuthUserInput) {
   const username = normalizeAuthIdentifier(input.username)
+  const publicHandle = normalizePublicHandle(input.publicHandle)
   const email = normalizeAuthIdentifier(input.email)
   const displayName = normalizeDisplayName(input.displayName)
   const password = String(input.password || '')
 
-  if (!username || !email || password.length < 8) {
-    throw new Error('username, email, and a password of at least 8 characters are required')
+  if (!username || !publicHandle || !email || password.length < 8) {
+    throw new Error('username, public handle, email, and a password of at least 8 characters are required')
+  }
+
+  if (publicHandle.length < 3 || publicHandle.length > 60) {
+    throw new Error('Public handle must be between 3 and 60 characters')
   }
 
   const existingUser = await prisma.authUser.findFirst({
     where: {
-      OR: [{ username }, { email }],
+      OR: [{ username }, { publicHandle }, { email }],
     },
   })
 
   if (existingUser) {
-    throw new Error('A user with that username or email already exists')
+    throw new Error('A user with that username, public handle, or email already exists')
   }
 
   return prisma.authUser.create({
     data: {
       username,
+      publicHandle,
       email,
       displayName,
       role: input.role,
@@ -401,8 +426,10 @@ export async function getAccountSessionUserFromToken(rawToken: string | undefine
         select: {
           id: true,
           username: true,
+          publicHandle: true,
           email: true,
           displayName: true,
+          profileImage: true,
           role: true,
           isActive: true,
         },
@@ -418,8 +445,10 @@ export async function getAccountSessionUserFromToken(rawToken: string | undefine
   const user = {
     id: session.user.id,
     username: session.user.username,
+    publicHandle: session.user.publicHandle,
     email: session.user.email,
     displayName: session.user.displayName,
+    profileImage: session.user.profileImage,
     role: session.user.role,
   }
 
@@ -490,7 +519,14 @@ export function getSafeAccountRedirectPath(
     return fallback
   }
 
-  if (value.startsWith('/account') || value.startsWith('/user') || value.startsWith('/studio') || value.startsWith('/interopmind')) {
+  if (
+    value.startsWith('/account') ||
+    value.startsWith('/user') ||
+    value.startsWith('/people') ||
+    value.startsWith('/stream') ||
+    value.startsWith('/studio') ||
+    value.startsWith('/interopmind')
+  ) {
     return value
   }
 
