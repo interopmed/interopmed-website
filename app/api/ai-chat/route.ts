@@ -1,20 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { ACCOUNT_SESSION_COOKIE, getAccountSessionUserFromToken } from '@/lib/account-auth'
+import { runInteropMindAgent } from '@/lib/interopmind/agent-graph'
+import type { InteropMindChatMessage } from '@/lib/interopmind/types'
 import { prisma } from '@/lib/prisma'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const GROQ_CHAT_COMPLETIONS_URL = 'https://api.groq.com/openai/v1/chat/completions'
-
-type ChatMessage = {
-  role: 'user' | 'assistant'
-  content: string
-}
-
 type ChatRequest = {
   message?: string
-  messages?: ChatMessage[]
+  messages?: InteropMindChatMessage[]
   context?: string
   threadId?: string
   editMessageId?: string
@@ -34,53 +29,21 @@ type ChatResponse = {
     content: string
     createdAt: string
   }[]
-}
-
-type GroqResponse = {
-  choices?: {
-    message?: {
-      content?: string | null
-    }
-  }[]
-  error?: {
-    message?: string
+  agent?: {
+    intent: string
+    riskLevel: string
+    toolsUsed: string[]
+    provider: string
+    requiresHumanReview: boolean
   }
 }
 
-const systemPrompt = `
-You are InteropMind, InteropMed's healthcare interoperability AI assistant.
-
-Help signed-in users with practical healthcare interoperability work:
-- FHIR R4 resources, profiles, search, validation, implementation guides, and API rollout.
-- HL7 v2 ADT, ORM, ORU, SIU messages, segment interpretation, and v2-to-FHIR mapping.
-- Workflow planning for referrals, lab results, ADT routing, consent-aware access, and care coordination.
-- Implementation checklists, support request preparation, security, audit, privacy, and governance notes.
-
-Rules:
-- Be clear, practical, and concise.
-- Use short paragraphs, bullet lists, or numbered steps when that makes the answer easier to scan.
-- When explaining workflows, system architecture, message movement, or decision paths, include a compact diagram using a fenced block labeled flow or graph.
-- For diagrams, use one relationship per line, like: EHR -> Interface engine -> FHIR API -> Consumer app.
-- Ask for missing standard versions, message types, workflows, or payload details when needed.
-- Use synthetic examples only. Do not request or expose real PHI.
-- For production, clinical, legal, security, or compliance decisions, recommend human review.
-- If mapping legacy formats to FHIR, prefer compact tables with source, transformation logic, and target FHIR element.
-`
-
-function getGroqApiKey() {
-  return process.env.GROQ_API_KEY || ''
-}
-
-function getGroqTextModel() {
-  return process.env.GROQ_TEXT_MODEL || 'llama-3.3-70b-versatile'
-}
-
-function normalizeMessages(value: unknown, fallbackMessage: string): ChatMessage[] {
+function normalizeMessages(value: unknown, fallbackMessage: string): InteropMindChatMessage[] {
   const messages = Array.isArray(value)
     ? value
         .map((message) => {
           const item = message as { role?: unknown; content?: unknown }
-          const role: ChatMessage['role'] = item.role === 'assistant' ? 'assistant' : 'user'
+          const role: InteropMindChatMessage['role'] = item.role === 'assistant' ? 'assistant' : 'user'
 
           return {
             role,
@@ -134,51 +97,6 @@ async function getOrCreateThread(userId: string, threadId: string | undefined, f
   })
 }
 
-async function callGroq(messages: ChatMessage[], context: string | undefined) {
-  const apiKey = getGroqApiKey()
-
-  if (!apiKey) {
-    throw new Error('GROQ_API_KEY is not configured')
-  }
-
-  const contextPrompt = context
-    ? `${systemPrompt}\n\nCurrent workspace context: ${context}`
-    : systemPrompt
-
-  const response = await fetch(GROQ_CHAT_COMPLETIONS_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: getGroqTextModel(),
-      messages: [
-        {
-          role: 'system',
-          content: contextPrompt,
-        },
-        ...messages,
-      ],
-      temperature: 0.35,
-      max_tokens: 900,
-    }),
-  })
-  const result = (await response.json()) as GroqResponse
-
-  if (!response.ok) {
-    throw new Error(result.error?.message || 'Groq request failed')
-  }
-
-  const reply = result.choices?.[0]?.message?.content?.trim()
-
-  if (!reply) {
-    throw new Error('Groq returned an empty response')
-  }
-
-  return reply
-}
-
 export async function POST(request: NextRequest): Promise<NextResponse<ChatResponse>> {
   try {
     const accountUser = await getAccountSessionUserFromToken(
@@ -198,11 +116,21 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
     const messages = normalizeMessages(body.messages, message)
 
     if (!accountUser) {
-      const reply = await callGroq(messages, body.context)
+      const agentResult = await runInteropMindAgent({
+        messages,
+        context: body.context,
+      })
 
       return NextResponse.json({
-        reply,
+        reply: agentResult.reply,
         success: true,
+        agent: {
+          intent: agentResult.intent,
+          riskLevel: agentResult.riskLevel,
+          toolsUsed: agentResult.toolsUsed,
+          provider: agentResult.provider,
+          requiresHumanReview: agentResult.requiresHumanReview,
+        },
         messages: [
           {
             id: `guest-user-${crypto.randomUUID()}`,
@@ -213,7 +141,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
           {
             id: `guest-assistant-${crypto.randomUUID()}`,
             role: 'assistant',
-            content: reply,
+            content: agentResult.reply,
             createdAt: new Date().toISOString(),
           },
         ],
@@ -265,12 +193,16 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
         createdAt: true,
       },
     })
-    const reply = await callGroq(messages, body.context)
+    const agentResult = await runInteropMindAgent({
+      messages,
+      context: body.context,
+      userId: accountUser.id,
+    })
     const assistantMessage = await prisma.interopMindMessage.create({
       data: {
         threadId: thread.id,
         role: 'assistant',
-        content: reply,
+        content: agentResult.reply,
       },
       select: {
         id: true,
@@ -292,8 +224,15 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
     })
 
     return NextResponse.json({
-      reply,
+      reply: agentResult.reply,
       success: true,
+      agent: {
+        intent: agentResult.intent,
+        riskLevel: agentResult.riskLevel,
+        toolsUsed: agentResult.toolsUsed,
+        provider: agentResult.provider,
+        requiresHumanReview: agentResult.requiresHumanReview,
+      },
       thread: {
         id: updatedThread.id,
         title: updatedThread.title,

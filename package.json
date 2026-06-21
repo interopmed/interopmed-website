@@ -13,6 +13,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@langchain/core": "^1.2.0",
+    "@langchain/langgraph": "^1.4.4",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "next": "16.2.6",
