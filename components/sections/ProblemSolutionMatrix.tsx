@@ -1,19 +1,19 @@
 const items = [
   {
-    problem: 'Too many locked systems',
-    solution: 'Connect systems using common healthcare standards, so your data is easier to move, share, and reuse.',
+    problem: 'Systems are disconnected',
+    solution: 'Create a shared layer for records, lab results, device signals, and workflow events.',
   },
   {
-    problem: 'Patient data is scattered',
-    solution: 'Bring patient, visit, result, and document information into a clearer structure that teams can understand.',
+    problem: 'Device data is hard to use',
+    solution: 'Turn monitoring devices, wearables, IoT, and smart infrastructure signals into reviewable context.',
   },
   {
-    problem: 'Clinical apps need fast answers',
-    solution: 'Organize data so dashboards, APIs, and care tools can find the right information more reliably.',
+    problem: 'Teams need control',
+    solution: 'Plan access, audit, validation, and human review before data moves into workflows.',
   },
   {
-    problem: 'Trust is hard to manage',
-    solution: 'Add checks for access, data quality, audit history, and review steps before information is shared.',
+    problem: 'Knowledge gets scattered',
+    solution: 'Use the professional stream and insights layer to keep implementation lessons visible.',
   },
 ]
 
@@ -26,7 +26,7 @@ export default function ProblemSolutionMatrix() {
             Why it matters
           </p>
           <h2 className="text-4xl font-bold text-slate-950 dark:text-white md:text-5xl">
-            Make healthcare data easier to connect, check, and trust.
+            Make healthcare technology easier to connect and understand.
           </h2>
         </div>
 

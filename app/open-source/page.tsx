@@ -27,7 +27,7 @@ const freeTools = [
 ]
 
 const premiumPath = [
-  'SHIN Platform subscription',
+  'InteropMed platform subscription',
   'Managed connectors',
   'Governance console',
   'Implementation packages',
@@ -49,7 +49,7 @@ export default function OpenSourcePage() {
                 Open-source FHIR utilities that help teams start faster.
               </h1>
               <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
-                InteropMed can use free utilities, SDKs, documentation, examples, and demo connectors to earn developer trust before a team needs the premium SHIN production platform.
+                InteropMed can use free utilities, SDKs, documentation, examples, and demo connectors to earn developer trust before a team needs a governed production platform.
               </p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <Link

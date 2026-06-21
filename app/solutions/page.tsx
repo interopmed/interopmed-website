@@ -4,45 +4,45 @@ import Footer from '@/components/Footer'
 import SiteCTA from '@/components/SiteCTA'
 
 export const metadata = {
-  title: 'Planned Solutions | InteropMed',
-  description: 'Planned InteropMed solution areas for EHR/EMR, lab systems, monitoring devices, wearables, healthcare IoT, smart hospital infrastructure, AI workflows, and professional knowledge sharing.',
+  title: 'Solutions | InteropMed',
+  description: 'InteropMed solution areas for EHR/EMR, lab systems, monitoring devices, wearables, healthcare IoT, smart hospital infrastructure, AI workflows, and professional knowledge sharing.',
 }
 
 const solutionAreas = [
   {
     title: 'EHR/EMR Connectivity',
     audience: 'Hospitals, clinics, care teams',
-    detail: 'A planned integration layer for patient records, visits, referrals, prescriptions, documents, and clinical workflow exchange.',
+    detail: 'Connect patient records, visits, referrals, prescriptions, documents, and clinical workflow exchange.',
   },
   {
     title: 'Laboratory System Integration',
     audience: 'Labs, diagnostics, clinicians',
-    detail: 'A planned pathway for LIS platforms, lab orders, results, analyzer feeds, abnormal flags, units, and terminology mapping.',
+    detail: 'Support LIS workflows, lab orders, results, analyzer feeds, abnormal flags, units, and terminology mapping.',
   },
   {
     title: 'Monitoring Device Data',
     audience: 'ICU, wards, remote monitoring teams',
-    detail: 'A planned model for supported bedside monitor, ICU telemetry, and remote monitoring data to reach review workflows.',
+    detail: 'Move supported bedside monitor, ICU telemetry, and remote monitoring signals into review workflows.',
   },
   {
     title: 'Wearables And Remote Care',
     audience: 'Home care, RPM, chronic care programs',
-    detail: 'A planned approach for wearable and home-care observations to become longitudinal patient context instead of isolated readings.',
+    detail: 'Turn wearable and home-care observations into longitudinal patient context instead of isolated readings.',
   },
   {
     title: 'Healthcare IoT',
     audience: 'Operations, facilities, digital teams',
-    detail: 'A planned layer for room sensors, environmental data, occupancy, equipment status, and operational healthcare IoT signals.',
+    detail: 'Connect room sensors, environmental data, occupancy, equipment status, and operational healthcare IoT signals.',
   },
   {
     title: 'Smart Hospital Infrastructure',
     audience: 'Smart hospital and OT teams',
-    detail: 'A planned integration direction for smart beds, OT lights, nurse-call systems, room sensors, and connected equipment.',
+    detail: 'Bring smart beds, OT lights, nurse-call systems, room sensors, and connected equipment into usable workflows.',
   },
   {
     title: 'AI-Assisted Workflows',
     audience: 'Integration, support, product teams',
-    detail: 'A planned AI support layer for mapping, workflow planning, support triage, documentation, and architecture review under human approval.',
+    detail: 'Assist mapping, workflow planning, support triage, documentation, and architecture review under human approval.',
   },
   {
     title: 'Professional Stream',
@@ -66,7 +66,7 @@ const workflowSteps = [
   },
   {
     step: 'Pilot',
-    detail: 'Start with a narrow, low-risk workflow using synthetic, sandbox, or non-PHI data where possible.',
+    detail: 'Test a narrow workflow using synthetic, sandbox, or non-PHI data where possible.',
   },
 ]
 
@@ -85,10 +85,10 @@ export default function SolutionsPage() {
           <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div>
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
-                Planned solutions
+                Solutions
               </p>
               <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
-                Building toward one layer for connected healthcare.
+                A simple map of what InteropMed focuses on.
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
                 InteropMed is designed as a technology layer for healthcare data, clinical systems, lab workflows, devices, wearables, IoT, smart hospital infrastructure, AI-assisted workflows, and professional knowledge sharing.
@@ -137,10 +137,10 @@ export default function SolutionsPage() {
                 Solution areas
               </p>
               <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
-                What InteropMed is planned to cover.
+                Eight focus areas, one connected direction.
               </h2>
               <p className="mt-5 text-base leading-7 text-slate-600 dark:text-slate-300">
-                These are the focus areas for research, architecture, partner conversations, and future pilot workflows.
+                These areas guide architecture, partner conversations, workflow discovery, and practical implementation planning.
               </p>
             </div>
 
@@ -173,7 +173,7 @@ export default function SolutionsPage() {
                 </h2>
               </div>
               <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
-                InteropMed should begin with focused pilot conversations rather than broad product claims. The safest path is to validate one workflow, one data source, and one clear operational goal.
+                The clearest path is to validate one workflow, one data source, and one operational goal before expanding the integration.
               </p>
             </div>
 
@@ -192,9 +192,9 @@ export default function SolutionsPage() {
         </section>
 
         <SiteCTA
-          eyebrow="Early collaboration"
+          eyebrow="Collaboration"
           title="Have a healthcare integration problem worth exploring?"
-          description="Share the workflow, system, device, lab, wearable, IoT, or smart hospital challenge. InteropMed can use it to shape the roadmap and future pilot direction."
+          description="Share the workflow, system, device, lab, wearable, IoT, or smart hospital challenge. InteropMed can use it to shape the roadmap and implementation direction."
           primaryHref="/contact"
           primaryLabel="Discuss collaboration"
           secondaryHref="/smart-hospital"

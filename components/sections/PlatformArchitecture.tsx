@@ -1,4 +1,4 @@
-export default function SHINArchitecture() {
+export default function PlatformArchitecture() {
   const layers = [
     {
       name: "Clinical Presentation",
@@ -31,7 +31,7 @@ export default function SHINArchitecture() {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            SHIN Architecture: Layer-by-Layer Precision
+            Platform Architecture: Layer-by-Layer Precision
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
             A meticulously engineered data pipeline from clinical ingestion through advanced analytics, built for mission-critical healthcare environments.

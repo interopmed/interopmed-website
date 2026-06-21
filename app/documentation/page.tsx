@@ -61,7 +61,7 @@ export default function DocumentationPage() {
                   Open-source FHIR utilities, SDKs, examples, and demo connectors.
                 </h2>
                 <p className="mb-6 text-base leading-7 text-slate-600 dark:text-slate-300">
-                  Use the free layer to experiment, prototype integrations, and understand InteropMed patterns before moving into SHIN deployment.
+                  Use the free layer to experiment, prototype integrations, and understand InteropMed patterns before moving into production deployment.
                 </p>
                 <Link
                   href="/open-source"
@@ -76,7 +76,7 @@ export default function DocumentationPage() {
                   Premium production layer
                 </p>
                 <h2 className="mb-4 text-2xl font-bold text-slate-950 dark:text-white">
-                  SHIN Platform, managed connectors, governance console, implementation packages, and managed operations.
+                  InteropMed platform, managed connectors, governance console, implementation packages, and managed operations.
                 </h2>
                 <p className="mb-6 text-base leading-7 text-slate-600 dark:text-slate-300">
                   When the workflow needs reliability, auditability, change control, and support, move from reference material into a production implementation plan.

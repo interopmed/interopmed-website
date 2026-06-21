@@ -15,14 +15,14 @@ export const documentationGuides: DocumentationGuide[] = [
   {
     slug: 'getting-started',
     title: 'Getting started',
-    description: 'Understand the SHIN platform model, core integration concepts, and the planning inputs needed before implementation.',
+    description: 'Understand the InteropMed platform model, core integration concepts, and the planning inputs needed before implementation.',
     category: 'Planning',
     sections: [
       {
         heading: 'Implementation overview',
         body: [
           'Start by defining the clinical workflows, source systems, destination systems, and governance owners involved in the interoperability program.',
-          'A successful SHIN implementation usually begins with one high-value workflow, a clear data contract, and a repeatable review model for future expansion.',
+          'A successful platform implementation usually begins with one high-value workflow, a clear data contract, and a repeatable review model for future expansion.',
         ],
       },
       {

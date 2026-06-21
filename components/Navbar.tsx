@@ -12,7 +12,6 @@ type AccountSessionUser = {
 }
 
 const navItems = [
-  { href: '/shin', label: 'Platform' },
   { href: '/solutions', label: 'Solutions' },
   { href: '/smart-hospital', label: 'Smart Hospital' },
   { href: '/ai-services', label: 'AI Services' },

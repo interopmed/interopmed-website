@@ -146,7 +146,7 @@ export default function APIPlayground() {
             Interactive FHIR API Playground
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Experience real-time FHIR resource retrieval from the SHIN platform. Select a resource type and click Fetch to see live structured healthcare data.
+            Preview FHIR resource retrieval from the InteropMed platform. Select a resource type and click Fetch to see structured healthcare data.
           </p>
         </div>
 
@@ -220,7 +220,7 @@ export default function APIPlayground() {
 
         <div className="mt-8 p-6 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg">
           <p className="text-sm text-slate-700 dark:text-slate-300">
-            <span className="font-semibold text-blue-600 dark:text-blue-400">Enterprise-Grade API:</span> SHIN&apos;s RESTful endpoints deliver validated FHIR R4 resources with full provenance tracking, access control enforcement, and sub-50ms latency. All requests are cryptographically signed and audit-logged.
+            <span className="font-semibold text-blue-600 dark:text-blue-400">Enterprise-grade API:</span> RESTful endpoints can deliver validated FHIR R4 resources with provenance tracking, access control enforcement, and audit logging.
           </p>
         </div>
       </div>

@@ -12,7 +12,7 @@ export default function ClinicalUseCases() {
     },
     {
       title: "Real-time Telemetry & IoT",
-      description: "Stream data from wireless physiological monitors into SHIN. Serverless functions trigger alerts when clinical thresholds breach, escalating to clinicians instantly.",
+      description: "Stream data from wireless physiological monitors into governed workflows. Serverless functions can trigger alerts when clinical thresholds breach, escalating to clinicians instantly.",
       metrics: ["<100ms latency", "Predictive alerting", "Seamless integration"]
     },
     {

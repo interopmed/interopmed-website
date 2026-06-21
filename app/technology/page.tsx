@@ -1,4 +1,4 @@
-import SHINArchitecture from '@/components/sections/SHINArchitecture'
+import PlatformArchitecture from '@/components/sections/PlatformArchitecture'
 import APIPlayground from '@/components/sections/APIPlayground'
 import HeroSection from '@/components/sections/HeroSection'
 import Navbar from '@/components/Navbar'
@@ -6,8 +6,8 @@ import Footer from '@/components/Footer'
 import SiteCTA from '@/components/SiteCTA'
 
 export const metadata = {
-  title: 'Technology | InteropMed - SHIN Platform Architecture',
-  description: 'Deep dive into SHIN platform architecture, FHIR-native design, and enterprise-grade technology stack.',
+  title: 'Technology | InteropMed Platform Architecture',
+  description: 'Deep dive into InteropMed platform architecture, FHIR-native design, and healthcare interoperability technology.',
 }
 
 export default function TechnologyPage() {
@@ -18,24 +18,24 @@ export default function TechnologyPage() {
         {/* Hero */}
         <HeroSection
           headline="Enterprise Architecture for Healthcare Data"
-          subheadline="SHIN represents a fundamental reimagining of health data middleware, built from the ground up with HL7 FHIR, PostgreSQL, and Python to handle the complexity of modern clinical networks."
+          subheadline="InteropMed is designed as a healthcare interoperability layer for clinical systems, labs, devices, IoT signals, and governed data workflows."
           cta="/contact"
           ctaText="Download Architecture Whitepaper"
           ctaHref="/contact"
         />
 
         {/* Architecture Deep Dive */}
-        <SHINArchitecture />
+        <PlatformArchitecture />
 
         {/* Technology Stack Details */}
         <section className="py-20 md:py-32 bg-slate-50 dark:bg-slate-900">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-                The Technology Stack: Why SHIN Wins
+                The Technology Stack
               </h2>
               <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-                Every technology choice in SHIN was made to solve a specific healthcare data challenge.
+                Every technology choice supports practical healthcare data exchange, governance, and workflow reliability.
               </p>
             </div>
 
@@ -47,7 +47,7 @@ export default function TechnologyPage() {
                   Data Layer: PostgreSQL + JSONB
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-6">
-                  HL7 FHIR resources are deeply nested, unstructured data. Traditional relational schemas force painful normalization. SHIN uses PostgreSQL&apos;s JSONB to store nested FHIR resources while maintaining ACID guarantees and powerful query capabilities.
+                  HL7 FHIR resources are deeply nested, unstructured data. Traditional relational schemas force painful normalization. The platform can use PostgreSQL&apos;s JSONB to store nested FHIR resources while maintaining ACID guarantees and powerful query capabilities.
                 </p>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
@@ -72,7 +72,7 @@ export default function TechnologyPage() {
                   Logic Engine: Python & Django
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-6">
-                  Healthcare requires complex validation logic, sophisticated access control, and integration pipelines. Python&apos;s ecosystem and Django&apos;s battle-tested ORM provide the foundation for SHIN&apos;s orchestration layer.
+                  Healthcare requires complex validation logic, sophisticated access control, and integration pipelines. Python&apos;s ecosystem and Django&apos;s battle-tested ORM can support a practical orchestration layer.
                 </p>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
@@ -122,7 +122,7 @@ export default function TechnologyPage() {
                   FHIR Integration Layer
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-6">
-                  SHIN consumes data from legacy clinical systems and modern APIs, normalizing priority workflows into HL7 FHIR R4-aligned resources. Proprietary formats are converted to standard, interoperable structures.
+                  The integration layer can consume data from legacy clinical systems and modern APIs, normalizing priority workflows into HL7 FHIR R4-aligned resources. Proprietary formats are converted to standard, interoperable structures.
                 </p>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">

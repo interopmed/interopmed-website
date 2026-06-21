@@ -43,8 +43,8 @@ const integrationFlow = [
 ]
 
 const boundaries = [
-  'InteropMed does not manufacture medical devices or hospital equipment.',
-  'InteropMed provides the software, integration, governance, and AI-assisted workflow layer.',
+  'InteropMed focuses on the software, integration, governance, and AI-assisted workflow layer.',
+  'Connected equipment remains managed through supported vendor interfaces and accountable hospital workflows.',
   'Clinical, compliance, and production decisions remain under accountable human review.',
 ]
 
@@ -129,7 +129,7 @@ export default function SmartHospitalPage() {
                 Technology provider
               </p>
               <h2 className="text-3xl font-bold md:text-5xl">
-                We connect the equipment. We do not manufacture it.
+                Make smart infrastructure part of the care workflow.
               </h2>
             </div>
             <div className="grid gap-3">

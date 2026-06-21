@@ -51,7 +51,7 @@ export const articles: BlogArticle[] = [
         heading: 'The path forward',
         body: [
           'Modern clinical networks should evaluate middleware by its ability to normalize data, preserve clinical meaning, enforce policy, and provide observable APIs. FHIR-native design gives those capabilities a strong foundation.',
-          'InteropMed built SHIN around that principle: one standards-aligned data layer that helps health systems move from fragmented integrations to dependable clinical data infrastructure.',
+          'InteropMed is shaped around that principle: one standards-aligned data layer that helps health systems move from fragmented integrations to dependable clinical data infrastructure.',
         ],
       },
     ],

@@ -405,10 +405,10 @@ async function UserAccountDashboard({
       action: 'Review guide',
     },
     {
-      href: '/shin',
-      title: 'Network architecture',
-      detail: 'Explore shared health information network patterns and interoperability layers.',
-      action: 'View architecture',
+      href: '/technology',
+      title: 'Technology architecture',
+      detail: 'Explore interoperability patterns, standards, interfaces, and implementation layers.',
+      action: 'View technology',
     },
   ]
 

@@ -35,7 +35,7 @@ export default function Footer() {
           <div>
             <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Platform</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/shin" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">SHIN Platform</Link></li>
+              <li><Link href="/solutions" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Solution Areas</Link></li>
               <li><Link href="/solutions" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Solutions</Link></li>
               <li><Link href="/smart-hospital" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Smart Hospital</Link></li>
               <li><Link href="/studio" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Studio</Link></li>
