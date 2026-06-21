@@ -55,18 +55,18 @@ export default function HomePage() {
       <Navbar />
       <main>
         <section className="bg-white dark:bg-slate-950">
-          <div className="mx-auto grid min-h-[calc(100vh-73px)] max-w-7xl gap-12 px-6 py-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:py-20">
+          <div className="mx-auto grid max-w-7xl gap-8 px-6 py-12 md:py-16 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div>
-              <p className="mb-5 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
+              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Connected healthcare technology
               </p>
               <h1 className="max-w-4xl text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 One clearer layer for healthcare systems, devices, and data.
               </h1>
-              <p className="mt-7 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
+              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
                 InteropMed focuses on the software layer between clinical systems, labs, monitoring devices, wearables, IoT, smart hospital infrastructure, and the people who need to understand that data.
               </p>
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-7 flex flex-col gap-4 sm:flex-row">
                 <Link
                   href="/solutions"
                   className="rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-7 py-3 text-center text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25"
@@ -107,9 +107,9 @@ export default function HomePage() {
           </div>
         </section>
 
-        <section className="bg-slate-50 py-16 dark:bg-slate-900 md:py-24">
+        <section className="bg-slate-50 py-14 dark:bg-slate-900 md:py-20">
           <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-10 max-w-3xl">
+            <div className="mb-8 max-w-3xl">
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Focus
               </p>
@@ -133,7 +133,7 @@ export default function HomePage() {
 
         <ProblemSolutionMatrix />
 
-        <section className="bg-white py-16 dark:bg-slate-950 md:py-24">
+        <section className="bg-white py-14 dark:bg-slate-950 md:py-20">
           <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
             <div>
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">

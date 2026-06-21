@@ -20,7 +20,7 @@ export default function SiteCTA({
   secondaryLabel = 'View documentation',
 }: SiteCTAProps) {
   return (
-    <section className="bg-white py-20 dark:bg-slate-950 md:py-28">
+    <section className="bg-white py-14 dark:bg-slate-950 md:py-20">
       <div className="mx-auto max-w-4xl px-6 text-center">
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
           {eyebrow}
@@ -28,7 +28,7 @@ export default function SiteCTA({
         <h2 className="mb-6 text-3xl font-bold text-slate-950 dark:text-white">
           {title}
         </h2>
-        <p className="mx-auto mb-8 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
+        <p className="mx-auto mb-7 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
           {description}
         </p>
         <div className="flex flex-col justify-center gap-4 md:flex-row">

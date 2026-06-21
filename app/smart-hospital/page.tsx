@@ -53,8 +53,8 @@ export default function SmartHospitalPage() {
     <>
       <Navbar />
       <main>
-        <section className="bg-white py-20 dark:bg-slate-950 md:py-28">
-          <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+        <section className="bg-white py-16 dark:bg-slate-950 md:py-20">
+          <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
             <div>
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Smart hospital IoT
@@ -62,10 +62,10 @@ export default function SmartHospitalPage() {
               <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 Connect smart hospital infrastructure to clinical workflows.
               </h1>
-              <p className="mt-6 text-base leading-7 text-slate-600 dark:text-slate-300">
+              <p className="mt-5 text-base leading-7 text-slate-600 dark:text-slate-300">
                 InteropMed connects smart beds, OT lights, nurse-call systems, patient monitors, wearables, IoT sensors, and operational equipment signals into one governed interoperability layer.
               </p>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-7 flex flex-col gap-4 sm:flex-row">
                 <Link
                   href="/contact"
                   className="rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-7 py-3 text-center text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25"
@@ -101,9 +101,9 @@ export default function SmartHospitalPage() {
           </div>
         </section>
 
-        <section className="bg-slate-50 py-16 dark:bg-slate-900">
+        <section className="bg-slate-50 py-14 dark:bg-slate-900 md:py-20">
           <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-10 max-w-3xl">
+            <div className="mb-8 max-w-3xl">
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 What can connect
               </p>
@@ -122,7 +122,7 @@ export default function SmartHospitalPage() {
           </div>
         </section>
 
-        <section className="bg-slate-950 py-16 text-white">
+        <section className="bg-slate-950 py-14 text-white md:py-20">
           <div className="mx-auto grid max-w-7xl gap-8 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
             <div>
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-300">

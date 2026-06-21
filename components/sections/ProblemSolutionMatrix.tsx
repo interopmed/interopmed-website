@@ -19,9 +19,9 @@ const items = [
 
 export default function ProblemSolutionMatrix() {
   return (
-    <section className="bg-slate-50 py-20 dark:bg-slate-900 md:py-28">
+    <section className="bg-slate-50 py-14 dark:bg-slate-900 md:py-20">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="mb-14 max-w-3xl">
+        <div className="mb-8 max-w-3xl">
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
             Why it matters
           </p>
