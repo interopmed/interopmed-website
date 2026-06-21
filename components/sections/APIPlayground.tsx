@@ -142,7 +142,7 @@ export default function APIPlayground() {
     <section className="py-20 md:py-32 bg-slate-50 dark:bg-slate-900">
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
             Interactive FHIR API Playground
           </h2>
           <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">

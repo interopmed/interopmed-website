@@ -66,7 +66,7 @@ export default async function DocumentationGuidePage({ params }: PageProps<'/doc
                 <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                   {guide.category}
                 </p>
-                <h1 className="mb-6 max-w-4xl text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
+                <h1 className="mb-6 max-w-4xl text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                   {guide.title}
                 </h1>
                 <p className="max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">

@@ -26,7 +26,7 @@ export default function SecurityCompliance() {
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-300">
               Trust layer
             </p>
-            <h2 className="text-4xl font-bold md:text-5xl">
+            <h2 className="text-3xl font-bold">
               Security and governance built into the data path.
             </h2>
             <p className="mt-6 text-lg leading-8 text-slate-300">

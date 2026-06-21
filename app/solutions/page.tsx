@@ -87,7 +87,7 @@ export default function SolutionsPage() {
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Solutions
               </p>
-              <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
+              <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 A simple map of what InteropMed focuses on.
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
@@ -136,7 +136,7 @@ export default function SolutionsPage() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Solution areas
               </p>
-              <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+              <h2 className="text-3xl font-bold text-slate-950 dark:text-white">
                 Eight focus areas, one connected direction.
               </h2>
               <p className="mt-5 text-base leading-7 text-slate-600 dark:text-slate-300">
@@ -168,7 +168,7 @@ export default function SolutionsPage() {
                 <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                   Pilot path
                 </p>
-                <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+                <h2 className="text-3xl font-bold text-slate-950 dark:text-white">
                   Start narrow, learn quickly, reduce risk.
                 </h2>
               </div>

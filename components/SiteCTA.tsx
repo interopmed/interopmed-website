@@ -25,7 +25,7 @@ export default function SiteCTA({
         <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
           {eyebrow}
         </p>
-        <h2 className="mb-6 text-4xl font-bold text-slate-950 dark:text-white md:text-5xl">
+        <h2 className="mb-6 text-3xl font-bold text-slate-950 dark:text-white">
           {title}
         </h2>
         <p className="mx-auto mb-8 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">

@@ -5,7 +5,7 @@ export default function CompanyPhilosophy() {
         <div className="grid gap-12 lg:grid-cols-2">
           <div className="space-y-6">
             <p className="text-sm uppercase tracking-[0.3em] text-teal-400">Philosophy</p>
-            <h2 className="text-4xl md:text-5xl font-bold">Clinical precision meets elite software engineering.</h2>
+            <h2 className="text-3xl font-bold">Clinical precision meets elite software engineering.</h2>
             <p className="text-lg text-slate-300 leading-relaxed">
               InteropMed operates at the precise intersection of clinical medicine and enterprise software. We build interoperability infrastructure for hospitals, specialty networks, and digital health ecosystems that demand uncompromising fidelity, resilience, and governance.
             </p>

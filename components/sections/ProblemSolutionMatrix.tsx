@@ -25,7 +25,7 @@ export default function ProblemSolutionMatrix() {
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
             Why it matters
           </p>
-          <h2 className="text-4xl font-bold text-slate-950 dark:text-white md:text-5xl">
+          <h2 className="text-3xl font-bold text-slate-950 dark:text-white">
             Make healthcare technology easier to connect and understand.
           </h2>
         </div>

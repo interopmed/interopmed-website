@@ -26,7 +26,7 @@ export default function HeroSection({
 
       {/* Content */}
       <div className="relative max-w-5xl mx-auto px-6 text-center">
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-white leading-tight">
+        <h1 className="text-4xl font-bold mb-6 text-white leading-tight">
           {headline}
         </h1>
         <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">

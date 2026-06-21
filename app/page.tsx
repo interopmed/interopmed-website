@@ -60,7 +60,7 @@ export default function HomePage() {
               <p className="mb-5 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Connected healthcare technology
               </p>
-              <h1 className="max-w-4xl text-5xl font-bold leading-[1.02] text-slate-950 dark:text-white md:text-7xl">
+              <h1 className="max-w-4xl text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 One clearer layer for healthcare systems, devices, and data.
               </h1>
               <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
@@ -113,7 +113,7 @@ export default function HomePage() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Focus
               </p>
-              <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+              <h2 className="text-3xl font-bold text-slate-950 dark:text-white">
                 Four simple areas.
               </h2>
             </div>
@@ -139,7 +139,7 @@ export default function HomePage() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Knowledge network
               </p>
-              <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+              <h2 className="text-3xl font-bold text-slate-950 dark:text-white">
                 A focused stream for interoperability work.
               </h2>
             </div>

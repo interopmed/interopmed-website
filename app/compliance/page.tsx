@@ -80,7 +80,7 @@ export default function CompliancePage() {
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
               Compliance
             </p>
-            <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
+            <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Governance for trusted clinical data exchange.
             </h1>
             <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">

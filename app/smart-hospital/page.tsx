@@ -59,7 +59,7 @@ export default function SmartHospitalPage() {
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Smart hospital IoT
               </p>
-              <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
+              <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 Connect smart hospital infrastructure to clinical workflows.
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
@@ -107,7 +107,7 @@ export default function SmartHospitalPage() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 What can connect
               </p>
-              <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+              <h2 className="text-3xl font-bold text-slate-950 dark:text-white">
                 Make connected equipment operationally useful.
               </h2>
             </div>
@@ -128,7 +128,7 @@ export default function SmartHospitalPage() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-300">
                 Technology provider
               </p>
-              <h2 className="text-3xl font-bold md:text-5xl">
+              <h2 className="text-3xl font-bold">
                 Make smart infrastructure part of the care workflow.
               </h2>
             </div>

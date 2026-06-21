@@ -82,7 +82,7 @@ export default function AiServicesPage() {
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 AI-managed services
               </p>
-              <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
+              <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 Run the interoperability hub with AI-assisted management.
               </h1>
               <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
@@ -120,7 +120,7 @@ export default function AiServicesPage() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Service coverage
               </p>
-              <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+              <h2 className="text-3xl font-bold text-slate-950 dark:text-white">
                 One AI layer across the whole hub.
               </h2>
             </div>
@@ -149,7 +149,7 @@ export default function AiServicesPage() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Safety model
               </p>
-              <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+              <h2 className="text-3xl font-bold text-slate-950 dark:text-white">
                 AI can manage the work, but humans approve the risk.
               </h2>
               <p className="mt-5 text-base leading-7 text-slate-600 dark:text-slate-300">
@@ -175,7 +175,7 @@ export default function AiServicesPage() {
                 <p className="text-sm font-semibold uppercase tracking-[0.3em] text-teal-300">
                   Next step
                 </p>
-                <h2 className="mt-3 text-3xl font-bold md:text-5xl">
+                <h2 className="mt-3 text-3xl font-bold">
                   Start by connecting AI to one workflow and one support process.
                 </h2>
                 <p className="mt-4 max-w-3xl text-base leading-7 text-slate-300">

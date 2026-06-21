@@ -1028,7 +1028,7 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
             <div className="mx-auto flex min-h-full w-full max-w-4xl flex-col">
               {!hasUserMessages ? (
                 <div className="flex flex-1 flex-col justify-center py-10">
-                  <h2 className="text-4xl font-bold tracking-normal text-slate-900 dark:text-white md:text-5xl">
+                  <h2 className="text-3xl font-bold tracking-normal text-slate-900 dark:text-white">
                     Hello, {displayName}
                   </h2>
                   <p className="mt-3 text-2xl font-semibold text-slate-400 md:text-3xl">

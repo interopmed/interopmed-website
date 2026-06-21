@@ -45,7 +45,7 @@ export default function OpenSourcePage() {
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Free developer layer
               </p>
-              <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
+              <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 Open-source FHIR utilities that help teams start faster.
               </h1>
               <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
@@ -88,7 +88,7 @@ export default function OpenSourcePage() {
               <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
                 Free offering
               </p>
-              <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+              <h2 className="text-3xl font-bold text-slate-950 dark:text-white">
                 Useful enough to adopt. Clear enough to upgrade.
               </h2>
             </div>

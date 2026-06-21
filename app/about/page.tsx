@@ -27,7 +27,7 @@ export default function AboutPage() {
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <p className="text-sm uppercase tracking-[0.3em] text-teal-500 mb-4">Standards Alignment</p>
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
                 Built to meet global digital health benchmarks
               </h2>
               <p className="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">

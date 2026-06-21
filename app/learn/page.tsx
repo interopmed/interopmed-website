@@ -56,7 +56,7 @@ export default function LearnPage() {
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
               Learning center
             </p>
-            <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
+            <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Practical education for people building interoperability.
             </h1>
             <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
