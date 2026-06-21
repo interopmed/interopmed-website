@@ -548,7 +548,7 @@ async function UserAccountDashboard({
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Interoperability focus</p>
-                    <h2 className="mt-2 text-2xl font-bold">Standards workflow center</h2>
+                    <h2 className="mt-2 text-xl font-bold">Standards workflow center</h2>
                     <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
                       Use this account area to move from implementation questions into concrete standards work: resource modeling, interface planning, service contracts, and compliance review.
                     </p>
@@ -578,7 +578,7 @@ async function UserAccountDashboard({
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Workspace readiness</p>
-                      <h2 className="mt-2 text-2xl font-bold">Interop readiness</h2>
+                      <h2 className="mt-2 text-xl font-bold">Interop readiness</h2>
                     </div>
                     <span className="rounded-md bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300">
                       {account.isActive ? 'Active' : 'Inactive'}
@@ -612,7 +612,7 @@ async function UserAccountDashboard({
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Secure exchange</p>
-                      <h2 className="mt-2 text-2xl font-bold">Access and trust</h2>
+                      <h2 className="mt-2 text-xl font-bold">Access and trust</h2>
                     </div>
                     <Link href="/user/security" className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
                       Manage
@@ -653,7 +653,7 @@ async function UserAccountDashboard({
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Recent activity</p>
-                    <h2 className="mt-2 text-2xl font-bold">Account timeline</h2>
+                    <h2 className="mt-2 text-xl font-bold">Account timeline</h2>
                   </div>
                   <Link href="/user/activity" className="w-fit rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
                     View all

@@ -49,7 +49,7 @@ export default function ApiReferencePage() {
             <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               API surfaces for clinical data interoperability.
             </h1>
-            <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
               InteropMed APIs are organized around governed access to patient, provider, record, and integration workflows. This overview highlights the public reference structure for teams planning implementation.
             </p>
           </div>
@@ -77,7 +77,7 @@ export default function ApiReferencePage() {
             </div>
 
             <div className="mt-10 rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950 md:p-8">
-              <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">
+              <h2 className="mb-5 text-xl font-bold text-slate-950 dark:text-white">
                 Implementation principles
               </h2>
               <ul className="space-y-3">

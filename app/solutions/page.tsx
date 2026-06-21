@@ -90,7 +90,7 @@ export default function SolutionsPage() {
               <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 A simple map of what InteropMed focuses on.
               </h1>
-              <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
+              <p className="mt-6 text-base leading-7 text-slate-600 dark:text-slate-300">
                 InteropMed is designed as a technology layer for healthcare data, clinical systems, lab workflows, devices, wearables, IoT, smart hospital infrastructure, AI-assisted workflows, and professional knowledge sharing.
               </p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -113,7 +113,7 @@ export default function SolutionsPage() {
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
                 Simple idea
               </p>
-              <h2 className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">
+              <h2 className="mt-3 text-xl font-bold text-slate-950 dark:text-white">
                 Healthcare already has systems, devices, and data.
               </h2>
               <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">

@@ -146,7 +146,7 @@ export default async function InsightPage({ params }: PageProps<'/insights/[slug
               <div className="rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950 md:p-10">
                 {article.sections.map((section) => (
                   <section key={section.heading} className="mb-12 last:mb-0">
-                    <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">
+                    <h2 className="mb-5 text-xl font-bold text-slate-950 dark:text-white">
                       {section.heading}
                     </h2>
                     <div className="space-y-5">

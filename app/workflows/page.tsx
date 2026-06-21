@@ -73,7 +73,7 @@ export default function WorkflowsPage() {
             <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Step-by-step playbooks for healthcare interoperability work.
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="mt-6 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300">
               Start with the workflow your team needs to implement, then connect the process to standards, data contracts, validation, governance, and launch readiness.
             </p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row">
@@ -100,7 +100,7 @@ export default function WorkflowsPage() {
                       {workflow.audience}
                     </span>
                   </div>
-                  <h2 className="mt-5 text-2xl font-bold text-slate-950 dark:text-white">{workflow.title}</h2>
+                  <h2 className="mt-5 text-xl font-bold text-slate-950 dark:text-white">{workflow.title}</h2>
                   <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{workflow.detail}</p>
                   <div className="mt-5 space-y-2">
                     {workflow.steps.map((step, index) => (
@@ -117,7 +117,7 @@ export default function WorkflowsPage() {
             <div className="mt-10 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
               <div className="rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950 md:p-8">
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">Workflow checklist</p>
-                <h2 className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">A good playbook is implementation-ready.</h2>
+                <h2 className="mt-3 text-xl font-bold text-slate-950 dark:text-white">A good playbook is implementation-ready.</h2>
                 <div className="mt-6 space-y-3">
                   {checklist.map((item) => (
                     <div key={item} className="rounded-lg border border-slate-200 bg-slate-50 p-3 text-sm font-semibold text-slate-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200">
@@ -128,7 +128,7 @@ export default function WorkflowsPage() {
               </div>
               <div className="rounded-lg border border-teal-200 bg-white p-6 dark:border-teal-900 dark:bg-slate-950 md:p-8">
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">Need a custom workflow?</p>
-                <h2 className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">Turn a local process into a reusable interoperability playbook.</h2>
+                <h2 className="mt-3 text-xl font-bold text-slate-950 dark:text-white">Turn a local process into a reusable interoperability playbook.</h2>
                 <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">
                   Bring your exchange scenario, source systems, standards, and operational constraints. InteropMed can help translate them into workflow steps, data maps, and validation checkpoints.
                 </p>

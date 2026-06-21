@@ -43,7 +43,7 @@ export default function TechnologyPage() {
               {/* Data Layer */}
               <div className="p-8 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
                 <div className="text-3xl mb-4">🗄️</div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
                   Data Layer: PostgreSQL + JSONB
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-6">
@@ -68,7 +68,7 @@ export default function TechnologyPage() {
               {/* Logic Engine */}
               <div className="p-8 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
                 <div className="text-3xl mb-4">⚙️</div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
                   Logic Engine: Python & Django
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-6">
@@ -93,7 +93,7 @@ export default function TechnologyPage() {
               {/* Presentation Layer */}
               <div className="p-8 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
                 <div className="text-3xl mb-4">⚛️</div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
                   Presentation: React Server Components
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-6">
@@ -118,7 +118,7 @@ export default function TechnologyPage() {
               {/* Integration */}
               <div className="p-8 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
                 <div className="text-3xl mb-4">🔌</div>
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
                   FHIR Integration Layer
                 </h3>
                 <p className="text-slate-600 dark:text-slate-400 mb-6">

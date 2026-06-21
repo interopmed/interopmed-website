@@ -122,7 +122,7 @@ export default function InsightChat() {
         <p className="mb-2 text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
           InteropMind
         </p>
-        <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
+        <h2 className="text-xl font-bold text-slate-950 dark:text-white">
           Review and refine
         </h2>
       </div>

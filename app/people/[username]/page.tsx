@@ -324,7 +324,7 @@ export default async function MemberProfilePage({
             <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-6">
               <section className="rounded-2xl bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.05),0_10px_35px_rgba(15,23,42,0.04)] dark:bg-slate-900 sm:p-7">
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-400">Professional focus</p>
-                <h2 className="mt-2 text-2xl font-bold">Interoperability interests</h2>
+                <h2 className="mt-2 text-xl font-bold">Interoperability interests</h2>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {(activeTopics.length > 0 ? activeTopics : ['fhir', 'implementation', 'security']).map((topic) => (
                     <span key={topic} className={`rounded-full px-3 py-1.5 text-xs font-bold ${topicStyles[topic] || topicStyles.general}`}>

@@ -83,7 +83,7 @@ export default function CompliancePage() {
             <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Governance for trusted clinical data exchange.
             </h1>
-            <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
               InteropMed is built for healthcare interoperability programs that need security, privacy, auditability, and standards alignment from the beginning.
             </p>
           </div>
@@ -114,7 +114,7 @@ export default function CompliancePage() {
             <div className="space-y-12">
               {sections.map((section) => (
                 <section key={section.title} className="border-b border-slate-200 pb-10 last:border-0 last:pb-0 dark:border-slate-800">
-                  <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">
+                  <h2 className="mb-5 text-xl font-bold text-slate-950 dark:text-white">
                     {section.title}
                   </h2>
                   <div className="space-y-4">

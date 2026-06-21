@@ -89,7 +89,7 @@ export default async function InsightsPage() {
               <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 Practical thinking for clinical data infrastructure.
               </h1>
-              <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
+              <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
                 Insights on interoperability strategy, FHIR implementation, governance, and the architecture choices behind resilient healthcare data platforms.
               </p>
             </div>

@@ -72,7 +72,7 @@ export default async function StudioLauncherPage({ searchParams }: StudioLaunche
             <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Studio is protected, but its destination URL is not configured yet.
             </h1>
-            <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
               InteropMed account access is working. Set <code>INTEROPMED_STUDIO_URL</code> to the
               Studio subdomain or hosted URL, and this launcher will mint a signed session handoff
               for authenticated users automatically.

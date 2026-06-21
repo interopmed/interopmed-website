@@ -21,7 +21,7 @@ export default function DocumentationPage() {
             <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Implementation guidance for clinical data infrastructure.
             </h1>
-            <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
               Use these documentation areas to plan platform setup, standards alignment, security review, and operational readiness for InteropMed deployments.
             </p>
           </div>
@@ -39,7 +39,7 @@ export default function DocumentationPage() {
                   <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
                     {guide.category}
                   </p>
-                  <h2 className="mb-3 text-2xl font-bold text-slate-950 dark:text-white">
+                  <h2 className="mb-3 text-xl font-bold text-slate-950 dark:text-white">
                     {guide.title}
                   </h2>
                   <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
@@ -57,7 +57,7 @@ export default function DocumentationPage() {
                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
                   Free developer layer
                 </p>
-                <h2 className="mb-4 text-2xl font-bold text-slate-950 dark:text-white">
+                <h2 className="mb-4 text-xl font-bold text-slate-950 dark:text-white">
                   Open-source FHIR utilities, SDKs, examples, and demo connectors.
                 </h2>
                 <p className="mb-6 text-base leading-7 text-slate-600 dark:text-slate-300">
@@ -75,7 +75,7 @@ export default function DocumentationPage() {
                 <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
                   Premium production layer
                 </p>
-                <h2 className="mb-4 text-2xl font-bold text-slate-950 dark:text-white">
+                <h2 className="mb-4 text-xl font-bold text-slate-950 dark:text-white">
                   InteropMed platform, managed connectors, governance console, implementation packages, and managed operations.
                 </h2>
                 <p className="mb-6 text-base leading-7 text-slate-600 dark:text-slate-300">
@@ -91,7 +91,7 @@ export default function DocumentationPage() {
             </div>
 
             <div className="mt-10 rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950 md:p-8">
-              <h2 className="mb-4 text-2xl font-bold text-slate-950 dark:text-white">
+              <h2 className="mb-4 text-xl font-bold text-slate-950 dark:text-white">
                 Need implementation support?
               </h2>
               <p className="mb-6 text-base leading-7 text-slate-600 dark:text-slate-300">

@@ -53,7 +53,7 @@ export default function PlatformArchitecture() {
                     {idx + 1}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl md:text-2xl font-semibold text-slate-900 dark:text-white mb-2">
+                    <h3 className="text-xl md:text-xl font-semibold text-slate-900 dark:text-white mb-2">
                       {layer.name}
                     </h3>
                     <p className="text-slate-600 dark:text-slate-400 mb-4">

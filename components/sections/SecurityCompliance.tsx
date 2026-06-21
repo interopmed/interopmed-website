@@ -29,7 +29,7 @@ export default function SecurityCompliance() {
             <h2 className="text-3xl font-bold">
               Security and governance built into the data path.
             </h2>
-            <p className="mt-6 text-lg leading-8 text-slate-300">
+            <p className="mt-6 text-base leading-7 text-slate-300">
               InteropMed treats compliance as operational design: policy, auditability, validation, and review workflows live close to the clinical data they protect.
             </p>
           </div>

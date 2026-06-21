@@ -84,7 +84,7 @@ export default function PrivacyPage() {
             <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               How InteropMed handles website and business contact information.
             </h1>
-            <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
               Effective May 17, 2026. This policy explains how InteropMed collects, uses, shares, and protects information from website visitors, prospects, partners, and business contacts.
             </p>
           </div>
@@ -96,7 +96,7 @@ export default function PrivacyPage() {
               <div className="space-y-12">
                 {sections.map((section) => (
                   <section key={section.title}>
-                    <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">
+                    <h2 className="mb-5 text-xl font-bold text-slate-950 dark:text-white">
                       {section.title}
                     </h2>
                     <div className="space-y-4">
@@ -113,7 +113,7 @@ export default function PrivacyPage() {
                 ))}
 
                 <section>
-                  <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">
+                  <h2 className="mb-5 text-xl font-bold text-slate-950 dark:text-white">
                     Contact us
                   </h2>
                   <p className="text-base leading-8 text-slate-600 dark:text-slate-300">

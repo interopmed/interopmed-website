@@ -79,7 +79,7 @@ export default async function UserSecurityPage() {
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Session history</p>
-                    <h2 className="mt-2 text-2xl font-bold">Recent sessions</h2>
+                    <h2 className="mt-2 text-xl font-bold">Recent sessions</h2>
                   </div>
                   <Link href="/user/activity" className="w-fit rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
                     View activity

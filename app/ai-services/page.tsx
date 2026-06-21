@@ -85,7 +85,7 @@ export default function AiServicesPage() {
               <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 Run the interoperability hub with AI-assisted management.
               </h1>
-              <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
+              <p className="mt-6 text-base leading-7 text-slate-600 dark:text-slate-300">
                 InteropMed can use AI to coordinate workflows, education, knowledge, tools, implementation support, and managed operations while keeping high-risk healthcare decisions under human review.
               </p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -128,7 +128,7 @@ export default function AiServicesPage() {
             <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
               {managedServices.map((service) => (
                 <article key={service.title} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950">
-                  <h3 className="text-2xl font-bold text-slate-950 dark:text-white">{service.title}</h3>
+                  <h3 className="text-xl font-bold text-slate-950 dark:text-white">{service.title}</h3>
                   <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{service.detail}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {service.scope.map((item) => (

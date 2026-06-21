@@ -80,7 +80,7 @@ export default function InteropMindChatPanel() {
       <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
         <div>
           <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">InteropMind</p>
-          <h2 className="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Ask for implementation guidance</h2>
+          <h2 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">Ask for implementation guidance</h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-600 dark:text-slate-300">
             Use InteropMind for workflow planning, standards explanations, mapping direction, support triage, and launch readiness notes.
           </p>

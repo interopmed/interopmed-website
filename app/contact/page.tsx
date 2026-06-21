@@ -47,7 +47,7 @@ export default function ContactPage() {
               <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 Request a connected healthcare technology walkthrough.
               </h1>
-              <p className="mb-8 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+              <p className="mb-8 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300">
                 Tell us about your clinical systems, lab workflows, devices, wearables, IoT sources, smart hospital infrastructure, integration constraints, and success criteria. We will help identify the right technical path.
               </p>
 

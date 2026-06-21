@@ -85,7 +85,7 @@ export default function TermsPage() {
             <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Terms for using the InteropMed website.
             </h1>
-            <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
               Effective May 17, 2026. These terms govern use of the InteropMed public website and related website forms, pages, and resources.
             </p>
           </div>
@@ -97,7 +97,7 @@ export default function TermsPage() {
               <div className="space-y-12">
                 {sections.map((section) => (
                   <section key={section.title}>
-                    <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">
+                    <h2 className="mb-5 text-xl font-bold text-slate-950 dark:text-white">
                       {section.title}
                     </h2>
                     <div className="space-y-4">
@@ -114,7 +114,7 @@ export default function TermsPage() {
                 ))}
 
                 <section>
-                  <h2 className="mb-5 text-2xl font-bold text-slate-950 dark:text-white">
+                  <h2 className="mb-5 text-xl font-bold text-slate-950 dark:text-white">
                     Contact
                   </h2>
                   <p className="text-base leading-8 text-slate-600 dark:text-slate-300">

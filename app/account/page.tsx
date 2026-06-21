@@ -171,7 +171,7 @@ export default async function AccountDashboardPage() {
                 <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Primary workspace</p>
-                    <h2 className="mt-2 text-2xl font-bold">Today&apos;s control surface</h2>
+                    <h2 className="mt-2 text-xl font-bold">Today&apos;s control surface</h2>
                   </div>
                   <Link href="/studio" className="rounded-lg bg-slate-950 px-5 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-200">
                     Open Studio
@@ -204,7 +204,7 @@ export default async function AccountDashboardPage() {
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Recent insights</p>
-                    <h2 className="mt-2 text-2xl font-bold">Editorial activity</h2>
+                    <h2 className="mt-2 text-xl font-bold">Editorial activity</h2>
                   </div>
                   <Link href="/account/insights" className="text-sm font-semibold text-teal-700 hover:text-teal-600 dark:text-teal-300 dark:hover:text-teal-200">
                     View all

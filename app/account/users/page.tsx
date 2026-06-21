@@ -66,7 +66,7 @@ export default async function AccountUsersPage() {
             <AccountUserCreateForm />
 
             <div className="rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
-              <h2 className="mb-4 text-2xl font-bold text-slate-950 dark:text-white">Existing users</h2>
+              <h2 className="mb-4 text-xl font-bold text-slate-950 dark:text-white">Existing users</h2>
               <div className="space-y-4">
                 {users.map((user) => (
                   <article

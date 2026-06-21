@@ -51,7 +51,7 @@ export default function KnowledgePage() {
             <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Answers, definitions, and patterns for interoperability decisions.
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="mt-6 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300">
               Use the knowledge base to connect standards vocabulary with real implementation choices: mapping, architecture, compliance, testing, and operations.
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function KnowledgePage() {
             <div className="grid gap-5 md:grid-cols-2">
               {knowledgeAreas.map((area) => (
                 <article key={area.title} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-950 md:p-8">
-                  <h2 className="text-2xl font-bold text-slate-950 dark:text-white">{area.title}</h2>
+                  <h2 className="text-xl font-bold text-slate-950 dark:text-white">{area.title}</h2>
                   <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">{area.detail}</p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {area.examples.map((example) => (
@@ -89,7 +89,7 @@ export default function KnowledgePage() {
               </div>
               <div className="rounded-lg border border-teal-200 bg-white p-6 dark:border-teal-900 dark:bg-slate-950 md:p-8">
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">Knowledge to action</p>
-                <h2 className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">Pair every answer with a workflow or tool.</h2>
+                <h2 className="mt-3 text-xl font-bold text-slate-950 dark:text-white">Pair every answer with a workflow or tool.</h2>
                 <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">
                   The knowledge base should never be a static encyclopedia. Each concept should lead users toward a playbook, validator, parser, checklist, or implementation guide.
                 </p>

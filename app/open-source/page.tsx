@@ -48,7 +48,7 @@ export default function OpenSourcePage() {
               <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
                 Open-source FHIR utilities that help teams start faster.
               </h1>
-              <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
+              <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
                 InteropMed can use free utilities, SDKs, documentation, examples, and demo connectors to earn developer trust before a team needs a governed production platform.
               </p>
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
@@ -96,7 +96,7 @@ export default function OpenSourcePage() {
             <div className="grid gap-6 md:grid-cols-2">
               {freeTools.map((tool) => (
                 <article key={tool.title} className="rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950 md:p-8">
-                  <h3 className="mb-3 text-2xl font-bold text-slate-950 dark:text-white">
+                  <h3 className="mb-3 text-xl font-bold text-slate-950 dark:text-white">
                     {tool.title}
                   </h3>
                   <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
@@ -109,7 +109,7 @@ export default function OpenSourcePage() {
             <div className="mt-10 rounded-lg border border-teal-200 bg-white p-6 dark:border-teal-900 dark:bg-slate-950 md:p-8">
               <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
-                  <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
+                  <h2 className="text-xl font-bold text-slate-950 dark:text-white">
                     Keep the free layer technical. Sell the operational layer.
                   </h2>
                   <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">

@@ -55,7 +55,7 @@ export default function ToolsPage() {
             <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Hands-on utilities for interoperability implementation.
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="mt-6 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300">
               Tools make the hub practical: parse messages, inspect resources, validate examples, build mappings, and turn workflow decisions into launch checklists.
             </p>
           </div>
@@ -69,7 +69,7 @@ export default function ToolsPage() {
                   <span className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                     {tool.status}
                   </span>
-                  <h2 className="mt-5 text-2xl font-bold text-slate-950 dark:text-white">{tool.title}</h2>
+                  <h2 className="mt-5 text-xl font-bold text-slate-950 dark:text-white">{tool.title}</h2>
                   <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{tool.detail}</p>
                 </article>
               ))}
@@ -79,7 +79,7 @@ export default function ToolsPage() {
               <div className="grid gap-8 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">Tool workflow</p>
-                  <h2 className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">Every tool should move users closer to implementation.</h2>
+                  <h2 className="mt-3 text-xl font-bold text-slate-950 dark:text-white">Every tool should move users closer to implementation.</h2>
                   <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">
                     The best tools do not stop at inspection. They help users understand, validate, and export the next action.
                   </p>
@@ -99,7 +99,7 @@ export default function ToolsPage() {
               <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">Developer layer</p>
-                  <h2 className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">Connect tools with docs and open-source utilities.</h2>
+                  <h2 className="mt-3 text-xl font-bold text-slate-950 dark:text-white">Connect tools with docs and open-source utilities.</h2>
                 </div>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/open-source" className="rounded-lg border border-slate-300 px-5 py-2.5 text-center text-sm font-semibold text-slate-900 transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-700 dark:text-slate-100 dark:hover:border-teal-400 dark:hover:text-teal-300">

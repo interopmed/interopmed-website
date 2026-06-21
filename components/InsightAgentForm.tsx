@@ -119,7 +119,7 @@ export default function InsightAgentForm() {
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">
           InteropMind publisher
         </p>
-        <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
+        <h2 className="text-xl font-bold text-slate-950 dark:text-white">
           Generate standards-aware insight
         </h2>
       </div>

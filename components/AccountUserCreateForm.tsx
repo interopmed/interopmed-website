@@ -54,7 +54,7 @@ export default function AccountUserCreateForm() {
       onSubmit={handleSubmit}
       className="rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950"
     >
-      <h2 className="mb-4 text-2xl font-bold text-slate-950 dark:text-white">Create account user</h2>
+      <h2 className="mb-4 text-xl font-bold text-slate-950 dark:text-white">Create account user</h2>
       <div className="grid gap-4 md:grid-cols-2">
         <label className="block">
           <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Username</span>

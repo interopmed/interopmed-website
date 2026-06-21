@@ -183,7 +183,7 @@ export default async function UserSupportPage() {
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Self-service</p>
-                    <h2 className="mt-2 text-2xl font-bold">Help topics</h2>
+                    <h2 className="mt-2 text-xl font-bold">Help topics</h2>
                   </div>
                   <Link href="/documentation" className="w-fit rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
                     Documentation
@@ -206,7 +206,7 @@ export default async function UserSupportPage() {
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Requests</p>
-                    <h2 className="mt-2 text-2xl font-bold">Recent support requests</h2>
+                    <h2 className="mt-2 text-xl font-bold">Recent support requests</h2>
                   </div>
                   <span className="w-fit rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300">
                     {openCount} open

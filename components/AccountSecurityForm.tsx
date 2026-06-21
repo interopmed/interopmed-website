@@ -60,7 +60,7 @@ export default function AccountSecurityForm() {
   return (
     <form onSubmit={handleSubmit} className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
       <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Password</p>
-      <h2 className="mt-2 text-2xl font-bold text-slate-950 dark:text-white">Change password</h2>
+      <h2 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">Change password</h2>
       <div className="mt-6 grid gap-5 lg:grid-cols-2">
         <label className="block lg:col-span-2">
           <span className="mb-2 block text-sm font-semibold text-slate-800 dark:text-slate-100">Current password</span>

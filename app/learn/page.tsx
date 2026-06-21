@@ -59,7 +59,7 @@ export default function LearnPage() {
             <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               Practical education for people building interoperability.
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="mt-6 max-w-3xl text-base leading-7 text-slate-600 dark:text-slate-300">
               Learn the concepts, standards, and implementation decisions behind reliable FHIR, HL7, terminology, consent, and API workflows.
             </p>
           </div>
@@ -73,7 +73,7 @@ export default function LearnPage() {
                   <span className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
                     {path.level}
                   </span>
-                  <h2 className="mt-5 text-2xl font-bold text-slate-950 dark:text-white">{path.title}</h2>
+                  <h2 className="mt-5 text-xl font-bold text-slate-950 dark:text-white">{path.title}</h2>
                   <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{path.detail}</p>
                   <div className="mt-5 divide-y divide-slate-200 rounded-lg border border-slate-200 dark:divide-slate-800 dark:border-slate-800">
                     {path.lessons.map((lesson) => (
@@ -88,7 +88,7 @@ export default function LearnPage() {
               <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-[0.24em] text-teal-600 dark:text-teal-400">Suggested first path</p>
-                  <h2 className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">Start with FHIR essentials, then connect it to a real workflow.</h2>
+                  <h2 className="mt-3 text-xl font-bold text-slate-950 dark:text-white">Start with FHIR essentials, then connect it to a real workflow.</h2>
                   <p className="mt-3 text-base leading-7 text-slate-600 dark:text-slate-300">
                     Learning sticks when it is attached to implementation. Pair the FHIR basics path with the FHIR API implementation workflow.
                   </p>

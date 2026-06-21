@@ -15,7 +15,7 @@ export default function NotFound() {
             <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white">
               This page is not available.
             </h1>
-            <p className="mb-8 text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="mb-8 text-base leading-7 text-slate-600 dark:text-slate-300">
               The page may have moved, or the link may be incomplete. Start from a known area of the InteropMed site.
             </p>
             <div className="flex flex-col justify-center gap-4 md:flex-row">
