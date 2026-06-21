@@ -59,10 +59,10 @@ export default function OpenSourcePage() {
                   Read documentation
                 </Link>
                 <Link
-                  href="/implementation"
+                  href="/contact"
                   className="rounded-lg border border-slate-300 px-7 py-3 text-center text-sm font-semibold text-slate-900 transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-700 dark:text-slate-100 dark:hover:border-teal-400 dark:hover:text-teal-300"
                 >
-                  Scale with SHIN
+                  Plan upgrade path
                 </Link>
               </div>
             </div>

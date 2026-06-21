@@ -1,69 +1,204 @@
-import HeroSection from '@/components/sections/HeroSection'
+import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import SiteCTA from '@/components/SiteCTA'
-import ClinicalUseCases from '@/components/sections/ClinicalUseCases'
-import TransitionsOfCare from '@/components/sections/TransitionsOfCare'
 
 export const metadata = {
-  title: 'Solutions | InteropMed Clinical Use Cases',
-  description: 'Clinical use cases and care pathways enabled by InteropMed for specialty care, transitions of care, and telemetry.',
+  title: 'Planned Solutions | InteropMed',
+  description: 'Planned InteropMed solution areas for EHR/EMR, lab systems, monitoring devices, wearables, healthcare IoT, smart hospital infrastructure, AI workflows, and professional knowledge sharing.',
 }
+
+const solutionAreas = [
+  {
+    title: 'EHR/EMR Connectivity',
+    audience: 'Hospitals, clinics, care teams',
+    detail: 'A planned integration layer for patient records, visits, referrals, prescriptions, documents, and clinical workflow exchange.',
+  },
+  {
+    title: 'Laboratory System Integration',
+    audience: 'Labs, diagnostics, clinicians',
+    detail: 'A planned pathway for LIS platforms, lab orders, results, analyzer feeds, abnormal flags, units, and terminology mapping.',
+  },
+  {
+    title: 'Monitoring Device Data',
+    audience: 'ICU, wards, remote monitoring teams',
+    detail: 'A planned model for supported bedside monitor, ICU telemetry, and remote monitoring data to reach review workflows.',
+  },
+  {
+    title: 'Wearables And Remote Care',
+    audience: 'Home care, RPM, chronic care programs',
+    detail: 'A planned approach for wearable and home-care observations to become longitudinal patient context instead of isolated readings.',
+  },
+  {
+    title: 'Healthcare IoT',
+    audience: 'Operations, facilities, digital teams',
+    detail: 'A planned layer for room sensors, environmental data, occupancy, equipment status, and operational healthcare IoT signals.',
+  },
+  {
+    title: 'Smart Hospital Infrastructure',
+    audience: 'Smart hospital and OT teams',
+    detail: 'A planned integration direction for smart beds, OT lights, nurse-call systems, room sensors, and connected equipment.',
+  },
+  {
+    title: 'AI-Assisted Workflows',
+    audience: 'Integration, support, product teams',
+    detail: 'A planned AI support layer for mapping, workflow planning, support triage, documentation, and architecture review under human approval.',
+  },
+  {
+    title: 'Professional Stream',
+    audience: 'Interop professionals and partners',
+    detail: 'A built-in knowledge layer for profiles, posts, insights, follows, and practical healthcare interoperability discussions.',
+  },
+]
+
+const workflowSteps = [
+  {
+    step: 'Discover',
+    detail: 'Understand the systems, data sources, workflows, interfaces, and constraints.',
+  },
+  {
+    step: 'Map',
+    detail: 'Translate records, results, device signals, and operational events into a clear data model.',
+  },
+  {
+    step: 'Govern',
+    detail: 'Plan access, audit, privacy, validation, human review, and deployment boundaries.',
+  },
+  {
+    step: 'Pilot',
+    detail: 'Start with a narrow, low-risk workflow using synthetic, sandbox, or non-PHI data where possible.',
+  },
+]
+
+const boundaries = [
+  'Focused on the software and integration layer for connected healthcare.',
+  'Designed around existing clinical systems, labs, devices, wearables, IoT, and hospital infrastructure.',
+  'Built around collaboration, workflow discovery, governance, and practical pilot planning.',
+]
 
 export default function SolutionsPage() {
   return (
     <>
       <Navbar />
       <main>
-        <HeroSection
-          headline="Clinical Solutions for High-Stakes Care"
-          subheadline="InteropMed empowers medical directors with unified clinical context, live telemetry ingestion, and secure care transitions." 
-          cta="/contact"
-          ctaText="Request a Clinical Review"
-          ctaHref="/contact"
-        />
+        <section className="bg-white py-20 dark:bg-slate-950 md:py-28">
+          <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <div>
+              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
+                Planned solutions
+              </p>
+              <h1 className="text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
+                Building toward one layer for connected healthcare.
+              </h1>
+              <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
+                InteropMed is designed as a technology layer for healthcare data, clinical systems, lab workflows, devices, wearables, IoT, smart hospital infrastructure, AI-assisted workflows, and professional knowledge sharing.
+              </p>
+              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <Link
+                  href="/contact"
+                  className="rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-7 py-3 text-center text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25"
+                >
+                  Discuss collaboration
+                </Link>
+                <Link
+                  href="/stream"
+                  className="rounded-lg border border-slate-300 px-7 py-3 text-center text-sm font-semibold text-slate-900 transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-700 dark:text-slate-100 dark:hover:border-teal-400 dark:hover:text-teal-300"
+                >
+                  View professional stream
+                </Link>
+              </div>
+            </div>
 
-        <ClinicalUseCases />
-        <TransitionsOfCare />
+            <div className="rounded-lg border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900 md:p-8">
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-slate-500 dark:text-slate-400">
+                Simple idea
+              </p>
+              <h2 className="mt-3 text-2xl font-bold text-slate-950 dark:text-white">
+                Healthcare already has systems, devices, and data.
+              </h2>
+              <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">
+                The missing piece is a practical software layer that helps them communicate, stay governed, and become useful inside real workflows.
+              </p>
+              <div className="mt-6 grid gap-3">
+                {boundaries.map((boundary) => (
+                  <div key={boundary} className="rounded-lg border border-slate-200 bg-white p-4 text-sm font-semibold leading-6 text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200">
+                    {boundary}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
 
-        <section className="py-20 md:py-32 bg-slate-950 text-white">
-          <div className="max-w-7xl mx-auto px-6 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Designed for Clinical Excellence</h2>
-            <p className="text-lg text-slate-300 max-w-3xl mx-auto mb-10">
-              SHIN supports tertiary surgical workflows, live device telemetry, and secure patient handoffs without adding complexity to care teams.
-            </p>
-            <div className="grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  label: "Vascular Surgery",
-                  detail: "Single-view surgical timelines across imaging, pathology, and perioperative data."
-                },
-                {
-                  label: "Telemetry Monitoring",
-                  detail: "Live stream ingestion with rule-based alerting and escalation."
-                },
-                {
-                  label: "Care Coordination",
-                  detail: "Automated patient routing and document exchange across providers."
-                }
-              ].map((item, idx) => (
-                <div key={idx} className="p-8 bg-slate-900 rounded-3xl border border-slate-800">
-                  <h3 className="text-xl font-semibold text-white mb-3">{item.label}</h3>
-                  <p className="text-slate-400">{item.detail}</p>
-                </div>
+        <section className="bg-slate-50 py-16 dark:bg-slate-900 md:py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="mb-10 max-w-3xl">
+              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
+                Solution areas
+              </p>
+              <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+                What InteropMed is planned to cover.
+              </h2>
+              <p className="mt-5 text-base leading-7 text-slate-600 dark:text-slate-300">
+                These are the focus areas for research, architecture, partner conversations, and future pilot workflows.
+              </p>
+            </div>
+
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+              {solutionAreas.map((solution, index) => (
+                <article key={solution.title} className="rounded-lg border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-950">
+                  <p className="font-mono text-sm font-bold text-teal-700 dark:text-teal-300">
+                    {String(index + 1).padStart(2, '0')}
+                  </p>
+                  <h3 className="mt-4 text-xl font-bold text-slate-950 dark:text-white">{solution.title}</h3>
+                  <p className="mt-2 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                    {solution.audience}
+                  </p>
+                  <p className="mt-4 text-sm leading-6 text-slate-600 dark:text-slate-300">{solution.detail}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-white py-16 dark:bg-slate-950 md:py-24">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="mb-10 grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+              <div>
+                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
+                  Pilot path
+                </p>
+                <h2 className="text-3xl font-bold text-slate-950 dark:text-white md:text-5xl">
+                  Start narrow, learn quickly, reduce risk.
+                </h2>
+              </div>
+              <p className="text-base leading-7 text-slate-600 dark:text-slate-300">
+                InteropMed should begin with focused pilot conversations rather than broad product claims. The safest path is to validate one workflow, one data source, and one clear operational goal.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-4">
+              {workflowSteps.map((item, index) => (
+                <article key={item.step} className="rounded-lg border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900">
+                  <p className="font-mono text-sm font-bold text-teal-700 dark:text-teal-300">
+                    {String(index + 1).padStart(2, '0')}
+                  </p>
+                  <h3 className="mt-4 text-xl font-bold text-slate-950 dark:text-white">{item.step}</h3>
+                  <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{item.detail}</p>
+                </article>
               ))}
             </div>
           </div>
         </section>
 
         <SiteCTA
-          eyebrow="Clinical review"
-          title="Map InteropMed to your clinical workflow."
-          description="Bring a care pathway, referral workflow, or telemetry use case and we will help scope the integration model."
+          eyebrow="Early collaboration"
+          title="Have a healthcare integration problem worth exploring?"
+          description="Share the workflow, system, device, lab, wearable, IoT, or smart hospital challenge. InteropMed can use it to shape the roadmap and future pilot direction."
           primaryHref="/contact"
-          primaryLabel="Request clinical review"
-          secondaryHref="/shin"
-          secondaryLabel="Explore SHIN"
+          primaryLabel="Discuss collaboration"
+          secondaryHref="/smart-hospital"
+          secondaryLabel="Smart hospital vision"
         />
       </main>
       <Footer />

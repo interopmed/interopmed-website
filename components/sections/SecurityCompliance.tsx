@@ -19,17 +19,17 @@ const features = [
 
 export default function SecurityCompliance() {
   return (
-    <section className="bg-white py-20 dark:bg-slate-950 md:py-28">
+    <section className="bg-slate-950 py-20 text-white md:py-28">
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div>
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-300">
               Trust layer
             </p>
-            <h2 className="text-4xl font-bold text-slate-950 dark:text-white md:text-5xl">
+            <h2 className="text-4xl font-bold md:text-5xl">
               Security and governance built into the data path.
             </h2>
-            <p className="mt-6 text-lg leading-8 text-slate-600 dark:text-slate-300">
+            <p className="mt-6 text-lg leading-8 text-slate-300">
               InteropMed treats compliance as operational design: policy, auditability, validation, and review workflows live close to the clinical data they protect.
             </p>
           </div>
@@ -38,12 +38,12 @@ export default function SecurityCompliance() {
             {features.map((feature) => (
               <article
                 key={feature.title}
-                className="rounded-lg border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900"
+                className="rounded-lg border border-slate-800 bg-slate-900 p-6"
               >
-                <h3 className="mb-3 text-xl font-bold text-slate-950 dark:text-white">
+                <h3 className="mb-3 text-xl font-bold">
                   {feature.title}
                 </h3>
-                <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
+                <p className="text-sm leading-6 text-slate-300">
                   {feature.description}
                 </p>
               </article>
@@ -51,14 +51,14 @@ export default function SecurityCompliance() {
           </div>
         </div>
 
-        <div className="mt-12 rounded-lg border border-slate-200 bg-slate-50 p-6 dark:border-slate-800 dark:bg-slate-900 md:p-8">
+        <div className="mt-12 rounded-lg border border-slate-800 bg-slate-900 p-6 md:p-8">
           <div className="grid gap-5 md:grid-cols-4">
             {['HIPAA', 'HITECH', 'GDPR', 'Privacy Act AU'].map((name) => (
-              <div key={name} className="rounded-lg bg-white p-5 text-center dark:bg-slate-950">
-                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-600 dark:text-teal-400">
+              <div key={name} className="rounded-lg bg-slate-950 p-5 text-center">
+                <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-300">
                   Aligned
                 </p>
-                <p className="mt-2 text-lg font-bold text-slate-950 dark:text-white">{name}</p>
+                <p className="mt-2 text-lg font-bold">{name}</p>
               </div>
             ))}
           </div>

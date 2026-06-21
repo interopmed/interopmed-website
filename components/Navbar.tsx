@@ -12,15 +12,14 @@ type AccountSessionUser = {
 }
 
 const navItems = [
-  { href: '/stream', label: 'Stream' },
-  { href: '/people', label: 'People' },
-  { href: '/workflows', label: 'Workflows' },
-  { href: '/learn', label: 'Learn' },
-  { href: '/knowledge', label: 'Knowledge' },
-  { href: '/tools', label: 'Tools' },
-  { href: '/interopmind', label: 'InteropMind' },
+  { href: '/shin', label: 'Platform' },
+  { href: '/solutions', label: 'Solutions' },
+  { href: '/smart-hospital', label: 'Smart Hospital' },
   { href: '/ai-services', label: 'AI Services' },
-  { href: '/documentation', label: 'Standards' },
+  { href: '/workflows', label: 'Workflows' },
+  { href: '/tools', label: 'Tools' },
+  { href: '/stream', label: 'Stream' },
+  { href: '/interopmind', label: 'InteropMind' },
   { href: '/contact', label: 'Contact' },
 ]
 

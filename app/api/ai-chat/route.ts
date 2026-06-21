@@ -185,13 +185,6 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
       request.cookies.get(ACCOUNT_SESSION_COOKIE)?.value
     )
 
-    if (!accountUser) {
-      return NextResponse.json(
-        { reply: 'Account login is required.', success: false },
-        { status: 401 }
-      )
-    }
-
     const body: ChatRequest = await request.json()
     const message = String(body.message || '').trim()
 
@@ -203,6 +196,30 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
     }
 
     const messages = normalizeMessages(body.messages, message)
+
+    if (!accountUser) {
+      const reply = await callGroq(messages, body.context)
+
+      return NextResponse.json({
+        reply,
+        success: true,
+        messages: [
+          {
+            id: `guest-user-${crypto.randomUUID()}`,
+            role: 'user',
+            content: message || messages[messages.length - 1]?.content || '',
+            createdAt: new Date().toISOString(),
+          },
+          {
+            id: `guest-assistant-${crypto.randomUUID()}`,
+            role: 'assistant',
+            content: reply,
+            createdAt: new Date().toISOString(),
+          },
+        ],
+      })
+    }
+
     const thread = await getOrCreateThread(accountUser.id, body.threadId, message || messages[messages.length - 1]?.content || 'New chat')
 
     if (body.editMessageId) {

@@ -4,14 +4,14 @@ import Navbar from '@/components/Navbar'
 
 export const metadata = {
   title: 'Contact | InteropMed',
-  description: 'Contact InteropMed for enterprise healthcare interoperability demos, architecture reviews, and partnership conversations.',
+  description: 'Contact InteropMed for connected healthcare technology demos, architecture reviews, smart hospital integration, and partnership conversations.',
 }
 
 const contactChannels = [
   {
-    label: 'Enterprise demos',
+    label: 'Technical walkthroughs',
     value: 'demo@interopmed.com',
-    detail: 'For health systems evaluating SHIN, FHIR-native middleware, or clinical data modernization.',
+    detail: 'For teams evaluating EHR/EMR, LIS, device, wearable, IoT, or smart hospital infrastructure integration.',
   },
   {
     label: 'Architecture reviews',
@@ -26,10 +26,10 @@ const contactChannels = [
 ]
 
 const priorities = [
-  'Launch or Scale implementation package',
-  'FHIR R4 implementation planning',
-  'Legacy clinical system integration',
-  'Managed interoperability operations',
+  'EHR/EMR and LIS integration',
+  'Monitoring device and wearable connectivity',
+  'Smart beds, OT lights, nurse-call, and IoT workflows',
+  'Hybrid edge and managed interoperability operations',
   'Security and compliance review',
 ]
 
@@ -45,10 +45,10 @@ export default function ContactPage() {
                 Contact InteropMed
               </p>
               <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
-                Start a focused interoperability conversation.
+                Request a connected healthcare technology walkthrough.
               </h1>
               <p className="mb-8 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-                Tell us about your clinical data environment, target workflow, integration constraints, and success criteria. We will help identify the right SHIN package and next step.
+                Tell us about your clinical systems, lab workflows, devices, wearables, IoT sources, smart hospital infrastructure, integration constraints, and success criteria. We will help identify the right technical path.
               </p>
 
               <div className="grid gap-4 sm:grid-cols-2">

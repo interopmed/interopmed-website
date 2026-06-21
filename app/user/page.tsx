@@ -399,7 +399,7 @@ async function UserAccountDashboard({
       action: 'Request guidance',
     },
     {
-      href: '/implementation',
+      href: '/documentation',
       title: 'Implementation guide',
       detail: 'Plan clinical data exchange workflows across services, standards, interfaces, and operations.',
       action: 'Review guide',

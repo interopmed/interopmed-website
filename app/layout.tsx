@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "InteropMed | Enterprise Health Informatics",
-  description: "High-performance FHIR-native middleware for secure, scalable healthcare data interoperability.",
+  title: "InteropMed | Connected Healthcare Technology",
+  description: "Connecting healthcare data, devices, and smart hospital infrastructure through secure, scalable interoperability technology.",
 };
 
 export default function RootLayout({

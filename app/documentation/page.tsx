@@ -82,10 +82,10 @@ export default function DocumentationPage() {
                   When the workflow needs reliability, auditability, change control, and support, move from reference material into a production implementation plan.
                 </p>
                 <Link
-                  href="/implementation"
+                  href="/contact"
                   className="inline-block rounded-lg bg-gradient-to-r from-teal-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white transition hover:shadow-lg hover:shadow-teal-500/25"
                 >
-                  View implementation model
+                  Contact the team
                 </Link>
               </div>
             </div>

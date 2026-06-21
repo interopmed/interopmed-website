@@ -1,5 +1,5 @@
 import InteropMindWorkspace from '@/components/InteropMindWorkspace'
-import { requireAccountUser } from '@/lib/account-auth'
+import { getAccountSessionUser } from '@/lib/account-auth'
 
 export const dynamic = 'force-dynamic'
 
@@ -9,7 +9,7 @@ export const metadata = {
 }
 
 export default async function InteropMindWorkspacePage() {
-  const user = await requireAccountUser('/interopmind')
+  const user = await getAccountSessionUser()
 
   return <InteropMindWorkspace user={user} />
 }

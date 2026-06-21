@@ -15,13 +15,14 @@ export default function Footer() {
               <span className="font-semibold text-slate-900 dark:text-white">InteropMed</span>
             </div>
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              InteropMed is an interoperability hub for healthcare workflows, standards education, implementation tools, and governed clinical data exchange.
+              InteropMed connects healthcare data, devices, and smart hospital infrastructure through secure interoperability tools, AI guidance, and implementation support.
             </p>
           </div>
 
           <div>
             <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Hub</h3>
             <ul className="space-y-2 text-sm">
+              <li><Link href="/stream" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Stream</Link></li>
               <li><Link href="/workflows" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Workflows</Link></li>
               <li><Link href="/learn" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Learning Center</Link></li>
               <li><Link href="/knowledge" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Knowledge Base</Link></li>
@@ -34,11 +35,12 @@ export default function Footer() {
           <div>
             <h3 className="mb-4 text-sm font-semibold text-slate-900 dark:text-white">Platform</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/studio" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Studio</Link></li>
               <li><Link href="/shin" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">SHIN Platform</Link></li>
+              <li><Link href="/solutions" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Solutions</Link></li>
+              <li><Link href="/smart-hospital" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Smart Hospital</Link></li>
+              <li><Link href="/studio" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Studio</Link></li>
               <li><Link href="/interopmind" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">InteropMind AI</Link></li>
               <li><Link href="/technology" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Technology</Link></li>
-              <li><Link href="/implementation" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Implementation</Link></li>
               <li><Link href="/insights" className="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Insights</Link></li>
             </ul>
           </div>
@@ -58,7 +60,7 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-between border-t border-slate-200 pt-8 dark:border-slate-800 md:flex-row">
           <div>
             <p className="text-sm text-slate-600 dark:text-slate-400">
-              Copyright {currentYear} InteropMed. All rights reserved. Enterprise health data interoperability.
+              Copyright {currentYear} InteropMed. All rights reserved. Connected healthcare technology.
             </p>
             <p className="mt-3 max-w-3xl text-xs leading-5 text-slate-500 dark:text-slate-500">
               FHIR is a registered trademark of Health Level Seven International. InteropMed is not affiliated with or endorsed by HL7. References to FHIR indicate standards alignment and implementation support.

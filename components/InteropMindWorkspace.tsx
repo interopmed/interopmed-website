@@ -26,7 +26,7 @@ type ChatThread = {
 }
 
 type InteropMindWorkspaceProps = {
-  user: InteropMindUser
+  user: InteropMindUser | null
 }
 
 type ThreadModalMode = 'rename' | 'delete' | ''
@@ -399,9 +399,10 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
   const [editingMessageId, setEditingMessageId] = useState('')
   const [error, setError] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
-  const displayName = user.displayName || user.username
+  const isSignedIn = Boolean(user)
+  const displayName = user?.displayName || user?.username || 'there'
   const userInitial = displayName.slice(0, 1).toUpperCase()
-  const accountHref = user.role === 'admin' ? '/account' : '/user'
+  const accountHref = user?.role === 'admin' ? '/account' : '/user'
   const activeThread = useMemo(
     () => threads.find((thread) => thread.id === activeThreadId) || threads[0],
     [threads, activeThreadId]
@@ -419,6 +420,14 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
     let isMounted = true
 
     async function loadThreads() {
+      if (!isSignedIn) {
+        const guestThread = createThread()
+        setThreads([guestThread])
+        setActiveThreadId(guestThread.id)
+        setIsHistoryLoading(false)
+        return
+      }
+
       try {
         const response = await fetch('/api/interopmind/threads')
         const payload = await response.json()
@@ -476,7 +485,7 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
     return () => {
       isMounted = false
     }
-  }, [])
+  }, [isSignedIn])
 
   async function startNewChat() {
     const fallbackThread = createThread()
@@ -701,15 +710,16 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
     setIsLoading(true)
 
     try {
+      const requestMessages = [...messagesBeforeEdit, { role: 'user' as const, content: trimmedMessage }]
       const response = await fetch('/api/ai-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: trimmedMessage,
-          messages: [...messagesBeforeEdit, { role: 'user', content: trimmedMessage }],
+          messages: requestMessages,
           context: 'interopmind_workspace',
-          threadId: activeThread.id.startsWith('local-') ? undefined : activeThread.id,
-          editMessageId: editMessageId || undefined,
+          threadId: isSignedIn && !activeThread.id.startsWith('local-') ? activeThread.id : undefined,
+          editMessageId: isSignedIn ? editMessageId || undefined : undefined,
         }),
       })
       const payload = await response.json().catch(() => ({
@@ -869,6 +879,11 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                   Loading chats...
                 </div>
               )}
+              {!isSignedIn && !isCollapsed && (
+                <div className="mb-3 rounded-xl border border-teal-200 bg-teal-50 px-3 py-2 text-xs leading-5 text-teal-800 dark:border-teal-900 dark:bg-teal-950/30 dark:text-teal-200">
+                  Guest chats are not saved. Sign in to keep history.
+                </div>
+              )}
               {chatHistory.map((thread) => {
                 const active = thread.id === activeThread?.id
                 const optionsOpen = openThreadOptionsId === thread.id
@@ -959,7 +974,7 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
           <div className="border-t border-slate-200 p-3 dark:border-slate-800">
             <div className={`flex items-center gap-3 rounded-full px-2 py-2 ${isCollapsed ? 'justify-center' : 'justify-between'}`}>
               <Link
-                href={accountHref}
+                href={isSignedIn ? accountHref : '/account/login?next=%2Finteropmind'}
                 className={`min-w-0 items-center gap-3 rounded-full transition hover:bg-slate-200 dark:hover:bg-slate-800 ${isCollapsed ? 'hidden' : 'flex'}`}
               >
                 <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-950 text-xs font-bold text-white dark:bg-white dark:text-slate-950">
@@ -967,15 +982,21 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                 </span>
                 <span className="min-w-0">
                   <span className="block truncate text-sm font-semibold text-slate-950 dark:text-white">{displayName}</span>
-                  <span className="block truncate text-xs text-slate-500 dark:text-slate-400">{user.email}</span>
+                  <span className="block truncate text-xs text-slate-500 dark:text-slate-400">{user?.email || 'Sign in to save chats'}</span>
                 </span>
               </Link>
               {isCollapsed && (
-                <Link href={accountHref} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-950 text-xs font-bold text-white dark:bg-white dark:text-slate-950">
+                <Link href={isSignedIn ? accountHref : '/account/login?next=%2Finteropmind'} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-950 text-xs font-bold text-white dark:bg-white dark:text-slate-950">
                   {userInitial}
                 </Link>
               )}
-              <AccountLogoutButton variant="sidebar" />
+              {isSignedIn ? (
+                <AccountLogoutButton variant="sidebar" />
+              ) : (
+                <Link href="/account/login?next=%2Finteropmind" className="rounded-full bg-slate-950 px-3 py-2 text-xs font-bold text-white dark:bg-white dark:text-slate-950">
+                  Sign in
+                </Link>
+              )}
             </div>
           </div>
         </aside>
@@ -994,9 +1015,9 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                 Tools
               </Link>
               <Link
-                href={accountHref}
+                href={isSignedIn ? accountHref : '/account/login?next=%2Finteropmind'}
                 className="grid h-9 w-9 place-items-center rounded-full bg-slate-950 text-xs font-bold text-white dark:bg-white dark:text-slate-950"
-                title="Account workspace"
+                title={isSignedIn ? 'Account workspace' : 'Sign in to save chats'}
               >
                 {userInitial}
               </Link>

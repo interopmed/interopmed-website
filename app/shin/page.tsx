@@ -2,18 +2,18 @@ import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 
 export const metadata = {
-  title: 'SHIN Platform | InteropMed',
-  description: 'InteropMed SHIN platform for FHIR-native healthcare interoperability and clinical data infrastructure.',
+  title: 'Platform | InteropMed',
+  description: 'InteropMed platform for healthcare data, device, lab, wearable, IoT, and smart hospital infrastructure interoperability.',
 }
 
 const capabilities = [
   {
-    title: 'HL7 FHIR-native data layer',
-    body: 'Normalize clinical data into standards-aligned resources that downstream systems can consume with less custom translation.',
+    title: 'Connected data layer',
+    body: 'Normalize clinical records, lab results, device telemetry, wearable observations, and IoT signals into standards-aligned data services.',
   },
   {
     title: 'Integration orchestration',
-    body: 'Coordinate data movement across EHRs, registries, labs, imaging systems, patient apps, and analytics destinations.',
+    body: 'Coordinate data movement across EHRs, EMRs, labs, imaging systems, monitoring devices, patient apps, smart infrastructure, and analytics destinations.',
   },
   {
     title: 'Governance controls',
@@ -27,9 +27,10 @@ const capabilities = [
 
 const workflows = [
   'Patient identity and demographic synchronization',
-  'Observation, encounter, and diagnostic result exchange',
+  'Observation, encounter, diagnostic result, and telemetry exchange',
+  'Smart bed, OT light, nurse-call, and room-sensor event routing',
   'Referral and transitions-of-care coordination',
-  'FHIR API enablement for modern health applications',
+  'FHIR API enablement for modern health applications and AI workflows',
   'Clinical data quality and governance review',
 ]
 
@@ -42,13 +43,13 @@ export default function ShinPlatformPage() {
           <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
               <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-teal-600 dark:text-teal-400">
-                SHIN Platform
+                InteropMed platform
               </p>
               <h1 className="mb-6 text-4xl font-bold leading-tight text-slate-950 dark:text-white md:text-6xl">
-                A standards-aligned health interoperability network layer.
+                The software layer for connected healthcare.
               </h1>
               <p className="text-lg leading-8 text-slate-600 dark:text-slate-300">
-                InteropMed is an HL7 FHIR-aligned interoperability platform that helps healthcare organizations implement, govern, and operate clinical data exchange. SHIN is the platform layer that turns that operating model into governed, observable clinical data infrastructure.
+                InteropMed connects healthcare data, clinical systems, laboratory workflows, devices, wearables, IoT sources, and smart hospital infrastructure into governed, observable clinical data infrastructure.
               </p>
             </div>
 

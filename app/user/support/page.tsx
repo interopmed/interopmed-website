@@ -185,8 +185,8 @@ export default async function UserSupportPage() {
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Self-service</p>
                     <h2 className="mt-2 text-2xl font-bold">Help topics</h2>
                   </div>
-                  <Link href="/implementation" className="w-fit rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
-                    Implementation
+                  <Link href="/documentation" className="w-fit rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-teal-400 hover:text-teal-700 dark:border-slate-800 dark:text-slate-300 dark:hover:border-teal-500 dark:hover:text-teal-300">
+                    Documentation
                   </Link>
                 </div>
                 <div className="mt-6 grid gap-4 md:grid-cols-2">

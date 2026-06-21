@@ -1,19 +1,19 @@
 const items = [
   {
-    problem: 'Vendor lock-in',
-    solution: 'Standards-first architecture gives teams a portable clinical data contract instead of another proprietary integration layer.',
+    problem: 'Too many locked systems',
+    solution: 'Connect systems using common healthcare standards, so your data is easier to move, share, and reuse.',
   },
   {
-    problem: 'Data fragmentation',
-    solution: 'SHIN normalizes patient, encounter, observation, and document context into a unified operating model.',
+    problem: 'Patient data is scattered',
+    solution: 'Bring patient, visit, result, and document information into a clearer structure that teams can understand.',
   },
   {
-    problem: 'Performance pressure',
-    solution: 'FHIR-aware storage and query patterns support responsive clinical dashboards and dependable API access.',
+    problem: 'Clinical apps need fast answers',
+    solution: 'Organize data so dashboards, APIs, and care tools can find the right information more reliably.',
   },
   {
-    problem: 'Governance gaps',
-    solution: 'Access policy, validation, audit trails, and exception workflows are designed into the exchange layer.',
+    problem: 'Trust is hard to manage',
+    solution: 'Add checks for access, data quality, audit history, and review steps before information is shared.',
   },
 ]
 
@@ -26,7 +26,7 @@ export default function ProblemSolutionMatrix() {
             Why it matters
           </p>
           <h2 className="text-4xl font-bold text-slate-950 dark:text-white md:text-5xl">
-            Replace brittle interfaces with governed clinical data infrastructure.
+            Make healthcare data easier to connect, check, and trust.
           </h2>
         </div>
 
