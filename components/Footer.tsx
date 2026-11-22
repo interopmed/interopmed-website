@@ -31,12 +31,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Interactive & Community</h3>
+            <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Interactive & Tools</h3>
             <ul className="space-y-2.5 text-sm">
+              <li><Link href="/tools" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Interoperability Tools</Link></li>
+              <li><Link href="/ehr-lis" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">EHR & LIS Explorer</Link></li>
               <li><Link href="/interopmind" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">InteropMind</Link></li>
               <li><Link href="/community" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Community</Link></li>
               <li><Link href="/stream" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Stream Activity</Link></li>
-              <li><Link href="/learn" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Learning Center</Link></li>
               <li><Link href="/knowledge" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Standards Reference</Link></li>
             </ul>
           </div>

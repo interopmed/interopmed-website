@@ -17,8 +17,9 @@ const navItems = [
   { href: '/clinical-informatics', label: 'Clinical Informatics' },
   { href: '/interoperability', label: 'Interoperability' },
   { href: '/implementation', label: 'Implementation' },
+  { href: '/ehr-lis', label: 'EHR & LIS' },
+  { href: '/tools', label: 'Tools' },
   { href: '/interopmind', label: 'InteropMind' },
-  { href: '/resources', label: 'Resources' },
   { href: '/community', label: 'Community' },
   { href: '/stream', label: 'Stream' },
 ]

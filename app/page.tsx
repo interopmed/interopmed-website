@@ -42,22 +42,22 @@ const knowledgeTopics = [
     description: 'Pre-implementation workflow assessment, change management, and user adoption.',
   },
   {
-    title: 'Healthcare Technology',
-    count: 'Systems & Architecture',
-    href: '/technology',
-    description: 'Medical device connectivity, hospital software design, and cybersecurity.',
+    title: 'EHR & LIS System',
+    count: 'Clinical Workflows',
+    href: '/ehr-lis',
+    description: 'Explore our Electronic Health Record charting and Laboratory Information System pipelines.',
   },
   {
-    title: 'Standards & References',
-    count: 'Technical Guides',
-    href: '/resources',
-    description: 'Curated technical specifications, terminology systems, and mapping rules.',
+    title: 'Interoperability Tools',
+    count: 'Hands-on Utilities',
+    href: '/tools',
+    description: 'Interactive FHIR API playground, HL7 v2 message inspector, and contract validators.',
   },
   {
-    title: 'Interactive Learning',
-    count: 'InteropMind Lab',
-    href: '/interopmind',
-    description: 'Interactive environment to evaluate clinical workflows and standards.',
+    title: 'Professional Community',
+    count: 'Discussions & Stream',
+    href: '/community',
+    description: 'Connect with medical doctors, health informaticians, and software engineers.',
   },
 ]
 
@@ -316,6 +316,73 @@ export default async function HomePage() {
             </div>
           </section>
         )}
+
+        {/* INTEROPERABILITY TOOLS & EHR/LIS EXPLORATION */}
+        <section className="border-b border-slate-200 bg-white py-12 dark:border-slate-800 dark:bg-slate-950 md:py-16">
+          <div className="mx-auto max-w-7xl px-6">
+            <div className="mb-8">
+              <span className="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400">
+                Interactive Platforms
+              </span>
+              <h2 className="mt-2 text-2xl font-bold text-slate-950 dark:text-white sm:text-3xl">
+                Interoperability Tools & Clinical Systems Exploration
+              </h2>
+              <p className="mt-2 max-w-2xl text-xs text-slate-500 dark:text-slate-400">
+                Hands-on sandboxes to inspect clinical standards and experience interconnected EHR & LIS workflows.
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {/* Card 1: Interoperability Tools */}
+              <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-8 shadow-sm transition hover:border-teal-300 dark:border-slate-800 dark:bg-slate-900">
+                <span className="font-mono text-xs font-bold text-teal-600 dark:text-teal-400">Tool Suite</span>
+                <h3 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">
+                  Hands-on Interoperability Utilities
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  Interactive FHIR API playground to fetch and inspect Patient, Observation, and DiagnosticReport payloads, paired with an HL7 v2 ADT/ORU message inspector.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-slate-700 shadow-sm dark:bg-slate-800 dark:text-slate-300">FHIR REST Playground</span>
+                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-slate-700 shadow-sm dark:bg-slate-800 dark:text-slate-300">HL7 v2 Parser</span>
+                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-slate-700 shadow-sm dark:bg-slate-800 dark:text-slate-300">Terminology</span>
+                </div>
+                <div className="mt-8">
+                  <Link
+                    href="/tools"
+                    className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-teal-600 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-400"
+                  >
+                    Open Interoperability Tools →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Card 2: EHR & LIS System */}
+              <div className="rounded-2xl border border-teal-200 bg-teal-50/30 p-8 shadow-sm transition hover:border-teal-300 dark:border-teal-900/60 dark:bg-teal-950/20">
+                <span className="font-mono text-xs font-bold text-teal-700 dark:text-teal-400">Clinical Architecture</span>
+                <h3 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">
+                  Explore Our Connected EHR & LIS System
+                </h3>
+                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+                  Opportunity for health informaticians to explore computerized clinical charting, CPOE order communications, and Laboratory Information System specimen processing pipelines.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-teal-800 shadow-sm dark:bg-slate-800 dark:text-teal-300">EHR Charting & CPOE</span>
+                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-teal-800 shadow-sm dark:bg-slate-800 dark:text-teal-300">LIS Analyzer Feeds</span>
+                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-teal-800 shadow-sm dark:bg-slate-800 dark:text-teal-300">Bi-directional Bridge</span>
+                </div>
+                <div className="mt-8">
+                  <Link
+                    href="/ehr-lis"
+                    className="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-teal-700"
+                  >
+                    Explore EHR & LIS System →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* LIVE COMMUNITY STREAM WIRE */}
         <section className="border-b border-slate-200 py-12 dark:border-slate-800 md:py-16">
