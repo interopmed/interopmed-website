@@ -7,59 +7,11 @@ import { db } from '@/lib/db'
 import { prisma } from '@/lib/prisma'
 
 export const metadata = {
-  title: 'InteropMed | Health Informatics & Healthcare Interoperability',
+  title: 'InteropMed | Health Informatics & Interoperability Knowledge Platform',
   description: 'Evidence-based articles, clinical workflow analyses, healthcare standards, and digital health implementation guides.',
 }
 
 export const dynamic = 'force-dynamic'
-
-const standardBadges = [
-  { name: 'HL7 FHIR', desc: 'Modern REST & JSON data exchange specifications', link: '/interoperability' },
-  { name: 'HL7 v2.x', desc: 'Hospital interface engine messaging (ADT, ORM, ORU)', link: '/knowledge' },
-  { name: 'SNOMED CT', desc: 'Global polyhierarchical clinical healthcare terminology', link: '/articles/terminology-strategy-snomed-loinc-icd' },
-  { name: 'LOINC', desc: 'Universal code system for lab tests and clinical observations', link: '/articles/terminology-strategy-snomed-loinc-icd' },
-  { name: 'ICD-10 / 11', desc: 'WHO diagnostic classifications for morbidity & epidemiology', link: '/resources' },
-  { name: 'DICOM', desc: 'Medical imaging communication and DICOMweb protocols', link: '/articles/medical-imaging-dicom-fhir-integration' },
-]
-
-const knowledgeTopics = [
-  {
-    title: 'Clinical Informatics',
-    count: 'Workflows & EMR',
-    href: '/clinical-informatics',
-    description: 'Clinical documentation, CPOE, decision support, and cognitive load in patient care.',
-  },
-  {
-    title: 'Healthcare Interoperability',
-    count: 'Standards & APIs',
-    href: '/interoperability',
-    description: 'FHIR resources, terminology servers, and semantic data models.',
-  },
-  {
-    title: 'Digital Health Implementation',
-    count: 'Strategy & Governance',
-    href: '/implementation',
-    description: 'Pre-implementation workflow assessment, change management, and user adoption.',
-  },
-  {
-    title: 'EHR & LIS System',
-    count: 'Clinical Workflows',
-    href: '/ehr-lis',
-    description: 'Explore our Electronic Health Record charting and Laboratory Information System pipelines.',
-  },
-  {
-    title: 'Interoperability Tools',
-    count: 'Hands-on Utilities',
-    href: '/tools',
-    description: 'Interactive FHIR API playground, HL7 v2 message inspector, and contract validators.',
-  },
-  {
-    title: 'Professional Community',
-    count: 'Discussions & Stream',
-    href: '/community',
-    description: 'Connect with medical doctors, health informaticians, and software engineers.',
-  },
-]
 
 type ArticleItem = {
   slug: string
@@ -79,7 +31,9 @@ async function getAllPublishedArticles(): Promise<ArticleItem[]> {
       title: a.title,
       excerpt: a.excerpt || a.content.slice(0, 180),
       category: a.category,
-      author: a.author ? `${a.author.firstName} ${a.author.lastName}` : (a.accountAuthor?.displayName || 'InteropMed Research'),
+      author: a.author
+        ? `${a.author.firstName} ${a.author.lastName}`
+        : (a.accountAuthor?.displayName || 'InteropMed Contributor'),
       publishedAt: a.publishedAt
         ? new Date(a.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
         : 'Recent',
@@ -156,42 +110,40 @@ export default async function HomePage() {
 
   const leadStory = allArticles[0]
   const secondaryStories = allArticles.slice(1, 3)
-  const moreStories = allArticles.slice(3)
 
   return (
-    <div className="flex min-h-screen flex-col bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="flex min-h-screen flex-col bg-[#fdfdfd] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <Navbar />
 
       <main className="flex-1">
-        {/* EDITORIAL COVER STORY & TOP HEADLINES (NEWSPAPER / MAGAZINE LAYOUT) */}
-        <section className="border-b border-slate-200 py-10 dark:border-slate-800 md:py-14">
+        {/* EDITORIAL COVER STORY (CLEAN, NATURAL, PUBLICATION LAYOUT) */}
+        <section className="border-b border-slate-200/70 py-10 dark:border-slate-800 md:py-16">
           <div className="mx-auto max-w-7xl px-6">
-            <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] xl:gap-14">
+            <div className="grid gap-12 lg:grid-cols-[1.45fr_1fr] xl:gap-16">
               {/* PRIMARY LEAD STORY */}
               {leadStory && (
-                <article className="flex flex-col justify-between border-b border-slate-200 pb-8 dark:border-slate-800 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-10 xl:pr-14">
+                <article className="flex flex-col justify-between border-b border-slate-200/70 pb-10 dark:border-slate-800 lg:border-b-0 lg:border-r lg:pb-0 lg:pr-12 xl:pr-16">
                   <div>
-                    <div className="flex items-center gap-3">
-                      <span className="rounded-md bg-teal-100 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-teal-800 dark:bg-teal-950 dark:text-teal-300">
+                    <div className="flex items-center gap-2.5">
+                      <span className="rounded bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-800 dark:bg-teal-950/80 dark:text-teal-300">
                         {leadStory.category}
                       </span>
-                      <span className="text-xs font-semibold text-rose-600 dark:text-rose-400">Featured Analysis</span>
                       <span className="text-xs text-slate-400">•</span>
                       <span className="text-xs text-slate-500 dark:text-slate-400">{leadStory.readingTime}</span>
                     </div>
 
-                    <h1 className="mt-5 text-3xl font-extrabold leading-tight text-slate-950 transition hover:text-teal-600 dark:text-white dark:hover:text-teal-400 sm:text-4xl md:text-5xl">
+                    <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 transition hover:text-teal-700 dark:text-white dark:hover:text-teal-400 sm:text-4xl md:text-[2.6rem] md:leading-[1.18]">
                       <Link href={`/articles/${leadStory.slug}`}>
                         {leadStory.title}
                       </Link>
                     </h1>
 
-                    <p className="mt-5 text-base leading-8 text-slate-600 dark:text-slate-300 sm:text-lg">
+                    <p className="mt-5 text-base leading-relaxed text-slate-600 dark:text-slate-300 md:text-lg">
                       {leadStory.excerpt}
                     </p>
                   </div>
 
-                  <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-6 text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+                  <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100 pt-6 text-xs text-slate-500 dark:border-slate-800/80 dark:text-slate-400">
                     <div className="flex items-center gap-2">
                       <span className="font-semibold text-slate-800 dark:text-slate-200">{leadStory.author}</span>
                       <span>•</span>
@@ -199,7 +151,7 @@ export default async function HomePage() {
                     </div>
                     <Link
                       href={`/articles/${leadStory.slug}`}
-                      className="inline-flex items-center gap-1.5 font-bold text-teal-600 transition hover:text-teal-700 dark:text-teal-400"
+                      className="inline-flex items-center gap-1.5 font-semibold text-teal-700 transition hover:text-teal-800 dark:text-teal-400"
                     >
                       Read full article
                       <span>→</span>
@@ -208,35 +160,35 @@ export default async function HomePage() {
                 </article>
               )}
 
-              {/* SECONDARY LEAD STORIES (RIGHT COLUMN) */}
+              {/* SECONDARY STORIES (RIGHT SIDEBAR) */}
               <div className="flex flex-col justify-between space-y-8">
                 <div>
-                  <div className="mb-6 flex items-center justify-between border-b border-slate-200 pb-3 dark:border-slate-800">
-                    <h2 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white">
-                      Editor&apos;s Dispatch
+                  <div className="mb-6 flex items-center justify-between border-b border-slate-200/80 pb-3 dark:border-slate-800">
+                    <h2 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      Editor&apos;s Picks
                     </h2>
-                    <Link href="/articles" className="text-xs font-bold text-teal-600 hover:text-teal-700 dark:text-teal-400">
-                      All Articles ({allArticles.length}) →
+                    <Link href="/articles" className="text-xs font-semibold text-teal-700 hover:underline dark:text-teal-400">
+                      View all articles →
                     </Link>
                   </div>
 
-                  <div className="space-y-8">
+                  <div className="space-y-7">
                     {secondaryStories.map((item) => (
-                      <article key={item.slug} className="group border-b border-slate-100 pb-7 last:border-b-0 dark:border-slate-800/80">
-                        <div className="flex items-center gap-2.5 text-xs text-slate-500">
-                          <span className="font-semibold text-teal-700 dark:text-teal-400">{item.category}</span>
+                      <article key={item.slug} className="group border-b border-slate-100 pb-7 last:border-b-0 dark:border-slate-800/70">
+                        <div className="flex items-center gap-2 text-xs text-slate-500">
+                          <span className="font-medium text-teal-700 dark:text-teal-400">{item.category}</span>
                           <span>•</span>
                           <span>{item.readingTime}</span>
                         </div>
-                        <h3 className="mt-2 text-xl font-bold leading-snug text-slate-950 transition group-hover:text-teal-600 dark:text-white dark:group-hover:text-teal-400">
+                        <h3 className="mt-2 text-lg font-bold leading-snug text-slate-950 transition group-hover:text-teal-700 dark:text-white dark:group-hover:text-teal-400">
                           <Link href={`/articles/${item.slug}`}>
                             {item.title}
                           </Link>
                         </h3>
-                        <p className="mt-2 text-sm leading-6 text-slate-600 line-clamp-2 dark:text-slate-400">
+                        <p className="mt-2 text-xs leading-relaxed text-slate-600 line-clamp-2 dark:text-slate-400">
                           {item.excerpt}
                         </p>
-                        <div className="mt-3 flex items-center justify-between text-xs text-slate-400">
+                        <div className="mt-3 flex items-center justify-between text-[11px] text-slate-400">
                           <span>{item.author}</span>
                           <span>{item.publishedAt}</span>
                         </div>
@@ -245,17 +197,17 @@ export default async function HomePage() {
                   </div>
                 </div>
 
-                {/* EDITORIAL BRIEF CALLOUT */}
-                <div className="rounded-xl border border-teal-200 bg-teal-50/60 p-5 dark:border-teal-900/50 dark:bg-teal-950/20">
+                {/* INTEROPMIND DISCOVERY CALLOUT */}
+                <div className="rounded-2xl border border-teal-200/80 bg-teal-50/40 p-5 dark:border-teal-900/50 dark:bg-teal-950/20">
                   <p className="text-xs font-bold uppercase tracking-wider text-teal-800 dark:text-teal-300">
-                    Interactive Knowledge Explorer
+                    Interactive Learning Lab
                   </p>
-                  <p className="mt-1 text-xs leading-5 text-slate-600 dark:text-slate-400">
-                    Query healthcare standards, test ADT-to-FHIR mappings, and review clinical informatics principles in real-time.
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                    Have a question about FHIR mapping, clinical codes, or EMR workflow design? Ask questions directly in the InteropMind workspace.
                   </p>
                   <Link
                     href="/interopmind"
-                    className="mt-3 inline-block rounded-lg bg-teal-600 px-3.5 py-1.5 text-xs font-bold text-white transition hover:bg-teal-700"
+                    className="mt-3 inline-block rounded-lg bg-teal-700 px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-teal-800"
                   >
                     Open InteropMind Workspace →
                   </Link>
@@ -265,92 +217,45 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* MORE ARTICLES & NEWS GRID */}
-        {moreStories.length > 0 && (
-          <section className="border-b border-slate-200 bg-slate-50/60 py-12 dark:border-slate-800 dark:bg-slate-900/30 md:py-16">
-            <div className="mx-auto max-w-7xl px-6">
-              <div className="mb-8 flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
-                    Informatics & Standards Articles
-                  </h2>
-                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                    Peer-reviewed guidance on data exchange, clinical architecture, and health system implementation.
-                  </p>
-                </div>
-                <Link
-                  href="/articles"
-                  className="text-xs font-bold text-teal-600 hover:text-teal-700 dark:text-teal-400"
-                >
-                  View complete library →
-                </Link>
-              </div>
-
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {moreStories.map((article) => (
-                  <article
-                    key={article.slug}
-                    className="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-teal-300 hover:shadow-md dark:border-slate-800 dark:bg-slate-900"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="font-semibold text-teal-700 dark:text-teal-400">{article.category}</span>
-                        <span className="text-slate-400">{article.readingTime}</span>
-                      </div>
-                      <h3 className="mt-3 text-lg font-bold leading-snug text-slate-950 dark:text-white">
-                        <Link href={`/articles/${article.slug}`} className="transition hover:text-teal-600 dark:hover:text-teal-400">
-                          {article.title}
-                        </Link>
-                      </h3>
-                      <p className="mt-3 text-sm leading-6 text-slate-600 line-clamp-3 dark:text-slate-300">
-                        {article.excerpt}
-                      </p>
-                    </div>
-                    <div className="mt-6 border-t border-slate-100 pt-4 dark:border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                      <span>{article.author}</span>
-                      <span>{article.publishedAt}</span>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* INTEROPERABILITY TOOLS & EHR/LIS EXPLORATION */}
-        <section className="border-b border-slate-200 bg-white py-12 dark:border-slate-800 dark:bg-slate-950 md:py-16">
+        {/* SECTION 2: HANDS-ON INTEROPERABILITY TOOLS & EHR/LIS EXPLORATION */}
+        <section className="border-b border-slate-200/70 py-12 dark:border-slate-800 md:py-16">
           <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-8">
-              <span className="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400">
-                Interactive Platforms
+            <div className="mb-10 max-w-2xl">
+              <span className="text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400">
+                Practical Learning
               </span>
-              <h2 className="mt-2 text-2xl font-bold text-slate-950 dark:text-white sm:text-3xl">
-                Interoperability Tools & Clinical Systems Exploration
+              <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
+                Hands-on Interoperability & Clinical Systems
               </h2>
-              <p className="mt-2 max-w-2xl text-xs text-slate-500 dark:text-slate-400">
-                Hands-on sandboxes to inspect clinical standards and experience interconnected EHR & LIS workflows.
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                Move from theory to practice with our interactive tools and clinical workflows.
               </p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
               {/* Card 1: Interoperability Tools */}
-              <div className="rounded-2xl border border-slate-200 bg-slate-50/80 p-8 shadow-sm transition hover:border-teal-300 dark:border-slate-800 dark:bg-slate-900">
-                <span className="font-mono text-xs font-bold text-teal-600 dark:text-teal-400">Tool Suite</span>
-                <h3 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">
-                  Hands-on Interoperability Utilities
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                  Interactive FHIR API playground to fetch and inspect Patient, Observation, and DiagnosticReport payloads, paired with an HL7 v2 ADT/ORU message inspector.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-slate-700 shadow-sm dark:bg-slate-800 dark:text-slate-300">FHIR REST Playground</span>
-                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-slate-700 shadow-sm dark:bg-slate-800 dark:text-slate-300">HL7 v2 Parser</span>
-                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-slate-700 shadow-sm dark:bg-slate-800 dark:text-slate-300">Terminology</span>
+              <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition hover:border-teal-300 dark:border-slate-800 dark:bg-slate-900">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold text-teal-700 dark:text-teal-400">Testing Utilities</span>
+                    <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">Live Sandbox</span>
+                  </div>
+                  <h3 className="mt-4 text-xl font-bold text-slate-950 dark:text-white">
+                    Interoperability Tools & Message Parser
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    Interact with real FHIR REST APIs—query Patient demographics, vital observations, and lab reports. Test our HL7 v2 segment parser on sample ADT and ORU messages.
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2 text-xs">
+                    <span className="rounded-md bg-slate-50 px-2.5 py-1 text-slate-700 border border-slate-200/60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">FHIR Resource Playground</span>
+                    <span className="rounded-md bg-slate-50 px-2.5 py-1 text-slate-700 border border-slate-200/60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">HL7 v2 Message Inspector</span>
+                  </div>
                 </div>
-                <div className="mt-8">
+
+                <div className="mt-8 border-t border-slate-100 pt-5 dark:border-slate-800">
                   <Link
                     href="/tools"
-                    className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-teal-600 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-400"
+                    className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-300"
                   >
                     Open Interoperability Tools →
                   </Link>
@@ -358,23 +263,28 @@ export default async function HomePage() {
               </div>
 
               {/* Card 2: EHR & LIS System */}
-              <div className="rounded-2xl border border-teal-200 bg-teal-50/30 p-8 shadow-sm transition hover:border-teal-300 dark:border-teal-900/60 dark:bg-teal-950/20">
-                <span className="font-mono text-xs font-bold text-teal-700 dark:text-teal-400">Clinical Architecture</span>
-                <h3 className="mt-2 text-xl font-bold text-slate-950 dark:text-white">
-                  Explore Our Connected EHR & LIS System
-                </h3>
-                <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
-                  Opportunity for health informaticians to explore computerized clinical charting, CPOE order communications, and Laboratory Information System specimen processing pipelines.
-                </p>
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-teal-800 shadow-sm dark:bg-slate-800 dark:text-teal-300">EHR Charting & CPOE</span>
-                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-teal-800 shadow-sm dark:bg-slate-800 dark:text-teal-300">LIS Analyzer Feeds</span>
-                  <span className="rounded-md bg-white px-2.5 py-1 text-xs font-medium text-teal-800 shadow-sm dark:bg-slate-800 dark:text-teal-300">Bi-directional Bridge</span>
+              <div className="flex flex-col justify-between rounded-2xl border border-teal-200/70 bg-gradient-to-br from-white to-teal-50/30 p-7 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition hover:border-teal-400 dark:border-teal-900/60 dark:from-slate-900 dark:to-teal-950/30">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-xs font-semibold text-teal-700 dark:text-teal-400">Clinical Workflow</span>
+                    <span className="rounded bg-teal-100/60 px-2 py-0.5 text-[11px] font-medium text-teal-800 dark:bg-teal-950 dark:text-teal-300">EHR + LIS</span>
+                  </div>
+                  <h3 className="mt-4 text-xl font-bold text-slate-950 dark:text-white">
+                    Explore Our Connected EHR & LIS System
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                    See how patient encounters, doctor orders (CPOE), and laboratory specimen tests communicate end-to-end using international standards like LOINC, SNOMED, and FHIR.
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2 text-xs">
+                    <span className="rounded-md bg-white/80 px-2.5 py-1 text-teal-800 border border-teal-200/60 shadow-sm dark:bg-slate-800 dark:border-teal-900 dark:text-teal-300">Clinical Charting</span>
+                    <span className="rounded-md bg-white/80 px-2.5 py-1 text-teal-800 border border-teal-200/60 shadow-sm dark:bg-slate-800 dark:border-teal-900 dark:text-teal-300">Laboratory Specimen Tracking</span>
+                  </div>
                 </div>
-                <div className="mt-8">
+
+                <div className="mt-8 border-t border-teal-100 pt-5 dark:border-teal-900/60">
                   <Link
                     href="/ehr-lis"
-                    className="inline-flex items-center gap-2 rounded-xl bg-teal-600 px-5 py-2.5 text-xs font-bold text-white transition hover:bg-teal-700"
+                    className="inline-flex items-center gap-2 rounded-xl bg-teal-700 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-teal-800"
                   >
                     Explore EHR & LIS System →
                   </Link>
@@ -384,43 +294,46 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* LIVE COMMUNITY STREAM WIRE */}
-        <section className="border-b border-slate-200 py-12 dark:border-slate-800 md:py-16">
+        {/* SECTION 3: RECENT DISPATCHES FROM THE COMMUNITY STREAM */}
+        <section className="border-b border-slate-200/70 py-12 dark:border-slate-800 md:py-16">
           <div className="mx-auto max-w-7xl px-6">
             <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end mb-8">
               <div>
                 <div className="inline-flex items-center gap-2">
                   <span className="flex h-2 w-2 rounded-full bg-emerald-500"></span>
-                  <span className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
-                    Live Stream Wire
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Community Stream
                   </span>
                 </div>
-                <h2 className="mt-2 text-2xl font-bold text-slate-950 dark:text-white sm:text-3xl">
+                <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
                   Dispatches from the Community
                 </h2>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                  Practical questions, implementation stories, and discussions from clinical practitioners.
+                </p>
               </div>
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <Link
                   href="/community"
-                  className="text-xs font-bold text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400"
+                  className="text-xs font-semibold text-slate-600 hover:text-teal-700 dark:text-slate-400 dark:hover:text-teal-300"
                 >
                   About Community
                 </Link>
                 <Link
                   href="/stream"
-                  className="rounded-lg bg-slate-950 px-4 py-2 text-xs font-bold text-white transition hover:bg-teal-600 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-400"
+                  className="rounded-lg bg-slate-950 px-4 py-2 text-xs font-semibold text-white transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-300"
                 >
-                  Open Stream →
+                  Join the Stream →
                 </Link>
               </div>
             </div>
 
             {recentPosts.length > 0 ? (
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
                 {recentPosts.map((post) => (
                   <div
                     key={post.id}
-                    className="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900"
+                    className="flex flex-col justify-between rounded-xl border border-slate-200/70 bg-white p-5 shadow-[0_1px_8px_rgba(0,0,0,0.02)] dark:border-slate-800 dark:bg-slate-900"
                   >
                     <div>
                       <div className="flex items-center gap-2.5">
@@ -436,23 +349,23 @@ export default async function HomePage() {
                           <p className="truncate text-[10px] text-slate-400">@{post.author.publicHandle}</p>
                         </div>
                       </div>
-                      <p className="mt-3 text-xs leading-5 text-slate-700 line-clamp-3 dark:text-slate-300">
+                      <p className="mt-3 text-xs leading-relaxed text-slate-700 line-clamp-3 dark:text-slate-300">
                         {post.content}
                       </p>
                     </div>
                     <div className="mt-4 border-t border-slate-100 pt-3 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-                      <span className="font-semibold text-teal-600 dark:text-teal-400">#{post.topic}</span>
+                      <span className="font-semibold text-teal-700 dark:text-teal-400">#{post.topic}</span>
                       <span>{post.createdAtFormatted}</span>
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="rounded-xl border border-slate-200 bg-slate-50 p-6 text-center dark:border-slate-800 dark:bg-slate-900">
+              <div className="rounded-xl border border-slate-200/70 bg-slate-50 p-6 text-center dark:border-slate-800 dark:bg-slate-900">
                 <p className="text-xs text-slate-600 dark:text-slate-400">
                   Follow live clinical informatics discussions, implementation notes, and peer updates on the Stream.
                 </p>
-                <Link href="/stream" className="mt-2 inline-block text-xs font-bold text-teal-600 hover:text-teal-700">
+                <Link href="/stream" className="mt-2 inline-block text-xs font-bold text-teal-700 hover:underline">
                   Open Stream Activity Feed →
                 </Link>
               </div>
@@ -460,72 +373,72 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* KNOWLEDGE PILLARS DIRECTORY */}
-        <section className="border-b border-slate-200 bg-slate-50/80 py-12 dark:border-slate-800 dark:bg-slate-900/40 md:py-16">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-8 max-w-2xl">
-              <p className="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400">Knowledge Curriculum</p>
-              <h2 className="mt-2 text-2xl font-bold text-slate-950 dark:text-white sm:text-3xl">
-                Core Health Informatics Domains
-              </h2>
-            </div>
-
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-              {knowledgeTopics.map((item) => (
-                <Link
-                  key={item.title}
-                  href={item.href}
-                  className="group flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-teal-300 hover:shadow dark:border-slate-800 dark:bg-slate-900"
-                >
-                  <div>
-                    <span className="font-mono text-xs font-bold text-teal-600 dark:text-teal-400">{item.count}</span>
-                    <h3 className="mt-2 text-lg font-bold text-slate-950 transition group-hover:text-teal-600 dark:text-white dark:group-hover:text-teal-400">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-xs leading-5 text-slate-600 dark:text-slate-300">
-                      {item.description}
-                    </p>
-                  </div>
-                  <div className="mt-4 flex items-center gap-1 text-xs font-bold text-teal-600 transition group-hover:gap-2 dark:text-teal-400">
-                    Explore domain
-                    <span>→</span>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* HEALTHCARE STANDARDS QUICK REFERENCE */}
+        {/* SECTION 4: INFORMATICS GUIDES & EDUCATIONAL PILLARS (WARM, HUMAN, NON-REDUNDANT) */}
         <section className="py-12 md:py-16">
           <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-8 flex items-center justify-between">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Standards Reference</p>
-                <h2 className="mt-1 text-2xl font-bold text-slate-950 dark:text-white">
-                  International Healthcare Standards
-                </h2>
-              </div>
-              <Link href="/resources" className="text-xs font-bold text-teal-600 hover:text-teal-700 dark:text-teal-400">
-                Full Standards Index →
-              </Link>
+            <div className="mb-8 max-w-2xl">
+              <span className="text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400">
+                Core Curriculum
+              </span>
+              <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
+                Explore Essential Topics in Digital Health
+              </h2>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                Curated educational guides to help you understand health technology without the jargon.
+              </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {standardBadges.map((badge) => (
-                <Link
-                  key={badge.name}
-                  href={badge.link}
-                  className="group rounded-xl border border-slate-200 bg-white p-5 transition hover:border-teal-300 dark:border-slate-800 dark:bg-slate-900"
-                >
-                  <p className="font-mono text-sm font-bold text-teal-700 group-hover:text-teal-600 dark:text-teal-400">
-                    {badge.name}
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-7 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                <div>
+                  <span className="text-xs font-semibold text-teal-700 dark:text-teal-400">01. Clinical Informatics</span>
+                  <h3 className="mt-2 text-lg font-bold text-slate-950 dark:text-white">
+                    Workflows, EMR Design & Care Teams
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                    How patient triage, nursing handoffs, and electronic chart documentation fit together in daily medical practice.
                   </p>
-                  <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400">
-                    {badge.desc}
+                </div>
+                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <Link href="/clinical-informatics" className="text-xs font-semibold text-teal-700 hover:underline dark:text-teal-400">
+                    Explore clinical informatics →
+                  </Link>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-7 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                <div>
+                  <span className="text-xs font-semibold text-teal-700 dark:text-teal-400">02. Interoperability & Codes</span>
+                  <h3 className="mt-2 text-lg font-bold text-slate-950 dark:text-white">
+                    FHIR, HL7 & Medical Standards
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                    A plain-English breakdown of international standards, medical terminology (SNOMED, LOINC), and web APIs.
                   </p>
-                </Link>
-              ))}
+                </div>
+                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <Link href="/interoperability" className="text-xs font-semibold text-teal-700 hover:underline dark:text-teal-400">
+                    Explore interoperability standards →
+                  </Link>
+                </div>
+              </div>
+
+              <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-7 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+                <div>
+                  <span className="text-xs font-semibold text-teal-700 dark:text-teal-400">03. Digital Health Rollouts</span>
+                  <h3 className="mt-2 text-lg font-bold text-slate-950 dark:text-white">
+                    Implementation & Change Management
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                    Pragmatic advice on training clinicians, shadowing paper workflows, and launching systems smoothly.
+                  </p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+                  <Link href="/implementation" className="text-xs font-semibold text-teal-700 hover:underline dark:text-teal-400">
+                    Explore implementation guides →
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
