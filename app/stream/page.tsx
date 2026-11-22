@@ -14,9 +14,18 @@ export const metadata = {
 }
 
 export default async function StreamPage() {
-  const viewer = await getAccountSessionUser()
+  // Keep the route accessible even if the account session store is temporarily unavailable.
+  let viewer = null
+  try {
+    viewer = await getAccountSessionUser()
+  } catch (error) {
+    console.error('Unable to load the Stream viewer session:', error)
+  }
+
   const viewerId = viewer?.id || '__public_viewer__'
 
+  // A database outage should not turn /stream into a broken link. Render the
+  // public Stream shell and an empty feed until data access is restored.
   const [posts, people, topicCounts] = await Promise.all([
     prisma.userPost.findMany({
       where: { status: 'published' },
@@ -63,7 +72,10 @@ export default async function StreamPage() {
       orderBy: { _count: { topic: 'desc' } },
       take: 6,
     }),
-  ])
+  ]).catch((error) => {
+    console.error('Unable to load InteropMed Stream data:', error)
+    return [[], [], []] as const
+  })
 
   const serializedPosts = posts.map((post) => ({
     ...post,
