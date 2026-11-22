@@ -14,7 +14,6 @@ type AccountSessionUser = {
 const navItems = [
   { href: '/solutions', label: 'Solutions' },
   { href: '/smart-hospital', label: 'Smart Hospital' },
-  { href: '/ai-services', label: 'AI Services' },
   { href: '/workflows', label: 'Workflows' },
   { href: '/tools', label: 'Tools' },
   { href: '/stream', label: 'Stream' },
