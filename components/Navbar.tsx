@@ -12,13 +12,15 @@ type AccountSessionUser = {
 }
 
 const navItems = [
-  { href: '/solutions', label: 'Solutions' },
-  { href: '/smart-hospital', label: 'Smart Hospital' },
-  { href: '/workflows', label: 'Workflows' },
-  { href: '/tools', label: 'Tools' },
-  { href: '/stream', label: 'Stream' },
+  { href: '/', label: 'Home' },
+  { href: '/articles', label: 'Articles' },
+  { href: '/clinical-informatics', label: 'Clinical Informatics' },
+  { href: '/interoperability', label: 'Interoperability' },
+  { href: '/implementation', label: 'Implementation' },
   { href: '/interopmind', label: 'InteropMind' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/resources', label: 'Resources' },
+  { href: '/community', label: 'Community' },
+  { href: '/stream', label: 'Stream' },
 ]
 
 export default function Navbar() {

@@ -9,7 +9,7 @@ import { prisma } from '@/lib/prisma'
 export const dynamic = 'force-dynamic'
 
 export const metadata = {
-  title: 'Professional Stream | InteropMed',
+  title: 'Stream | InteropMed',
   description: 'Healthcare interoperability updates, discussions, and professional connections.',
 }
 
@@ -122,7 +122,7 @@ export default async function StreamPage() {
             <div className="space-y-1 text-sm font-semibold text-slate-600 dark:text-slate-300">
               {[
                 ['/people', 'Discover people', '01'],
-                ['/insights', 'Read insights', '02'],
+                ['/articles', 'Read articles', '02'],
                 ['/interopmind', 'Open InteropMind', 'AI'],
               ].map(([href, label, badge]) => (
                 <Link key={href} href={href} className="flex items-center justify-between rounded-xl px-3 py-2.5 transition hover:bg-slate-100 hover:text-teal-700 dark:hover:bg-slate-800">
