@@ -14,10 +14,6 @@ type AccountSessionUser = {
 const navItems = [
   { href: '/', label: 'Home' },
   { href: '/articles', label: 'Articles' },
-  { href: '/clinical-informatics', label: 'Clinical Informatics' },
-  { href: '/interoperability', label: 'Interoperability' },
-  { href: '/implementation', label: 'Implementation' },
-  { href: '/ehr-lis', label: 'EHR & LIS' },
   { href: '/tools', label: 'Tools' },
   { href: '/interopmind', label: 'InteropMind' },
   { href: '/community', label: 'Community' },

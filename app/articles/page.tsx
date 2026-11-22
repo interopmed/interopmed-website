@@ -102,6 +102,35 @@ export default async function ArticlesPage() {
               <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">
                 In-depth educational articles, technical analyses, and practical implementation guidance authored for clinicians, informaticians, researchers, and health technology developers.
               </p>
+
+              {/* Topic Hub Links */}
+              <div className="mt-8 flex flex-wrap items-center gap-2.5 pt-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 mr-2">Topic Hubs:</span>
+                <Link
+                  href="/clinical-informatics"
+                  className="rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-teal-400"
+                >
+                  Clinical Informatics →
+                </Link>
+                <Link
+                  href="/interoperability"
+                  className="rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-teal-400"
+                >
+                  Interoperability & Standards →
+                </Link>
+                <Link
+                  href="/implementation"
+                  className="rounded-lg border border-slate-200 bg-slate-50 px-3.5 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-600 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-teal-400"
+                >
+                  Implementation & Strategy →
+                </Link>
+                <Link
+                  href="/ehr-lis"
+                  className="rounded-lg border border-teal-200 bg-teal-50/60 px-3.5 py-1.5 text-xs font-semibold text-teal-800 transition hover:bg-teal-100 dark:border-teal-900 dark:bg-teal-950/60 dark:text-teal-300"
+                >
+                  EHR & LIS Explorer →
+                </Link>
+              </div>
             </div>
           </div>
         </section>
