@@ -158,41 +158,9 @@ export default async function HomePage() {
   const secondaryStories = allArticles.slice(1, 3)
   const moreStories = allArticles.slice(3)
 
-  const currentDate = new Date().toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-
   return (
     <div className="flex min-h-screen flex-col bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <Navbar />
-
-      {/* TOP EDITORIAL MASTHEAD BAR */}
-      <div className="border-b border-slate-200 bg-slate-50/80 px-6 py-2.5 text-xs text-slate-600 dark:border-slate-800 dark:bg-slate-900/60 dark:text-slate-400">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <span className="font-semibold text-slate-800 dark:text-slate-200">{currentDate}</span>
-            <span className="text-slate-300 dark:text-slate-700">•</span>
-            <span className="font-medium text-teal-700 dark:text-teal-400">Health Informatics & Interoperability Publication</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-500">Topics:</span>
-            <div className="flex flex-wrap gap-1.5">
-              {['FHIR R4', 'Clinical Workflows', 'SNOMED CT', 'EMR Usability', 'DICOMweb'].map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/articles?tag=${encodeURIComponent(tag)}`}
-                  className="rounded bg-white px-2 py-0.5 text-[11px] font-medium text-slate-700 shadow-sm transition hover:text-teal-600 dark:bg-slate-800 dark:text-slate-300 dark:hover:text-teal-400"
-                >
-                  #{tag}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
 
       <main className="flex-1">
         {/* EDITORIAL COVER STORY & TOP HEADLINES (NEWSPAPER / MAGAZINE LAYOUT) */}
