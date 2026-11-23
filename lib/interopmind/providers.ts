@@ -51,7 +51,17 @@ function getConfiguredProvider(): InteropMindProvider {
 }
 
 function getGroqModel() {
-  return process.env.GROQ_TEXT_MODEL || process.env.GROQ_MODEL || 'llama-3.3-70b-versatile'
+  const configuredModel = (process.env.GROQ_TEXT_MODEL || process.env.GROQ_MODEL || '').trim()
+
+  if (
+    !configuredModel ||
+    configuredModel.toLowerCase() === 'llama 70b versatile' ||
+    configuredModel.toLowerCase() === 'llama-70b-versatile'
+  ) {
+    return 'llama-3.3-70b-versatile'
+  }
+
+  return configuredModel
 }
 
 function getGeminiModel() {

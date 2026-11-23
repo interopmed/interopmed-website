@@ -27,7 +27,7 @@ const freeTools = [
 ]
 
 const premiumPath = [
-  'InteropMed platform subscription',
+  'SHIN Platform subscription',
   'Managed connectors',
   'Governance console',
   'Implementation packages',
