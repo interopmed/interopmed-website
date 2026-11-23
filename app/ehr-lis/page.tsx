@@ -80,12 +80,21 @@ export default function EhrLisExplorationPage() {
               <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
                 An opportunity for clinical informaticians, researchers, and healthcare professionals to explore the architecture, workflow handoffs, and interoperability standards linking Electronic Health Records (EHR) with Laboratory Information Systems (LIS).
               </p>
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href="https://shin.interopmed.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-teal-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-800"
+                >
+                  <span>Launch Live EHR (shin.interopmed.com)</span>
+                  <span className="text-xs">↗</span>
+                </a>
                 <Link
                   href="/tools"
-                  className="rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-teal-600 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-400"
+                  className="rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
                 >
-                  Test FHIR & HL7 in Tools →
+                  Test FHIR &amp; HL7 in Tools →
                 </Link>
                 <Link
                   href="/interopmind"

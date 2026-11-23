@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import ProfileAvatar from '@/components/ProfileAvatar'
+import QuickStartWorkbench from '@/components/home/QuickStartWorkbench'
 import { articles } from '@/lib/articles'
 import { db } from '@/lib/db'
 import { prisma } from '@/lib/prisma'
@@ -116,8 +117,11 @@ export default async function HomePage() {
       <Navbar />
 
       <main className="flex-1">
-        {/* EDITORIAL COVER STORY (CLEAN, NATURAL, PUBLICATION LAYOUT) */}
-        <section className="border-b border-slate-200/70 py-10 dark:border-slate-800 md:py-16">
+        {/* QUICK-START INTEROPERABILITY WORKBENCH (ZERO FLUFF, IMMEDIATE VALUE) */}
+        <QuickStartWorkbench />
+
+        {/* EDITORIAL COVER STORY (FEATURED ARTICLE & EDITOR'S PICKS) */}
+        <section className="border-b border-slate-200/70 py-8 dark:border-slate-800 md:py-12">
           <div className="mx-auto max-w-7xl px-6">
             <div className="grid gap-12 lg:grid-cols-[1.45fr_1fr] xl:gap-16">
               {/* PRIMARY LEAD STORY */}
