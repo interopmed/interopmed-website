@@ -130,7 +130,7 @@ export default async function AccountDashboardPage() {
   ]
 
   const quickActions = [
-    { href: '/studio', label: 'Open Studio', detail: 'Mapping, transformation, and package generation.', meta: 'Studio' },
+    { href: '/tools', label: 'FHIR & HL7 Tools', detail: 'Inspect messages and test FHIR operations.', meta: 'Tools' },
     { href: '/account/insights', label: 'Create insight', detail: 'Draft or publish thought leadership content.', meta: 'Content' },
     { href: '/account/messages', label: 'Contact messages', detail: 'Review new website inquiries and lead signals.', meta: 'Leads' },
     { href: '/account/users', label: 'Manage users', detail: 'Add or update account access for the team.', meta: 'Access' },
@@ -173,8 +173,8 @@ export default async function AccountDashboardPage() {
                     <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Primary workspace</p>
                     <h2 className="mt-2 text-xl font-bold">Today&apos;s control surface</h2>
                   </div>
-                  <Link href="/studio" className="rounded-lg bg-slate-950 px-5 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-200">
-                    Open Studio
+                  <Link href="/tools" className="rounded-lg bg-slate-950 px-5 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-200">
+                    Open Tools
                   </Link>
                 </div>
 

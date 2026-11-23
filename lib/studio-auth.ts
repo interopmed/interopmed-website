@@ -1,6 +1,5 @@
 import { createHmac, timingSafeEqual } from 'node:crypto'
 
-const DEFAULT_STUDIO_URL = 'http://127.0.0.1:3100'
 const DEFAULT_SHARED_SECRET = 'interopmed-studio-dev-secret'
 
 type StudioLaunchPayload = {
@@ -28,10 +27,21 @@ export function getStudioSharedSecret() {
 }
 
 export function getStudioUrl() {
-  const value = process.env.INTEROPMED_STUDIO_URL?.trim() || DEFAULT_STUDIO_URL
+  const value = process.env.INTEROPMED_STUDIO_URL?.trim()
+
+  if (!value) {
+    return null
+  }
 
   try {
     const url = new URL(value)
+    // Never redirect to localhost / 127.0.0.1 in production environments
+    if (
+      (process.env.NODE_ENV === 'production' || process.env.VERCEL) &&
+      (url.hostname === '127.0.0.1' || url.hostname === 'localhost')
+    ) {
+      return null
+    }
     return url.toString().replace(/\/$/, '')
   } catch {
     return null
