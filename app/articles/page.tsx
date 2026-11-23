@@ -89,55 +89,9 @@ export default async function ArticlesPage() {
       <Navbar />
 
       <main className="flex-1">
-        {/* Header Section */}
-        <section className="border-b border-slate-200/70 bg-white py-12 dark:border-slate-800 dark:bg-slate-900 md:py-16">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="max-w-3xl">
-              <span className="rounded bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-800 dark:bg-teal-950/80 dark:text-teal-300">
-                Articles & Guides
-              </span>
-              <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
-                Health Informatics & Standards Library
-              </h1>
-              <p className="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300">
-                Clear, evidence-based articles for doctors, nurses, informaticians, researchers, and health tech developers.
-              </p>
-
-              {/* Topic Hub Links */}
-              <div className="mt-8 flex flex-wrap items-center gap-2 pt-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 mr-2">Topic Hubs:</span>
-                <Link
-                  href="/clinical-informatics"
-                  className="rounded-lg border border-slate-200/80 bg-slate-50/70 px-3.5 py-1.5 text-xs font-medium text-slate-700 transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-teal-400"
-                >
-                  Clinical Informatics →
-                </Link>
-                <Link
-                  href="/interoperability"
-                  className="rounded-lg border border-slate-200/80 bg-slate-50/70 px-3.5 py-1.5 text-xs font-medium text-slate-700 transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-teal-400"
-                >
-                  Interoperability & Standards →
-                </Link>
-                <Link
-                  href="/implementation"
-                  className="rounded-lg border border-slate-200/80 bg-slate-50/70 px-3.5 py-1.5 text-xs font-medium text-slate-700 transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:border-teal-400"
-                >
-                  Implementation & Strategy →
-                </Link>
-                <Link
-                  href="/ehr-lis"
-                  className="rounded-lg border border-teal-200/80 bg-teal-50/50 px-3.5 py-1.5 text-xs font-medium text-teal-800 transition hover:bg-teal-100 dark:border-teal-900 dark:bg-teal-950/60 dark:text-teal-300"
-                >
-                  EHR & LIS Explorer →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Featured Article */}
+        {/* Featured Article (Lead Story) */}
         {featured && (
-          <section className="py-10">
+          <section className="pt-8 pb-6 md:pt-12 md:pb-8">
             <div className="mx-auto max-w-7xl px-6">
               <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition hover:border-teal-300 dark:border-slate-800 dark:bg-slate-900 md:p-10">
                 <div className="lg:grid lg:grid-cols-[1.3fr_0.7fr] lg:gap-10 lg:items-center">
@@ -145,11 +99,11 @@ export default async function ArticlesPage() {
                     <span className="rounded bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-800 dark:bg-teal-950/80 dark:text-teal-300">
                       {featured.category}
                     </span>
-                    <h2 className="mt-4 text-2xl font-bold leading-snug text-slate-950 dark:text-white sm:text-3xl">
+                    <h1 className="mt-4 text-2xl font-bold leading-snug text-slate-950 dark:text-white sm:text-3xl lg:text-4xl">
                       <Link href={`/articles/${featured.slug}`} className="transition hover:text-teal-700 dark:hover:text-teal-400">
                         {featured.title}
                       </Link>
-                    </h2>
+                    </h1>
                     <p className="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300">
                       {featured.excerpt}
                     </p>
@@ -166,7 +120,7 @@ export default async function ArticlesPage() {
                       href={`/articles/${featured.slug}`}
                       className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-6 py-3 text-xs font-semibold text-white transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-300"
                     >
-                      Read article
+                      Read full article
                       <span>→</span>
                     </Link>
                   </div>
