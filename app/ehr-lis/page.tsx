@@ -88,10 +88,10 @@ export default function EhrLisExplorationPage() {
                   Test FHIR & HL7 in Tools →
                 </Link>
                 <Link
-                  href="/studio"
+                  href="/interopmind"
                   className="rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-teal-400"
                 >
-                  Open Studio Workspace
+                  Explore InteropMind →
                 </Link>
               </div>
             </div>

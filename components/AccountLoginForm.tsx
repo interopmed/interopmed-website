@@ -72,12 +72,23 @@ export default function AccountLoginForm({
 
       const role = String(result.data?.user?.role || '')
       const roleHome = String(result.data?.redirectTo || (role === 'admin' ? '/account' : '/user'))
-      const nextPath =
-        redirectTo.startsWith('/studio') ||
-        (role === 'admin' && redirectTo.startsWith('/account')) ||
-        (role !== 'admin' && redirectTo.startsWith('/user'))
-          ? redirectTo
-          : roleHome
+      const isSafeRedirect =
+        redirectTo &&
+        redirectTo !== '/studio' &&
+        !redirectTo.startsWith('/studio') &&
+        !redirectTo.includes('127.0.0.1') &&
+        !redirectTo.includes('localhost') &&
+        (
+          (role === 'admin' && redirectTo.startsWith('/account')) ||
+          (role !== 'admin' && redirectTo.startsWith('/user')) ||
+          redirectTo.startsWith('/stream') ||
+          redirectTo.startsWith('/interopmind') ||
+          redirectTo.startsWith('/tools') ||
+          redirectTo.startsWith('/articles') ||
+          redirectTo.startsWith('/community')
+        )
+
+      const nextPath = isSafeRedirect ? redirectTo : roleHome
 
       window.location.assign(nextPath)
     } catch (error) {
