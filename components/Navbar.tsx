@@ -12,13 +12,12 @@ type AccountSessionUser = {
 }
 
 const navItems = [
-  { href: '/solutions', label: 'Solutions' },
-  { href: '/smart-hospital', label: 'Smart Hospital' },
-  { href: '/workflows', label: 'Workflows' },
+  { href: '/', label: 'Home' },
+  { href: '/articles', label: 'Articles' },
   { href: '/tools', label: 'Tools' },
-  { href: '/stream', label: 'Stream' },
   { href: '/interopmind', label: 'InteropMind' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/community', label: 'Community' },
+  { href: '/stream', label: 'Stream' },
 ]
 
 export default function Navbar() {
