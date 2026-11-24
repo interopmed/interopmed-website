@@ -50,8 +50,14 @@ function getConfiguredProvider(): InteropMindProvider {
   return process.env.GEMINI_API_KEY && !process.env.GROQ_API_KEY ? 'gemini' : 'groq'
 }
 
+const FALLBACK_GROQ_MODELS = [
+  'openai/gpt-oss-120b',
+  'openai/gpt-oss-20b',
+  'qwen/qwen3.6-27b',
+]
+
 function getGroqModel() {
-  return process.env.GROQ_TEXT_MODEL || process.env.GROQ_MODEL || 'llama-3.3-70b-versatile'
+  return process.env.GROQ_TEXT_MODEL || process.env.GROQ_MODEL || 'openai/gpt-oss-120b'
 }
 
 function getGeminiModel() {
@@ -65,38 +71,66 @@ async function callGroq(messages: InteropMindChatMessage[], systemPrompt: string
     throw new Error('GROQ_API_KEY is not configured')
   }
 
-  const response = await fetch(GROQ_CHAT_COMPLETIONS_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: getGroqModel(),
-      messages: [
-        {
-          role: 'system',
-          content: systemPrompt,
+  const primaryModel = getGroqModel()
+  const candidateModels = Array.from(new Set([primaryModel, ...FALLBACK_GROQ_MODELS]))
+  let lastError: Error | null = null
+
+  for (const model of candidateModels) {
+    try {
+      const response = await fetch(GROQ_CHAT_COMPLETIONS_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${apiKey}`,
         },
-        ...messages,
-      ],
-      temperature: 0.35,
-      max_tokens: 900,
-    }),
-  })
-  const result = (await response.json()) as OpenAiCompatibleResponse
+        body: JSON.stringify({
+          model,
+          messages: [
+            {
+              role: 'system',
+              content: systemPrompt,
+            },
+            ...messages,
+          ],
+          temperature: 0.35,
+          max_tokens: 1500,
+        }),
+      })
 
-  if (!response.ok) {
-    throw new Error(result.error?.message || 'Groq request failed')
+      const result = (await response.json()) as OpenAiCompatibleResponse
+
+      if (!response.ok) {
+        throw new Error(result.error?.message || `Groq request failed with status ${response.status}`)
+      }
+
+      let reply = result.choices?.[0]?.message?.content?.trim() || ''
+
+      // Strip reasoning/thinking tags if model emits them
+      reply = reply.replace(/<think>[\s\S]*?<\/think>/g, '').trim()
+
+      if (!reply) {
+        throw new Error('Groq returned an empty response')
+      }
+
+      return { reply, provider: 'groq' }
+    } catch (err) {
+      lastError = err instanceof Error ? err : new Error(String(err))
+      // Continue to next fallback model if model does not exist or access error
+      const msg = lastError.message.toLowerCase()
+      if (
+        msg.includes('does not exist') ||
+        msg.includes('not have access') ||
+        msg.includes('model_not_found') ||
+        msg.includes('invalid_model')
+      ) {
+        continue
+      }
+      // If it is another error (like auth error), don't loop endlessly
+      break
+    }
   }
 
-  const reply = result.choices?.[0]?.message?.content?.trim()
-
-  if (!reply) {
-    throw new Error('Groq returned an empty response')
-  }
-
-  return { reply, provider: 'groq' }
+  throw lastError || new Error('Groq request failed on all candidate models')
 }
 
 function toGeminiContents(messages: InteropMindChatMessage[]) {
