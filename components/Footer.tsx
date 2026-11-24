@@ -35,7 +35,7 @@ export default function Footer() {
             <ul className="space-y-2.5 text-sm">
               <li><Link href="/tools" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Interoperability Tools</Link></li>
               <li><Link href="/ehr-lis" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">SHIN EHR &amp; LIS Testbed</Link></li>
-              <li><a href="https://shin.interopmed.com" target="_blank" rel="noopener noreferrer" className="text-teal-700 transition-colors hover:text-teal-800 dark:text-teal-400">Live EHR (shin.interopmed.com) ↗</a></li>
+              <li><a href="https://shin.interopmed.com" target="_blank" rel="noopener noreferrer" className="text-teal-700 transition-colors hover:text-teal-800 dark:text-teal-400">Live EHR  ↗</a></li>
               <li><Link href="/interopmind" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">InteropMind AI Lab</Link></li>
               <li><Link href="/community" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Community Engagement</Link></li>
               <li><Link href="/stream" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Stream Activity Feed</Link></li>

@@ -75,10 +75,6 @@ export default function EhrLisExplorationPage() {
                 <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800 dark:bg-teal-950/60 dark:text-teal-300">
                   Clinical Test Tool &amp; Sandbox
                 </span>
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                  shin.interopmed.com Online
-                </span>
               </div>
 
               <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
@@ -94,7 +90,7 @@ export default function EhrLisExplorationPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-xl bg-teal-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-800"
                 >
-                  <span>Launch Live SHIN EHR (shin.interopmed.com)</span>
+                  <span>Launch Live EHR</span>
                   <span className="text-xs">↗</span>
                 </a>
                 <Link

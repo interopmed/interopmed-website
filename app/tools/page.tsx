@@ -15,44 +15,52 @@ export default function ToolsPage() {
       <Navbar />
 
       <main className="flex-1">
-        {/* Header */}
-        <section className="border-b border-slate-200 bg-white py-14 dark:border-slate-800 dark:bg-slate-900 md:py-18">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="max-w-3xl">
-              <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-700 dark:bg-teal-950/60 dark:text-teal-300">
-                Practical Utilities
-              </span>
-              <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
-                Interoperability Tools & Clinical Sandboxes
-              </h1>
-              <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-300">
-                Practical tools for health informaticians and digital health engineers. Inspect clinical FHIR resources, parse HL7 v2 payloads, explore EHR and LIS workflows, and validate data contracts.
-              </p>
-              <div className="mt-6 flex flex-wrap gap-4">
-                <Link
-                  href="/ehr-lis"
-                  className="rounded-xl bg-teal-600 px-6 py-2.5 text-xs font-bold text-white transition hover:bg-teal-700"
-                >
-                  Explore Our EHR & LIS System →
-                </Link>
-                <Link
-                  href="/interopmind"
-                  className="rounded-xl border border-slate-300 px-6 py-2.5 text-xs font-bold text-slate-700 transition hover:border-slate-400 dark:border-slate-700 dark:text-slate-300"
-                >
-                  Ask InteropMind AI
-                </Link>
-              </div>
+        {/* SLIM SUB-NAV / QUICK SWITCHER BAR */}
+        <div className="sticky top-16 z-40 border-b border-slate-200/80 bg-white/95 py-3 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
+          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-2 overflow-x-auto">
+              <a
+                href="#fhir-playground"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200/80 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-teal-400"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-teal-500"></span>
+                01. FHIR REST API Playground
+              </a>
+              <a
+                href="#hl7-inspector"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-slate-200/80 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-teal-400"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-sky-500"></span>
+                02. HL7 v2 Message Parser
+              </a>
+              <a
+                href="#shin-testbed"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-teal-200/80 bg-teal-50/60 px-3 py-1.5 text-xs font-semibold text-teal-800 transition hover:bg-teal-100 dark:border-teal-900 dark:bg-teal-950/60 dark:text-teal-300"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                03. SHIN EHR &amp; LIS Testbed
+              </a>
             </div>
+
+            <a
+              href="https://shin.interopmed.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-teal-700 transition hover:text-teal-800 dark:text-teal-400"
+            >
+              <span>Launch Live EHR</span>
+              <span>↗</span>
+            </a>
           </div>
-        </section>
+        </div>
 
         {/* TOOL 1: FHIR API PLAYGROUND */}
-        <section className="py-12 md:py-16">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-6">
+        <section id="fhir-playground" className="py-8 scroll-mt-28 md:py-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-4">
               <span className="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400">Tool 01</span>
-              <h2 className="mt-1 text-2xl font-bold text-slate-950 dark:text-white">
-                FHIR Resource & REST API Playground
+              <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
+                FHIR Resource &amp; REST API Playground
               </h2>
             </div>
             <APIPlayground />
@@ -60,12 +68,12 @@ export default function ToolsPage() {
         </section>
 
         {/* TOOL 2: HL7 V2 MESSAGE INSPECTOR */}
-        <section className="border-t border-slate-200 py-12 dark:border-slate-800 md:py-16 bg-white dark:bg-slate-900/60">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-6">
+        <section id="hl7-inspector" className="border-t border-slate-200/80 bg-white py-8 scroll-mt-28 dark:border-slate-800 dark:bg-slate-900/60 md:py-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-4">
               <span className="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400">Tool 02</span>
-              <h2 className="mt-1 text-2xl font-bold text-slate-950 dark:text-white">
-                HL7 v2 Message Parser & Segment Inspector
+              <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
+                HL7 v2 Message Parser &amp; Segment Inspector
               </h2>
             </div>
             <HL7Inspector />
@@ -73,12 +81,12 @@ export default function ToolsPage() {
         </section>
 
         {/* TOOL 3: SHIN CLINICAL EHR & LIS TESTBED */}
-        <section className="border-t border-slate-200 py-12 dark:border-slate-800 md:py-16">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <section id="shin-testbed" className="border-t border-slate-200/80 py-8 scroll-mt-28 dark:border-slate-800 md:py-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400">Tool 03</span>
-                <h2 className="mt-1 text-2xl font-bold text-slate-950 dark:text-white">
+                <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
                   SHIN Connected EHR &amp; LIS Clinical Testbed
                 </h2>
               </div>
@@ -125,7 +133,7 @@ export default function ToolsPage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-teal-700 px-6 py-3.5 text-center text-sm font-bold text-white shadow-sm transition hover:bg-teal-800"
                   >
-                    <span>Launch Live SHIN EHR (shin.interopmed.com)</span>
+                    <span>Launch Live EHR</span>
                     <span>↗</span>
                   </a>
                   <Link

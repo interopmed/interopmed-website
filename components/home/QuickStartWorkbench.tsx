@@ -168,33 +168,30 @@ export default function QuickStartWorkbench() {
                   <button
                     type="button"
                     onClick={() => setActiveTab('hl7')}
-                    className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
-                      activeTab === 'hl7'
+                    className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${activeTab === 'hl7'
                         ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40'
                         : 'text-slate-400 hover:text-slate-200'
-                    }`}
+                      }`}
                   >
                     HL7 v2 (ORU^R01)
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveTab('fhir')}
-                    className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
-                      activeTab === 'fhir'
+                    className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${activeTab === 'fhir'
                         ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40'
                         : 'text-slate-400 hover:text-slate-200'
-                    }`}
+                      }`}
                   >
                     FHIR R4 (Observation)
                   </button>
                   <button
                     type="button"
                     onClick={() => setActiveTab('shin')}
-                    className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
-                      activeTab === 'shin'
+                    className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${activeTab === 'shin'
                         ? 'bg-teal-500/20 text-teal-300 border border-teal-500/40'
                         : 'text-slate-400 hover:text-slate-200'
-                    }`}
+                      }`}
                   >
                     SHIN EHR Flow
                   </button>
@@ -263,7 +260,7 @@ export default function QuickStartWorkbench() {
                   className="flex items-center gap-1.5 font-semibold text-teal-400 transition hover:text-teal-300"
                 >
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-                  Test in SHIN EHR (shin.interopmed.com) ↗
+                  Test in SHIN EHR  ↗
                 </a>
                 <Link
                   href="/tools"

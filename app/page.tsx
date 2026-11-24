@@ -367,7 +367,7 @@ export default async function HomePage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-teal-700 px-6 py-3.5 text-center text-sm font-bold text-white shadow-md transition hover:bg-teal-800"
                   >
-                    <span>Launch Live EHR (shin.interopmed.com)</span>
+                    <span>Launch Live EHR</span>
                     <span>↗</span>
                   </a>
                   <Link
