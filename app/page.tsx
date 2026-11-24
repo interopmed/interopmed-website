@@ -3,7 +3,6 @@ import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import ProfileAvatar from '@/components/ProfileAvatar'
 import QuickStartWorkbench from '@/components/home/QuickStartWorkbench'
-import { articles } from '@/lib/articles'
 import { db } from '@/lib/db'
 import { prisma } from '@/lib/prisma'
 
@@ -27,7 +26,7 @@ type ArticleItem = {
 async function getAllPublishedArticles(): Promise<ArticleItem[]> {
   try {
     const dbArticles = await db.insight.findMany({ status: 'published' })
-    const dbMapped: ArticleItem[] = dbArticles.map((a) => ({
+    return dbArticles.map((a) => ({
       slug: a.slug,
       title: a.title,
       excerpt: a.excerpt || a.content.slice(0, 180),
@@ -40,30 +39,9 @@ async function getAllPublishedArticles(): Promise<ArticleItem[]> {
         : 'Recent',
       readingTime: `${Math.max(1, Math.ceil(a.content.split(/\s+/).length / 200))} min read`,
     }))
-
-    const staticMapped: ArticleItem[] = articles
-      .filter((a) => !dbMapped.some((d) => d.slug === a.slug))
-      .map((a) => ({
-        slug: a.slug,
-        title: a.title,
-        excerpt: a.excerpt,
-        category: a.category,
-        author: a.author,
-        publishedAt: a.publishedAt,
-        readingTime: a.readingTime,
-      }))
-
-    return [...dbMapped, ...staticMapped]
-  } catch {
-    return articles.map((a) => ({
-      slug: a.slug,
-      title: a.title,
-      excerpt: a.excerpt,
-      category: a.category,
-      author: a.author,
-      publishedAt: a.publishedAt,
-      readingTime: a.readingTime,
-    }))
+  } catch (error) {
+    console.error('Error loading published articles for home page:', error)
+    return []
   }
 }
 

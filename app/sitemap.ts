@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
-import { articles } from '@/lib/articles'
+import { db } from '@/lib/db'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.interopmed.com'
 
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -79,12 +79,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ]
 
-  const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: `${baseUrl}/articles/${article.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly',
-    priority: 0.7,
-  }))
+  let articleRoutes: MetadataRoute.Sitemap = []
+  try {
+    const dbArticles = await db.insight.findMany({ status: 'published' })
+    articleRoutes = dbArticles.map((article) => ({
+      url: `${baseUrl}/articles/${article.slug}`,
+      lastModified: article.publishedAt || article.createdAt || new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    }))
+  } catch (error) {
+    console.error('Error loading articles for sitemap:', error)
+  }
 
   return [...staticRoutes, ...articleRoutes]
 }

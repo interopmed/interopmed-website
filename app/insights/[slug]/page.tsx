@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import { getArticleAuthorName } from '@/lib/article-author'
-import { articles, getArticle } from '@/lib/articles'
 import { db } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
@@ -68,17 +67,9 @@ async function getDbInsight(slug: string): Promise<InsightArticle | null> {
   }
 }
 
-export function generateStaticParams() {
-  return articles.map((article) => ({
-    slug: article.slug,
-  }))
-}
-
 export async function generateMetadata({ params }: PageProps<'/insights/[slug]'>) {
   const { slug } = await params
-  const dbArticle = await getDbInsight(slug)
-  const staticArticle = getArticle(slug)
-  const article = dbArticle || staticArticle
+  const article = await getDbInsight(slug)
 
   if (!article) {
     return {
@@ -94,9 +85,7 @@ export async function generateMetadata({ params }: PageProps<'/insights/[slug]'>
 
 export default async function InsightPage({ params }: PageProps<'/insights/[slug]'>) {
   const { slug } = await params
-  const dbArticle = await getDbInsight(slug)
-  const staticArticle = getArticle(slug)
-  const article = dbArticle || staticArticle
+  const article = await getDbInsight(slug)
 
   if (!article) {
     notFound()

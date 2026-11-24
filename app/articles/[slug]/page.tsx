@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import { getArticleAuthorName } from '@/lib/article-author'
-import { articles, getArticle } from '@/lib/articles'
 import { db } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
@@ -57,40 +56,22 @@ function parseContentIntoSections(content: string, fallbackTitle = 'Overview & A
 }
 
 async function getArticleData(slug: string): Promise<ArticleDetail | null> {
-  const staticArticle = getArticle(slug)
-
   try {
     const dbItem = await db.insight.findPublishedBySlug(slug)
     if (dbItem) {
       return {
         slug: dbItem.slug,
-        title: staticArticle?.title || dbItem.title,
-        excerpt: staticArticle?.excerpt || dbItem.excerpt || dbItem.content.slice(0, 180),
-        category: staticArticle?.category || dbItem.category,
-        author: staticArticle?.author || getArticleAuthorName(dbItem),
-        publishedAt: staticArticle?.publishedAt || formatDate(dbItem.publishedAt || dbItem.createdAt),
-        readingTime: staticArticle?.readingTime || getReadingTime(dbItem.content),
-        sections:
-          staticArticle?.sections && staticArticle.sections.length > 1
-            ? staticArticle.sections
-            : parseContentIntoSections(dbItem.content),
+        title: dbItem.title,
+        excerpt: dbItem.excerpt || dbItem.content.slice(0, 180),
+        category: dbItem.category,
+        author: getArticleAuthorName(dbItem),
+        publishedAt: formatDate(dbItem.publishedAt || dbItem.createdAt),
+        readingTime: getReadingTime(dbItem.content),
+        sections: parseContentIntoSections(dbItem.content, dbItem.title),
       }
     }
-  } catch {
-    // fallback to static
-  }
-
-  if (staticArticle) {
-    return {
-      slug: staticArticle.slug,
-      title: staticArticle.title,
-      excerpt: staticArticle.excerpt,
-      category: staticArticle.category,
-      author: staticArticle.author,
-      publishedAt: staticArticle.publishedAt,
-      readingTime: staticArticle.readingTime,
-      sections: staticArticle.sections,
-    }
+  } catch (error) {
+    console.error('Error fetching article from database:', error)
   }
 
   return null
@@ -120,9 +101,31 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
     notFound()
   }
 
-  const relatedArticles = articles
-    .filter((a) => a.slug !== article.slug)
-    .slice(0, 3)
+  let relatedArticles: {
+    slug: string
+    title: string
+    excerpt: string
+    category: string
+    author: string
+    readingTime: string
+  }[] = []
+
+  try {
+    const allDbArticles = await db.insight.findMany({ status: 'published' })
+    relatedArticles = allDbArticles
+      .filter((a) => a.slug !== article.slug)
+      .slice(0, 3)
+      .map((a) => ({
+        slug: a.slug,
+        title: a.title,
+        excerpt: a.excerpt || a.content.slice(0, 180),
+        category: a.category,
+        author: getArticleAuthorName(a),
+        readingTime: getReadingTime(a.content),
+      }))
+  } catch (error) {
+    console.error('Error fetching related articles:', error)
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">

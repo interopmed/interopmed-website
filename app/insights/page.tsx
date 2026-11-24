@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
-import { articles } from '@/lib/articles'
 import { db } from '@/lib/db'
 
 export const metadata = {
@@ -58,22 +57,7 @@ async function getPublishedInsights(): Promise<InsightCard[]> {
 }
 
 export default async function InsightsPage() {
-  const dbInsights = await getPublishedInsights()
-  const staticInsights = articles.filter(
-    (article) => !dbInsights.some((insight) => insight.slug === article.slug)
-  )
-  const insightCards: InsightCard[] = [
-    ...dbInsights,
-    ...staticInsights.map((article) => ({
-      slug: article.slug,
-      title: article.title,
-      excerpt: article.excerpt,
-      category: article.category,
-      publishedAt: article.publishedAt,
-      readingTime: article.readingTime,
-      featuredImage: null,
-    })),
-  ]
+  const insightCards = await getPublishedInsights()
   const featuredArticle = insightCards[0]
 
   return (

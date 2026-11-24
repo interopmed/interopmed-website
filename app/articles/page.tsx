@@ -3,7 +3,6 @@ import ArticlesDirectory, { ArticleCard } from '@/components/ArticlesDirectory'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import { getArticleAuthorName } from '@/lib/article-author'
-import { articles } from '@/lib/articles'
 import { db } from '@/lib/db'
 
 export const metadata = {
@@ -31,7 +30,7 @@ function getReadingTime(content: string) {
 async function getPublishedArticles(): Promise<ArticleCard[]> {
   try {
     const dbArticles = await db.insight.findMany({ status: 'published' })
-    const dbMapped: ArticleCard[] = dbArticles.map((item) => ({
+    return dbArticles.map((item) => ({
       slug: item.slug,
       title: item.title,
       excerpt: item.excerpt || item.content.slice(0, 180),
@@ -41,32 +40,9 @@ async function getPublishedArticles(): Promise<ArticleCard[]> {
       readingTime: getReadingTime(item.content),
       featuredImage: item.featuredImage,
     }))
-
-    const staticMapped: ArticleCard[] = articles
-      .filter((a) => !dbMapped.some((d) => d.slug === a.slug))
-      .map((a) => ({
-        slug: a.slug,
-        title: a.title,
-        excerpt: a.excerpt,
-        category: a.category,
-        author: a.author,
-        publishedAt: a.publishedAt,
-        readingTime: a.readingTime,
-        featuredImage: a.featuredImage,
-      }))
-
-    return [...dbMapped, ...staticMapped]
-  } catch {
-    return articles.map((a) => ({
-      slug: a.slug,
-      title: a.title,
-      excerpt: a.excerpt,
-      category: a.category,
-      author: a.author,
-      publishedAt: a.publishedAt,
-      readingTime: a.readingTime,
-      featuredImage: a.featuredImage,
-    }))
+  } catch (error) {
+    console.error('Error loading published articles:', error)
+    return []
   }
 }
 
