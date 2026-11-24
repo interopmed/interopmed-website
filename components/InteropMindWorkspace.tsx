@@ -42,11 +42,56 @@ type MarkdownBlock =
       content: string
     }
 
-const starterPrompts = [
-  'Plan a FHIR API implementation',
-  'Explain ADT to FHIR mapping',
-  'Create a lab result exchange checklist',
-  'Prepare a support request',
+interface StarterCard {
+  category: string
+  title: string
+  description: string
+  prompt: string
+  badgeClass: string
+  icon: 'transform' | 'workflow' | 'shield' | 'code'
+}
+
+const STARTER_CARDS: StarterCard[] = [
+  {
+    category: 'HL7 v2 ↔ FHIR R4',
+    title: 'Transform ORU^R01 into FHIR Observation',
+    description: 'Map segments, OBX value types, UCUM units, LOINC codes, and reference ranges into FHIR R4 JSON.',
+    prompt: 'Show me how to map an HL7 v2 ORU^R01 lab message (with OBX segments for Serum Potassium and Blood Glucose) to FHIR R4 Observation resources, including LOINC codes, status codes, and UCUM units.',
+    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800',
+    icon: 'transform',
+  },
+  {
+    category: 'Clinical Workflows',
+    title: 'Trace EHR CPOE to LIS Result Flow',
+    description: 'Walk through electronic order placement, accessioning, specimen barcodes, analyzer runs, and HL7 ACK delivery.',
+    prompt: 'Explain the complete end-to-end clinical workflow between an EHR and a Laboratory Information System (LIS): CPOE order generation (ORM^O01), specimen accessioning, LOINC test mapping, and electronic result return (ORU^R01).',
+    badgeClass: 'bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-950/40 dark:text-teal-300 dark:border-teal-800',
+    icon: 'workflow',
+  },
+  {
+    category: 'Security & SMART',
+    title: 'Design SMART on FHIR App Launch',
+    description: 'Configure OAuth 2.0 authorization code flow, PKCE, launch context tokens, and EHR clinical scopes.',
+    prompt: 'Guide me through architecting a SMART on FHIR EHR Launch flow with OAuth 2.0 and PKCE: patient scopes, launch context tokens, public vs confidential client considerations, and token exchange.',
+    badgeClass: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800',
+    icon: 'shield',
+  },
+  {
+    category: 'Standards & ONC',
+    title: 'Validate US Core 3.1.1 / 6.1.0 Invariants',
+    description: 'Review mandatory MustSupport elements, USCDI data classes, and search parameter contracts.',
+    prompt: 'What are the essential MustSupport elements and search parameters required for US Core 3.1.1 / 6.1.0 Patient and Condition profiles under ONC HTI-1 compliance rules?',
+    badgeClass: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800',
+    icon: 'code',
+  },
+]
+
+const QUICK_TOPICS = [
+  { label: 'ADT^A01 vs ADT^A08', query: 'What is the clinical difference between HL7 v2 ADT^A01 (Admit) and ADT^A08 (Update Patient Information)?' },
+  { label: 'LOINC 8867-4 Heart Rate', query: 'Explain LOINC 8867-4 for Heart rate, its FHIR Observation profile, and recommended UCUM units.' },
+  { label: 'FHIR Bundle: Batch vs Transaction', query: 'What is the architectural difference between a FHIR transaction bundle and a batch bundle?' },
+  { label: 'MSH-9 Message Structure', query: 'Explain the components of HL7 v2 MSH-9 message type field (Message Code, Trigger Event, Message Structure).' },
+  { label: 'SNOMED CT Clinical Findings', query: 'How do you bind a SNOMED CT clinical finding expression to a FHIR Condition.code element?' },
 ]
 
 function renderInlineMarkdown(text: string) {
@@ -293,7 +338,25 @@ function formatThreadTime(value: string) {
   }).format(new Date(value))
 }
 
-function Icon({ name }: { name: 'menu' | 'plus' | 'chat' | 'send' | 'dots' | 'edit' | 'trash' | 'copy' }) {
+function Icon({
+  name,
+}: {
+  name:
+    | 'menu'
+    | 'plus'
+    | 'chat'
+    | 'send'
+    | 'dots'
+    | 'edit'
+    | 'trash'
+    | 'copy'
+    | 'sparkles'
+    | 'transform'
+    | 'workflow'
+    | 'shield'
+    | 'code'
+    | 'arrow-right'
+}) {
   const commonProps = {
     xmlns: 'http://www.w3.org/2000/svg',
     width: 24,
@@ -304,7 +367,7 @@ function Icon({ name }: { name: 'menu' | 'plus' | 'chat' | 'send' | 'dots' | 'ed
     strokeWidth: 2,
     strokeLinecap: 'round' as const,
     strokeLinejoin: 'round' as const,
-    className: 'h-5 w-5',
+    className: 'h-4 w-4',
     'aria-hidden': true,
   }
 
@@ -370,6 +433,61 @@ function Icon({ name }: { name: 'menu' | 'plus' | 'chat' | 'send' | 'dots' | 'ed
       <svg {...commonProps}>
         <rect width="14" height="14" x="8" y="8" rx="2" />
         <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+      </svg>
+    )
+  }
+
+  if (name === 'sparkles') {
+    return (
+      <svg {...commonProps}>
+        <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z" />
+      </svg>
+    )
+  }
+
+  if (name === 'transform') {
+    return (
+      <svg {...commonProps}>
+        <path d="m16 3 4 4-4 4" />
+        <path d="M20 7H4" />
+        <path d="m8 21-4-4 4-4" />
+        <path d="M4 17h16" />
+      </svg>
+    )
+  }
+
+  if (name === 'workflow') {
+    return (
+      <svg {...commonProps}>
+        <rect width="6" height="6" x="3" y="3" rx="1" />
+        <rect width="6" height="6" x="15" y="15" rx="1" />
+        <path d="M6 9v3a3 3 0 0 0 3 3h6" />
+      </svg>
+    )
+  }
+
+  if (name === 'shield') {
+    return (
+      <svg {...commonProps}>
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    )
+  }
+
+  if (name === 'code') {
+    return (
+      <svg {...commonProps}>
+        <polyline points="16 18 22 12 16 6" />
+        <polyline points="8 6 2 12 8 18" />
+      </svg>
+    )
+  }
+
+  if (name === 'arrow-right') {
+    return (
+      <svg {...commonProps}>
+        <path d="M5 12h14" />
+        <path d="m12 5 7 7-7 7" />
       </svg>
     )
   }
@@ -1027,25 +1145,115 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
           <div className="flex-1 overflow-y-auto overflow-x-hidden px-2 sm:px-4 md:px-6 pb-4 sm:pb-6">
             <div className="mx-auto flex min-h-full w-full max-w-5xl xl:max-w-6xl flex-col">
               {!hasUserMessages ? (
-                <div className="flex flex-1 flex-col justify-center py-8 sm:py-10">
-                  <h2 className="text-3xl font-bold tracking-normal text-slate-900 dark:text-white">
-                    Hello, {displayName}
-                  </h2>
-                  <p className="mt-3 text-2xl font-semibold text-slate-400 md:text-3xl">
-                    How can I help with interoperability today?
-                  </p>
-                  <div className="mt-8 sm:mt-10 grid gap-3 md:grid-cols-2">
-                    {starterPrompts.map((prompt) => (
+                <div className="flex flex-1 flex-col justify-center py-6 sm:py-10">
+                  {/* Subtle Copilot Badge */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-teal-500/20 bg-teal-50/90 px-3 py-1 text-xs font-semibold text-teal-800 shadow-xs dark:border-teal-500/30 dark:bg-teal-950/50 dark:text-teal-300">
+                      <span className="text-teal-600 dark:text-teal-400">
+                        <Icon name="sparkles" />
+                      </span>
+                      Clinical Interoperability Copilot
+                    </span>
+                    <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                      HL7 v2 &bull; FHIR R4 &bull; CPOE / LIS &bull; ONC HTI-1
+                    </span>
+                  </div>
+
+                  {/* Editorial Greeting */}
+                  <div className="mt-4">
+                    <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                      Welcome, <span className="bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent dark:from-teal-400 dark:to-cyan-400">{displayName}</span>
+                    </h2>
+                    <p className="mt-2 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
+                      Ask questions, analyze HL7 v2 messages, construct FHIR R4 resources, or trace end-to-end clinical workflows.
+                    </p>
+                  </div>
+
+                  {/* 4 Feature Capability Cards */}
+                  <div className="mt-7 grid gap-3.5 sm:grid-cols-2">
+                    {STARTER_CARDS.map((card) => (
                       <button
-                        key={prompt}
+                        key={card.title}
                         type="button"
-                        onClick={() => sendMessage(prompt)}
+                        onClick={() => sendMessage(card.prompt)}
                         disabled={isLoading}
-                        className="min-h-28 rounded-xl border border-slate-200 bg-slate-50 p-4 text-left text-sm font-semibold leading-6 text-slate-700 transition hover:bg-slate-100 disabled:cursor-not-allowed disabled:opacity-70 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                        className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 text-left shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-500 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-70 dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-teal-500 dark:hover:bg-slate-900"
                       >
-                        {prompt}
+                        <div>
+                          <div className="flex items-center justify-between">
+                            <span className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-xs font-semibold ${card.badgeClass}`}>
+                              <Icon name={card.icon} />
+                              {card.category}
+                            </span>
+                            <span className="text-slate-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-teal-600 dark:group-hover:text-teal-400">
+                              <Icon name="arrow-right" />
+                            </span>
+                          </div>
+                          <h3 className="mt-3 text-sm sm:text-base font-bold text-slate-900 transition-colors group-hover:text-teal-600 dark:text-white dark:group-hover:text-teal-400">
+                            {card.title}
+                          </h3>
+                          <p className="mt-1.5 text-xs sm:text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                            {card.description}
+                          </p>
+                        </div>
+                        <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-teal-600 dark:text-teal-400">
+                          <span>Explore capability</span>
+                          <span className="transition-transform group-hover:translate-x-0.5">&rarr;</span>
+                        </div>
                       </button>
                     ))}
+                  </div>
+
+                  {/* Quick Topics Pill Bar */}
+                  <div className="mt-6">
+                    <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                      Quick Questions
+                    </p>
+                    <div className="mt-2.5 flex flex-wrap gap-2">
+                      {QUICK_TOPICS.map((topic) => (
+                        <button
+                          key={topic.label}
+                          type="button"
+                          onClick={() => sendMessage(topic.query)}
+                          disabled={isLoading}
+                          className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:border-teal-500/50 hover:bg-teal-50/50 hover:text-teal-800 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-teal-500/50 dark:hover:bg-teal-950/40 dark:hover:text-teal-300"
+                        >
+                          {topic.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bottom Tool Integration Banner */}
+                  <div className="mt-7 rounded-xl border border-slate-200/80 bg-slate-50/70 p-3.5 sm:p-4 dark:border-slate-800/80 dark:bg-slate-900/40">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
+                      <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                        <span className="font-semibold text-slate-900 dark:text-white">Active Sandboxes:</span>
+                        <span className="text-slate-500">Live clinical tools connected to InteropMed</span>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Link
+                          href="/tools"
+                          className="inline-flex items-center gap-1 font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
+                        >
+                          HL7 &amp; FHIR Parser &rarr;
+                        </Link>
+                        <span className="text-slate-300 dark:text-slate-700">&bull;</span>
+                        <Link
+                          href="/ehr-lis"
+                          className="inline-flex items-center gap-1 font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
+                        >
+                          SHIN EHR/LIS Simulator &rarr;
+                        </Link>
+                        <span className="text-slate-300 dark:text-slate-700">&bull;</span>
+                        <Link
+                          href="/articles"
+                          className="inline-flex items-center gap-1 font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
+                        >
+                          Standards Guides &rarr;
+                        </Link>
+                      </div>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -1145,15 +1353,24 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                   </button>
                 </div>
               )}
-              <div className="flex min-h-14 items-center gap-2 sm:gap-3 rounded-2xl sm:rounded-3xl bg-slate-100 px-3 sm:px-5 py-2.5 sm:py-3 shadow-sm dark:bg-slate-900">
+              <div className="flex min-h-14 items-center gap-2 sm:gap-3 rounded-2xl sm:rounded-3xl bg-slate-100 px-3 sm:px-5 py-2.5 sm:py-3 shadow-sm dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 focus-within:border-teal-500/60 dark:focus-within:border-teal-500/60 transition-colors">
+                <span className="shrink-0 text-teal-600 dark:text-teal-400">
+                  <Icon name="sparkles" />
+                </span>
                 <input
                   ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
-                  placeholder={editingMessageId ? 'Edit your message' : 'Ask InteropMind'}
+                  placeholder={
+                    editingMessageId
+                      ? 'Edit your message'
+                      : !hasUserMessages
+                      ? 'Ask anything about HL7 v2, FHIR R4, CPOE/LIS workflows, or LOINC/SNOMED...'
+                      : 'Ask InteropMind a follow-up question...'
+                  }
                   disabled={isLoading}
-                  className="min-w-0 flex-1 bg-transparent text-base text-slate-950 outline-none placeholder:text-slate-500 disabled:opacity-70 dark:text-white dark:placeholder:text-slate-400"
+                  className="min-w-0 flex-1 bg-transparent text-sm sm:text-base text-slate-950 outline-none placeholder:text-slate-500 disabled:opacity-70 dark:text-white dark:placeholder:text-slate-400"
                 />
                 <button
                   type="submit"
