@@ -36,31 +36,50 @@ function getReadingTime(content: string) {
   return `${Math.max(1, Math.ceil(words / 200))} min read`
 }
 
+function parseContentIntoSections(content: string, fallbackTitle = 'Overview & Analysis') {
+  const rawSections = content.split(/\n(?=##\s+)/)
+  if (rawSections.length > 1) {
+    return rawSections.map((sec) => {
+      const lines = sec.trim().split('\n')
+      const firstLine = lines[0].trim()
+      const heading = firstLine.startsWith('## ') ? firstLine.replace(/^##\s+/, '') : fallbackTitle
+      const bodyText = firstLine.startsWith('## ') ? lines.slice(1).join('\n') : sec
+      const body = bodyText.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean)
+      return { heading, body }
+    })
+  }
+  return [
+    {
+      heading: fallbackTitle,
+      body: content.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean),
+    },
+  ]
+}
+
 async function getArticleData(slug: string): Promise<ArticleDetail | null> {
+  const staticArticle = getArticle(slug)
+
   try {
     const dbItem = await db.insight.findPublishedBySlug(slug)
     if (dbItem) {
       return {
         slug: dbItem.slug,
-        title: dbItem.title,
-        excerpt: dbItem.excerpt || dbItem.content.slice(0, 180),
-        category: dbItem.category,
-        author: getArticleAuthorName(dbItem),
-        publishedAt: formatDate(dbItem.publishedAt || dbItem.createdAt),
-        readingTime: getReadingTime(dbItem.content),
-        sections: [
-          {
-            heading: 'Overview & Analysis',
-            body: dbItem.content.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean),
-          },
-        ],
+        title: staticArticle?.title || dbItem.title,
+        excerpt: staticArticle?.excerpt || dbItem.excerpt || dbItem.content.slice(0, 180),
+        category: staticArticle?.category || dbItem.category,
+        author: staticArticle?.author || getArticleAuthorName(dbItem),
+        publishedAt: staticArticle?.publishedAt || formatDate(dbItem.publishedAt || dbItem.createdAt),
+        readingTime: staticArticle?.readingTime || getReadingTime(dbItem.content),
+        sections:
+          staticArticle?.sections && staticArticle.sections.length > 1
+            ? staticArticle.sections
+            : parseContentIntoSections(dbItem.content),
       }
     }
   } catch {
     // fallback to static
   }
 
-  const staticArticle = getArticle(slug)
   if (staticArticle) {
     return {
       slug: staticArticle.slug,
