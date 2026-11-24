@@ -55,7 +55,7 @@ function renderInlineMarkdown(text: string) {
   return parts.map((part, index) => {
     if (part.startsWith('`') && part.endsWith('`')) {
       return (
-        <code key={`${part}-${index}`} className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[0.9em] text-slate-800 dark:bg-slate-800 dark:text-slate-100">
+        <code key={`${part}-${index}`} className="rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[0.9em] text-slate-800 dark:bg-slate-800 dark:text-slate-100 break-words [overflow-wrap:anywhere]">
           {part.slice(1, -1)}
         </code>
       )
@@ -113,28 +113,28 @@ function DiagramBlock({ content, type }: { content: string; type: 'flow' | 'grap
 
   if (paths.length === 0) {
     return (
-      <pre className="overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs leading-6 text-slate-100">
+      <pre className="w-full min-w-0 rounded-lg bg-slate-950 p-3 sm:p-4 text-xs leading-6 text-slate-100 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
         <code>{content}</code>
       </pre>
     )
   }
 
   return (
-    <div className="my-4 overflow-x-auto rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-950">
+    <div className="my-3 w-full min-w-0 overflow-x-auto rounded-xl border border-slate-200 bg-white p-3 sm:p-4 dark:border-slate-800 dark:bg-slate-950">
       <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-normal text-slate-500 dark:text-slate-400">
         <span className="h-px w-8 bg-teal-500" />
         {type === 'graph' ? 'Relationship graph' : 'Workflow flow'}
       </div>
       <div className="space-y-3">
         {paths.map((steps, pathIndex) => (
-          <div key={`${steps.join('-')}-${pathIndex}`} className="flex min-w-max items-center">
+          <div key={`${steps.join('-')}-${pathIndex}`} className="flex flex-wrap items-center gap-2">
             {steps.map((step, stepIndex) => (
               <div key={`${step}-${stepIndex}`} className="flex items-center">
-                <span className="max-w-48 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-center text-xs font-semibold leading-5 text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100">
+                <span className="rounded-lg border border-slate-200 bg-slate-50 px-2.5 py-1.5 text-center text-xs font-semibold leading-5 text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 break-words">
                   {step}
                 </span>
                 {stepIndex < steps.length - 1 && (
-                  <span className="relative mx-2 h-px w-12 bg-teal-500">
+                  <span className="relative mx-1.5 h-px w-6 sm:w-8 bg-teal-500">
                     <span className="absolute -right-1 -top-1 h-2 w-2 rotate-45 border-r-2 border-t-2 border-teal-500" />
                   </span>
                 )}
@@ -161,12 +161,12 @@ function renderTable(lines: string[]) {
   const [head, ...body] = rows
 
   return (
-    <div className="my-4 overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
-      <table className="min-w-full divide-y divide-slate-200 text-sm dark:divide-slate-800">
+    <div className="my-3 w-full min-w-0 overflow-x-auto rounded-lg border border-slate-200 dark:border-slate-800">
+      <table className="w-full min-w-full divide-y divide-slate-200 text-xs sm:text-sm dark:divide-slate-800 table-auto">
         <thead className="bg-slate-50 dark:bg-slate-900">
           <tr>
             {head.map((cell) => (
-              <th key={cell} className="px-3 py-2 text-left font-semibold text-slate-700 dark:text-slate-200">
+              <th key={cell} className="px-2.5 py-2 text-left font-semibold text-slate-700 dark:text-slate-200 break-words">
                 {renderInlineMarkdown(cell)}
               </th>
             ))}
@@ -176,7 +176,7 @@ function renderTable(lines: string[]) {
           {body.map((row, rowIndex) => (
             <tr key={rowIndex}>
               {row.map((cell, cellIndex) => (
-                <td key={`${rowIndex}-${cellIndex}`} className="px-3 py-2 align-top text-slate-600 dark:text-slate-300">
+                <td key={`${rowIndex}-${cellIndex}`} className="px-2.5 py-2 align-top text-slate-600 dark:text-slate-300 break-words">
                   {renderInlineMarkdown(cell)}
                 </td>
               ))}
@@ -192,7 +192,7 @@ function MessageContent({ content }: { content: string }) {
   const blocks = splitMarkdownBlocks(content)
 
   return (
-    <div className="space-y-3">
+    <div className="w-full min-w-0 space-y-3 break-words [overflow-wrap:anywhere]">
       {blocks.map((block, blockIndex) => {
         if (block.type === 'code') {
           if (block.language === 'flow' || block.language === 'graph') {
@@ -206,7 +206,7 @@ function MessageContent({ content }: { content: string }) {
           }
 
           return (
-            <pre key={`${block.language}-${blockIndex}`} className="overflow-x-auto rounded-lg bg-slate-950 p-4 text-xs leading-6 text-slate-100">
+            <pre key={`${block.language}-${blockIndex}`} className="w-full min-w-0 rounded-lg bg-slate-950 p-3 sm:p-4 text-xs leading-6 text-slate-100 whitespace-pre-wrap break-words [overflow-wrap:anywhere]">
               <code>{block.content}</code>
             </pre>
           )
@@ -225,14 +225,14 @@ function MessageContent({ content }: { content: string }) {
           const blockKey = `${blockIndex}-${textBlockIndex}`
 
           if (isTable) {
-            return <div key={blockKey}>{renderTable(lines)}</div>
+            return <div key={blockKey} className="w-full min-w-0">{renderTable(lines)}</div>
           }
 
           if (unorderedItems.length === lines.length && unorderedItems.length > 0) {
             return (
-              <ul key={blockKey} className="ml-5 list-disc space-y-1">
+              <ul key={blockKey} className="ml-4 sm:ml-5 list-disc space-y-1 break-words">
                 {unorderedItems.map((item) => (
-                  <li key={item}>{renderInlineMarkdown(item)}</li>
+                  <li key={item} className="break-words">{renderInlineMarkdown(item)}</li>
                 ))}
               </ul>
             )
@@ -240,9 +240,9 @@ function MessageContent({ content }: { content: string }) {
 
           if (orderedItems.length === lines.length && orderedItems.length > 0) {
             return (
-              <ol key={blockKey} className="ml-5 list-decimal space-y-1">
+              <ol key={blockKey} className="ml-4 sm:ml-5 list-decimal space-y-1 break-words">
                 {orderedItems.map((item) => (
-                  <li key={item}>{renderInlineMarkdown(item)}</li>
+                  <li key={item} className="break-words">{renderInlineMarkdown(item)}</li>
                 ))}
               </ol>
             )
@@ -250,14 +250,14 @@ function MessageContent({ content }: { content: string }) {
 
           if (/^#{1,3}\s+/.test(normalizedBlock)) {
             return (
-              <h3 key={blockKey} className="pt-1 text-base font-bold text-slate-950 dark:text-white">
+              <h3 key={blockKey} className="pt-1 text-base font-bold text-slate-950 dark:text-white break-words">
                 {renderInlineMarkdown(normalizedBlock.replace(/^#{1,3}\s+/, ''))}
               </h3>
             )
           }
 
           return (
-            <p key={blockKey}>
+            <p key={blockKey} className="break-words">
               {renderInlineMarkdown(normalizedBlock)}
             </p>
           )
@@ -1001,8 +1001,8 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
           </div>
         </aside>
 
-        <section className="flex min-h-0 flex-col">
-          <header className="flex h-16 shrink-0 items-center justify-between px-4 md:px-6">
+        <section className="flex min-h-0 w-full min-w-0 flex-col overflow-hidden">
+          <header className="flex h-16 shrink-0 items-center justify-between px-3 sm:px-4 md:px-6">
             <div>
               <h1 className="text-xl font-semibold text-slate-800 dark:text-slate-100">InteropMind</h1>
               <p className="text-xs text-slate-500 dark:text-slate-400">Healthcare interoperability AI</p>
@@ -1024,17 +1024,17 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
             </div>
           </header>
 
-          <div className="flex-1 overflow-y-auto px-4 pb-6">
-            <div className="mx-auto flex min-h-full w-full max-w-4xl flex-col">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden px-2 sm:px-4 md:px-6 pb-4 sm:pb-6">
+            <div className="mx-auto flex min-h-full w-full max-w-5xl xl:max-w-6xl flex-col">
               {!hasUserMessages ? (
-                <div className="flex flex-1 flex-col justify-center py-10">
+                <div className="flex flex-1 flex-col justify-center py-8 sm:py-10">
                   <h2 className="text-3xl font-bold tracking-normal text-slate-900 dark:text-white">
                     Hello, {displayName}
                   </h2>
                   <p className="mt-3 text-2xl font-semibold text-slate-400 md:text-3xl">
                     How can I help with interoperability today?
                   </p>
-                  <div className="mt-10 grid gap-3 md:grid-cols-2">
+                  <div className="mt-8 sm:mt-10 grid gap-3 md:grid-cols-2">
                     {starterPrompts.map((prompt) => (
                       <button
                         key={prompt}
@@ -1049,7 +1049,7 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                   </div>
                 </div>
               ) : (
-                <div className="space-y-8 py-8">
+                <div className="space-y-6 py-4 sm:py-6">
                   {activeThread?.messages.map((message, index) => {
                     if (index === 0 && message.role === 'assistant') {
                       return null
@@ -1060,11 +1060,11 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                     const canEditMessage = message.role === 'user' && index === lastUserMessageIndex
 
                     return (
-                      <div key={messageKey} className={`group flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={message.role === 'user' ? 'flex max-w-2xl flex-col items-end' : 'flex max-w-3xl flex-col items-start'}>
+                      <div key={messageKey} className={`group flex w-full min-w-0 ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div className={message.role === 'user' ? 'flex max-w-xl sm:max-w-2xl flex-col items-end' : 'flex w-full min-w-0 flex-col items-start'}>
                           {message.role === 'assistant' ? (
                             <>
-                              <div className="px-1 py-1 text-sm leading-7 text-slate-700 dark:text-slate-200">
+                              <div className="w-full min-w-0 px-0.5 py-1 text-sm leading-7 text-slate-700 dark:text-slate-200 break-words [overflow-wrap:anywhere]">
                                 <MessageContent content={message.content} />
                               </div>
                               <div className="mt-1 flex h-8 items-center gap-1 opacity-0 transition group-hover:opacity-100 group-focus-within:opacity-100">
@@ -1082,7 +1082,7 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                             </>
                           ) : (
                             <>
-                              <div className="rounded-3xl bg-slate-100 px-5 py-3 text-sm leading-6 text-slate-800 dark:bg-slate-800 dark:text-slate-100">
+                              <div className="rounded-3xl bg-slate-100 px-4 sm:px-5 py-2.5 sm:py-3 text-sm leading-6 text-slate-800 dark:bg-slate-800 dark:text-slate-100 break-words [overflow-wrap:anywhere]">
                                 <p>{message.content}</p>
                               </div>
                               <div className="mt-1 flex h-8 items-center justify-end gap-1 opacity-0 transition group-hover:opacity-100 group-focus-within:opacity-100">
@@ -1116,7 +1116,7 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                     )
                   })}
                   {isLoading && (
-                    <div className="max-w-3xl px-1 py-1 text-sm text-slate-500 dark:text-slate-400">
+                    <div className="w-full min-w-0 px-1 py-1 text-sm text-slate-500 dark:text-slate-400">
                       InteropMind is thinking...
                     </div>
                   )}
@@ -1125,8 +1125,8 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
             </div>
           </div>
 
-          <div className="shrink-0 px-4 pb-4 md:px-6 md:pb-6">
-            <form onSubmit={handleSubmit} className="mx-auto max-w-4xl">
+          <div className="shrink-0 px-2 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6">
+            <form onSubmit={handleSubmit} className="mx-auto w-full max-w-5xl xl:max-w-6xl">
               {error && (
                 <p className="mb-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300">
                   {error}
@@ -1145,7 +1145,7 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                   </button>
                 </div>
               )}
-              <div className="flex min-h-16 items-center gap-3 rounded-3xl bg-slate-100 px-5 py-3 shadow-sm dark:bg-slate-900">
+              <div className="flex min-h-14 items-center gap-2 sm:gap-3 rounded-2xl sm:rounded-3xl bg-slate-100 px-3 sm:px-5 py-2.5 sm:py-3 shadow-sm dark:bg-slate-900">
                 <input
                   ref={inputRef}
                   type="text"
