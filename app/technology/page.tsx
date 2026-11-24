@@ -6,8 +6,8 @@ import Footer from '@/components/Footer'
 import SiteCTA from '@/components/SiteCTA'
 
 export const metadata = {
-  title: 'Technology | InteropMed Platform Architecture',
-  description: 'Deep dive into InteropMed platform architecture, FHIR-native design, and healthcare interoperability technology.',
+  title: 'Technology | SHIN Platform Architecture',
+  description: 'Deep dive into SHIN Platform architecture, FHIR-native design, and healthcare interoperability technology.',
 }
 
 export default function TechnologyPage() {
@@ -42,7 +42,7 @@ export default function TechnologyPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Data Layer */}
               <div className="p-8 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                <div className="text-3xl mb-4">🗄️</div>
+                <div className="text-3xl mb-4">ðŸ—„ï¸</div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
                   Data Layer: PostgreSQL + JSONB
                 </h3>
@@ -51,15 +51,15 @@ export default function TechnologyPage() {
                 </p>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>ACID Compliance:</strong> Every transaction is guaranteed consistent</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Horizontal Scalability:</strong> Partitioning and streaming replication</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>NoSQL Flexibility:</strong> JSONB queries without sacrificing integrity</span>
                   </div>
                 </div>
@@ -67,7 +67,7 @@ export default function TechnologyPage() {
 
               {/* Logic Engine */}
               <div className="p-8 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                <div className="text-3xl mb-4">⚙️</div>
+                <div className="text-3xl mb-4">âš™ï¸</div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
                   Logic Engine: Python & Django
                 </h3>
@@ -76,15 +76,15 @@ export default function TechnologyPage() {
                 </p>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Security:</strong> OAuth2, RBAC, and encryption built-in</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Validation:</strong> Complex clinical rules enforced server-side</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Async Processing:</strong> Celery handles heavy compute jobs</span>
                   </div>
                 </div>
@@ -92,7 +92,7 @@ export default function TechnologyPage() {
 
               {/* Presentation Layer */}
               <div className="p-8 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                <div className="text-3xl mb-4">⚛️</div>
+                <div className="text-3xl mb-4">âš›ï¸</div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
                   Presentation: React Server Components
                 </h3>
@@ -101,15 +101,15 @@ export default function TechnologyPage() {
                 </p>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Zero JS Shipping:</strong> Static rendering where possible</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Sub-Second Interactivity:</strong> Optimized bundles</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Privacy First:</strong> Secrets never reach the browser</span>
                   </div>
                 </div>
@@ -117,7 +117,7 @@ export default function TechnologyPage() {
 
               {/* Integration */}
               <div className="p-8 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700">
-                <div className="text-3xl mb-4">🔌</div>
+                <div className="text-3xl mb-4">ðŸ”Œ</div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-4">
                   FHIR Integration Layer
                 </h3>
@@ -126,15 +126,15 @@ export default function TechnologyPage() {
                 </p>
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Multi-Source Ingestion:</strong> HL7v2, HL7v3, Direct, RESTful APIs</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Automatic Normalization:</strong> Vendor-specific data standardized</span>
                   </div>
                   <div className="flex items-start gap-3">
-                    <span className="text-teal-500 font-bold">→</span>
+                    <span className="text-teal-500 font-bold">â†’</span>
                     <span className="text-slate-600 dark:text-slate-300"><strong>Semantic Validation:</strong> Clinical codes and references verified</span>
                   </div>
                 </div>

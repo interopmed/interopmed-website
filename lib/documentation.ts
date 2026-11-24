@@ -15,7 +15,7 @@ export const documentationGuides: DocumentationGuide[] = [
   {
     slug: 'getting-started',
     title: 'Getting started',
-    description: 'Understand the InteropMed platform model, core integration concepts, and the planning inputs needed before implementation.',
+    description: 'Understand the SHIN Platform model, core integration concepts, and the planning inputs needed before implementation.',
     category: 'Planning',
     sections: [
       {

@@ -64,6 +64,29 @@ function titleFromMessage(message: string) {
   return message.length > 42 ? `${message.slice(0, 42)}...` : message || 'New chat'
 }
 
+function mergeMessages(
+  savedMessages: InteropMindChatMessage[],
+  requestMessages: InteropMindChatMessage[]
+) {
+  const mergedMessages = [...savedMessages]
+
+  for (const requestMessage of requestMessages) {
+    const previousMessage = mergedMessages[mergedMessages.length - 1]
+
+    if (
+      previousMessage &&
+      previousMessage.role === requestMessage.role &&
+      previousMessage.content === requestMessage.content
+    ) {
+      continue
+    }
+
+    mergedMessages.push(requestMessage)
+  }
+
+  return mergedMessages.slice(-12)
+}
+
 async function getOrCreateThread(userId: string, threadId: string | undefined, firstMessage: string) {
   if (threadId) {
     const existingThread = await prisma.interopMindThread.findFirst({
@@ -193,8 +216,27 @@ export async function POST(request: NextRequest): Promise<NextResponse<ChatRespo
         createdAt: true,
       },
     })
+    const savedHistory = await prisma.interopMindMessage.findMany({
+      where: {
+        threadId: thread.id,
+      },
+      orderBy: {
+        createdAt: 'asc',
+      },
+      take: 60,
+      select: {
+        role: true,
+        content: true,
+      },
+    })
     const agentResult = await runInteropMindAgent({
-      messages,
+      messages: mergeMessages(
+        savedHistory.map((savedMessage) => ({
+          role: savedMessage.role === 'assistant' ? 'assistant' : 'user',
+          content: savedMessage.content,
+        })),
+        messages
+      ),
       context: body.context,
       userId: accountUser.id,
     })

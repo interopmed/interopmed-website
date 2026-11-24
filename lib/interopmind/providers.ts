@@ -54,10 +54,24 @@ const FALLBACK_GROQ_MODELS = [
   'openai/gpt-oss-120b',
   'openai/gpt-oss-20b',
   'qwen/qwen3.6-27b',
+  'llama-3.3-70b-versatile',
 ]
 
 function getGroqModel() {
-  return process.env.GROQ_TEXT_MODEL || process.env.GROQ_MODEL || 'openai/gpt-oss-120b'
+  const configuredModel = (process.env.GROQ_TEXT_MODEL || process.env.GROQ_MODEL || '').trim()
+
+  if (!configuredModel) {
+    return 'openai/gpt-oss-120b'
+  }
+
+  if (
+    configuredModel.toLowerCase() === 'llama 70b versatile' ||
+    configuredModel.toLowerCase() === 'llama-70b-versatile'
+  ) {
+    return 'llama-3.3-70b-versatile'
+  }
+
+  return configuredModel
 }
 
 function getGeminiModel() {

@@ -50,29 +50,41 @@ export default async function UserSettingsPage() {
   }
 
   return (
-    <main className="bg-slate-100 py-4 text-slate-950 dark:bg-slate-950 dark:text-white md:py-6">
-      <section>
-        <div className="mx-auto">
-          <AccountBreadcrumb items={[{ label: 'User account', href: '/user' }, { label: 'Settings' }]} />
-          <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_360px]">
-            <div className="space-y-5">
-              <ProfilePhotoManager
-                displayName={settingsUser.displayName || settingsUser.publicHandle}
-                initialImageUrl={settingsUser.profileImage}
-              />
-              <AccountSettingsForm user={serializedSettingsUser} />
-              <AccountNotificationPreferencesForm preferences={preferences} />
-            </div>
-            <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-              <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Settings center</p>
-              <h2 className="mt-2 text-xl font-bold">Account and notification preferences</h2>
-              <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">
+    <main className="min-h-full py-2">
+      <div className="mx-auto max-w-6xl">
+        <AccountBreadcrumb items={[{ label: 'User account', href: '/user' }, { label: 'Settings' }]} />
+        
+        <div className="mt-4 grid gap-6 xl:grid-cols-[minmax(0,1fr)_340px]">
+          <div className="space-y-6">
+            <ProfilePhotoManager
+              displayName={settingsUser.displayName || settingsUser.publicHandle}
+              initialImageUrl={settingsUser.profileImage}
+            />
+            <AccountSettingsForm user={serializedSettingsUser} />
+            <AccountNotificationPreferencesForm preferences={preferences} />
+          </div>
+
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800/80 dark:bg-slate-900/60 dark:backdrop-blur-md relative overflow-hidden">
+              <div className="absolute top-0 right-0 -mt-4 -mr-4 h-24 w-24 rounded-full bg-teal-500/5 dark:bg-teal-500/10 blur-xl pointer-events-none" />
+              <div className="flex items-center gap-2">
+                <span className="p-1.5 rounded-lg bg-teal-50 text-teal-600 dark:bg-teal-950/30 dark:text-teal-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                </span>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">Settings center</p>
+              </div>
+              <h2 className="mt-4 text-lg font-bold text-slate-900 dark:text-white">Account and preferences</h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-500 dark:text-slate-400">
                 Profile details and email delivery rules are managed here. The notifications page now shows messages and account events you have received.
               </p>
             </div>
           </div>
         </div>
-      </section>
+      </div>
     </main>
   )
 }

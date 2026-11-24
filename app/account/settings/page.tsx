@@ -33,19 +33,18 @@ export default async function AccountSettingsPage() {
   }
 
   return (
-    <main className="bg-slate-50 py-4 text-slate-950 dark:bg-slate-950 dark:text-white md:py-6">
-      <section>
-        <div className="mx-auto">
-          <AccountBreadcrumb items={[{ label: 'Settings' }]} />
-          <div className="space-y-5">
-            <ProfilePhotoManager
-              displayName={settingsUser.displayName || settingsUser.publicHandle}
-              initialImageUrl={settingsUser.profileImage}
-            />
-            <AccountSettingsForm user={serializedSettingsUser} />
-          </div>
+    <main className="min-h-full py-2">
+      <div className="mx-auto max-w-4xl">
+        <AccountBreadcrumb items={[{ label: 'Settings' }]} />
+        
+        <div className="mt-4 space-y-6">
+          <ProfilePhotoManager
+            displayName={settingsUser.displayName || settingsUser.publicHandle}
+            initialImageUrl={settingsUser.profileImage}
+          />
+          <AccountSettingsForm user={serializedSettingsUser} />
         </div>
-      </section>
+      </div>
     </main>
   )
 }

@@ -45,6 +45,7 @@ export default function InteropMindChatPanel() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           message: trimmedMessage,
+          messages: nextMessages,
           context: 'user_interopmind_workspace',
         }),
       })
