@@ -9,6 +9,7 @@
     "build": "next build",
     "start": "next start",
     "seed:social": "node scripts/seed-social-users.mjs",
+    "seed:articles": "node scripts/seed-articles.mjs",
     "lint": "eslint . --ext .ts,.tsx",
     "type-check": "tsc --noEmit"
   },
