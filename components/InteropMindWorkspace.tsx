@@ -1333,7 +1333,7 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
             </div>
           </div>
 
-          <div className="shrink-0 px-2 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6">
+          <div className="shrink-0 px-2 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 pt-2 bg-gradient-to-t from-white via-white to-transparent dark:from-slate-950 dark:via-slate-950 dark:to-transparent">
             <form onSubmit={handleSubmit} className="mx-auto w-full max-w-5xl xl:max-w-6xl">
               {error && (
                 <p className="mb-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300">
@@ -1353,37 +1353,46 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
                   </button>
                 </div>
               )}
-              <div className="flex min-h-14 items-center gap-2 sm:gap-3 rounded-2xl sm:rounded-3xl bg-slate-100 px-3 sm:px-5 py-2.5 sm:py-3 shadow-sm dark:bg-slate-900 border border-slate-200/50 dark:border-slate-800/80 focus-within:border-teal-500/60 dark:focus-within:border-teal-500/60 transition-colors">
-                <span className="shrink-0 text-teal-600 dark:text-teal-400">
-                  <Icon name="sparkles" />
-                </span>
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={input}
-                  onChange={(event) => setInput(event.target.value)}
-                  placeholder={
-                    editingMessageId
-                      ? 'Edit your message'
-                      : !hasUserMessages
-                      ? 'Ask anything about HL7 v2, FHIR R4, CPOE/LIS workflows, or LOINC/SNOMED...'
-                      : 'Ask InteropMind a follow-up question...'
-                  }
-                  disabled={isLoading}
-                  className="min-w-0 flex-1 bg-transparent text-sm sm:text-base text-slate-950 outline-none placeholder:text-slate-500 disabled:opacity-70 dark:text-white dark:placeholder:text-slate-400"
-                />
-                <button
-                  type="submit"
-                  disabled={isLoading || !input.trim()}
-                  aria-label="Send message"
-                  className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-slate-950 text-white transition hover:bg-teal-700 disabled:cursor-not-allowed disabled:bg-slate-300 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-200 dark:disabled:bg-slate-700"
-                >
-                  <Icon name="send" />
-                </button>
+              {/* Prominently Highlighted Input Container */}
+              <div className="group relative rounded-2xl sm:rounded-3xl border-2 border-slate-300/90 bg-white p-2 shadow-lg shadow-slate-900/5 transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/20 hover:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/30 dark:focus-within:border-teal-400 dark:focus-within:ring-teal-500/25 dark:hover:border-slate-600">
+                <div className="flex min-h-12 items-center gap-2.5 px-2 sm:px-3">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-teal-50 text-teal-600 border border-teal-200/60 dark:bg-teal-950/60 dark:text-teal-400 dark:border-teal-800/40">
+                    <Icon name="sparkles" />
+                  </span>
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={input}
+                    onChange={(event) => setInput(event.target.value)}
+                    placeholder={
+                      editingMessageId
+                        ? 'Edit your message'
+                        : !hasUserMessages
+                        ? 'Ask anything about HL7 v2, FHIR R4, CPOE/LIS workflows, or LOINC/SNOMED...'
+                        : 'Ask InteropMind a follow-up question...'
+                    }
+                    disabled={isLoading}
+                    className="min-w-0 flex-1 bg-transparent text-sm sm:text-base font-medium text-slate-900 outline-none placeholder:text-slate-400 disabled:opacity-70 dark:text-white dark:placeholder:text-slate-500"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isLoading || !input.trim()}
+                    aria-label="Send message"
+                    title={input.trim() ? 'Send message (Enter)' : 'Enter your question'}
+                    className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 ${
+                      input.trim()
+                        ? 'bg-teal-600 text-white shadow-md shadow-teal-600/30 hover:bg-teal-500 hover:scale-105 active:scale-95'
+                        : 'bg-slate-100 text-slate-400 hover:bg-slate-200 disabled:cursor-not-allowed dark:bg-slate-800 dark:text-slate-600 dark:hover:bg-slate-750'
+                    }`}
+                  >
+                    <Icon name="send" />
+                  </button>
+                </div>
               </div>
-              <p className="mt-2 text-center text-xs text-slate-400">
-                InteropMind can make mistakes. Review clinical, security, and compliance decisions.
-              </p>
+              <div className="mt-2 flex items-center justify-between px-2 text-[11px] text-slate-400 dark:text-slate-500">
+                <span>Enter to send &bull; Shift + Enter for new line</span>
+                <span className="hidden sm:inline">Review clinical, security, and compliance decisions</span>
+              </div>
             </form>
           </div>
         </section>
