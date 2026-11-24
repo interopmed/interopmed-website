@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import ArticlesDirectory, { ArticleCard } from '@/components/ArticlesDirectory'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import { getArticleAuthorName } from '@/lib/article-author'
@@ -7,21 +8,11 @@ import { db } from '@/lib/db'
 
 export const metadata = {
   title: 'Articles & Guides | InteropMed',
-  description: 'Evidence-based articles and guides on clinical informatics, healthcare data standards, EMR workflows, and hospital technology implementation.',
+  description:
+    'Evidence-based articles and guides on clinical informatics, healthcare data standards, EMR workflows, and hospital technology implementation.',
 }
 
 export const dynamic = 'force-dynamic'
-
-type ArticleCard = {
-  slug: string
-  title: string
-  excerpt: string
-  category: string
-  author: string
-  publishedAt: string
-  readingTime: string
-  featuredImage?: string | null
-}
 
 function formatDate(value: Date | string | null) {
   if (!value) return 'Recent'
@@ -51,18 +42,18 @@ async function getPublishedArticles(): Promise<ArticleCard[]> {
       featuredImage: item.featuredImage,
     }))
 
-    const staticMapped: ArticleCard[] = articles.filter(
-      (a) => !dbMapped.some((d) => d.slug === a.slug)
-    ).map((a) => ({
-      slug: a.slug,
-      title: a.title,
-      excerpt: a.excerpt,
-      category: a.category,
-      author: a.author,
-      publishedAt: a.publishedAt,
-      readingTime: a.readingTime,
-      featuredImage: a.featuredImage,
-    }))
+    const staticMapped: ArticleCard[] = articles
+      .filter((a) => !dbMapped.some((d) => d.slug === a.slug))
+      .map((a) => ({
+        slug: a.slug,
+        title: a.title,
+        excerpt: a.excerpt,
+        category: a.category,
+        author: a.author,
+        publishedAt: a.publishedAt,
+        readingTime: a.readingTime,
+        featuredImage: a.featuredImage,
+      }))
 
     return [...dbMapped, ...staticMapped]
   } catch {
@@ -81,92 +72,53 @@ async function getPublishedArticles(): Promise<ArticleCard[]> {
 
 export default async function ArticlesPage() {
   const allArticles = await getPublishedArticles()
-  const featured = allArticles[0]
-  const remaining = allArticles.slice(1)
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#fdfdfd] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <div className="flex min-h-screen flex-col bg-[#fafafa] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
       <Navbar />
 
       <main className="flex-1">
-        {/* Featured Article (Lead Story) */}
-        {featured && (
-          <section className="pt-8 pb-6 md:pt-12 md:pb-8">
-            <div className="mx-auto max-w-7xl px-6">
-              <div className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-8 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition hover:border-teal-300 dark:border-slate-800 dark:bg-slate-900 md:p-10">
-                <div className="lg:grid lg:grid-cols-[1.3fr_0.7fr] lg:gap-10 lg:items-center">
-                  <div>
-                    <span className="rounded bg-teal-50 px-2.5 py-1 text-xs font-semibold text-teal-800 dark:bg-teal-950/80 dark:text-teal-300">
-                      {featured.category}
-                    </span>
-                    <h1 className="mt-4 text-2xl font-bold leading-snug text-slate-950 dark:text-white sm:text-3xl lg:text-4xl">
-                      <Link href={`/articles/${featured.slug}`} className="transition hover:text-teal-700 dark:hover:text-teal-400">
-                        {featured.title}
-                      </Link>
-                    </h1>
-                    <p className="mt-4 text-base leading-relaxed text-slate-600 dark:text-slate-300">
-                      {featured.excerpt}
-                    </p>
-                    <div className="mt-6 flex flex-wrap items-center gap-3 text-xs text-slate-400">
-                      <span className="font-medium text-slate-700 dark:text-slate-300">{featured.author}</span>
-                      <span>•</span>
-                      <span>{featured.publishedAt}</span>
-                      <span>•</span>
-                      <span>{featured.readingTime}</span>
-                    </div>
-                  </div>
-                  <div className="mt-6 lg:mt-0 flex flex-col items-start lg:items-end justify-center">
-                    <Link
-                      href={`/articles/${featured.slug}`}
-                      className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-6 py-3 text-xs font-semibold text-white transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-300"
-                    >
-                      Read full article
-                      <span>→</span>
-                    </Link>
-                  </div>
+        {/* Editorial Masthead */}
+        <header className="border-b border-slate-200/80 bg-white py-10 dark:border-slate-800 dark:bg-slate-900/40 md:py-14">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 rounded-full border border-teal-500/20 bg-teal-50/80 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-teal-800 dark:border-teal-500/30 dark:bg-teal-950/40 dark:text-teal-300">
+                  <span className="h-1.5 w-1.5 rounded-full bg-teal-500 animate-pulse" />
+                  Clinical Informatics &amp; Standards Library
                 </div>
+                <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white sm:text-4xl lg:text-5xl">
+                  Architecture Guides &amp; Publications
+                </h1>
+                <p className="mt-3 text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-400">
+                  Evidence-based guides, integration playbooks, and healthcare standards architecture for hospital IT engineers and clinical informatics practitioners.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  href="/tools"
+                  className="inline-flex items-center gap-2 rounded-xl border border-slate-200/90 bg-white px-4 py-2.5 text-xs font-semibold text-slate-800 shadow-xs transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-teal-500 dark:hover:text-teal-400"
+                >
+                  <span>Test in FHIR Sandbox</span>
+                  <span>&rarr;</span>
+                </Link>
+                <Link
+                  href="/interopmind"
+                  className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-4 py-2.5 text-xs font-semibold text-white shadow-xs transition hover:bg-teal-600 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-300"
+                >
+                  <span>Ask InteropMind AI</span>
+                  <span>&rarr;</span>
+                </Link>
               </div>
             </div>
-          </section>
-        )}
+          </div>
+        </header>
 
-        {/* Article Grid */}
-        <section className="pb-16 pt-2">
-          <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-slate-950 dark:text-white">All Articles</h2>
-              <span className="text-xs font-medium text-slate-400">{allArticles.length} guides</span>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {remaining.map((article) => (
-                <article
-                  key={article.slug}
-                  className="flex flex-col justify-between rounded-xl border border-slate-200/80 bg-white p-6 shadow-[0_1px_8px_rgba(0,0,0,0.02)] transition hover:border-teal-300 dark:border-slate-800 dark:bg-slate-900"
-                >
-                  <div>
-                    <div className="flex items-center justify-between text-xs">
-                      <span className="font-semibold text-teal-700 dark:text-teal-400">
-                        {article.category}
-                      </span>
-                      <span className="text-slate-400">{article.readingTime}</span>
-                    </div>
-                    <h3 className="mt-3 text-base font-bold leading-snug text-slate-950 dark:text-white">
-                      <Link href={`/articles/${article.slug}`} className="transition hover:text-teal-700 dark:hover:text-teal-400">
-                        {article.title}
-                      </Link>
-                    </h3>
-                    <p className="mt-2 text-xs leading-relaxed text-slate-600 line-clamp-3 dark:text-slate-300">
-                      {article.excerpt}
-                    </p>
-                  </div>
-                  <div className="mt-6 border-t border-slate-100 pt-3.5 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
-                    <span>{article.author}</span>
-                    <span>{article.publishedAt}</span>
-                  </div>
-                </article>
-              ))}
-            </div>
+        {/* Directory & Publications */}
+        <section className="py-10 md:py-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <ArticlesDirectory articles={allArticles} />
           </div>
         </section>
       </main>
