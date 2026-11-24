@@ -42,56 +42,27 @@ type MarkdownBlock =
       content: string
     }
 
-interface StarterCard {
-  category: string
-  title: string
-  description: string
-  prompt: string
-  badgeClass: string
-  icon: 'transform' | 'workflow' | 'shield' | 'code'
-}
-
-const STARTER_CARDS: StarterCard[] = [
+const SIMPLIFIED_SUGGESTIONS = [
   {
-    category: 'HL7 v2 ↔ FHIR R4',
-    title: 'Transform ORU^R01 into FHIR Observation',
-    description: 'Map segments, OBX value types, UCUM units, LOINC codes, and reference ranges into FHIR R4 JSON.',
-    prompt: 'Show me how to map an HL7 v2 ORU^R01 lab message (with OBX segments for Serum Potassium and Blood Glucose) to FHIR R4 Observation resources, including LOINC codes, status codes, and UCUM units.',
-    badgeClass: 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800',
-    icon: 'transform',
+    label: 'Convert ORU^R01 to FHIR Observation',
+    prompt: 'Show me how to map an HL7 v2 ORU^R01 lab message (Serum Potassium & Glucose) to FHIR R4 Observation resources with LOINC and UCUM units.',
+    icon: 'transform' as const,
   },
   {
-    category: 'Clinical Workflows',
-    title: 'Trace EHR CPOE to LIS Result Flow',
-    description: 'Walk through electronic order placement, accessioning, specimen barcodes, analyzer runs, and HL7 ACK delivery.',
-    prompt: 'Explain the complete end-to-end clinical workflow between an EHR and a Laboratory Information System (LIS): CPOE order generation (ORM^O01), specimen accessioning, LOINC test mapping, and electronic result return (ORU^R01).',
-    badgeClass: 'bg-teal-50 text-teal-700 border-teal-200 dark:bg-teal-950/40 dark:text-teal-300 dark:border-teal-800',
-    icon: 'workflow',
+    label: 'Trace EHR CPOE to LIS workflow',
+    prompt: 'Explain the complete end-to-end clinical workflow between an EHR and a Laboratory Information System (LIS): CPOE order generation (ORM^O01), specimen accessioning, and electronic result return (ORU^R01).',
+    icon: 'workflow' as const,
   },
   {
-    category: 'Security & SMART',
-    title: 'Design SMART on FHIR App Launch',
-    description: 'Configure OAuth 2.0 authorization code flow, PKCE, launch context tokens, and EHR clinical scopes.',
-    prompt: 'Guide me through architecting a SMART on FHIR EHR Launch flow with OAuth 2.0 and PKCE: patient scopes, launch context tokens, public vs confidential client considerations, and token exchange.',
-    badgeClass: 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-300 dark:border-blue-800',
-    icon: 'shield',
+    label: 'Design SMART on FHIR OAuth launch',
+    prompt: 'Guide me through architecting a SMART on FHIR EHR Launch flow with OAuth 2.0 and PKCE: patient scopes, launch context tokens, and token exchange.',
+    icon: 'shield' as const,
   },
   {
-    category: 'Standards & ONC',
-    title: 'Validate US Core 3.1.1 / 6.1.0 Invariants',
-    description: 'Review mandatory MustSupport elements, USCDI data classes, and search parameter contracts.',
-    prompt: 'What are the essential MustSupport elements and search parameters required for US Core 3.1.1 / 6.1.0 Patient and Condition profiles under ONC HTI-1 compliance rules?',
-    badgeClass: 'bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-950/40 dark:text-indigo-300 dark:border-indigo-800',
-    icon: 'code',
+    label: 'US Core 3.1.1 / 6.1.0 MustSupport rules',
+    prompt: 'What are the essential MustSupport elements and search parameters required for US Core 3.1.1 / 6.1.0 Patient and Condition profiles under ONC HTI-1?',
+    icon: 'code' as const,
   },
-]
-
-const QUICK_TOPICS = [
-  { label: 'ADT^A01 vs ADT^A08', query: 'What is the clinical difference between HL7 v2 ADT^A01 (Admit) and ADT^A08 (Update Patient Information)?' },
-  { label: 'LOINC 8867-4 Heart Rate', query: 'Explain LOINC 8867-4 for Heart rate, its FHIR Observation profile, and recommended UCUM units.' },
-  { label: 'FHIR Bundle: Batch vs Transaction', query: 'What is the architectural difference between a FHIR transaction bundle and a batch bundle?' },
-  { label: 'MSH-9 Message Structure', query: 'Explain the components of HL7 v2 MSH-9 message type field (Message Code, Trigger Event, Message Structure).' },
-  { label: 'SNOMED CT Clinical Findings', query: 'How do you bind a SNOMED CT clinical finding expression to a FHIR Condition.code element?' },
 ]
 
 function renderInlineMarkdown(text: string) {
@@ -1145,116 +1116,84 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
           <div className="flex-1 overflow-y-auto overflow-x-hidden px-2 sm:px-4 md:px-6 pb-4 sm:pb-6">
             <div className="mx-auto flex min-h-full w-full max-w-5xl xl:max-w-6xl flex-col">
               {!hasUserMessages ? (
-                <div className="flex flex-1 flex-col justify-center py-6 sm:py-10">
-                  {/* Subtle Copilot Badge */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-teal-500/20 bg-teal-50/90 px-3 py-1 text-xs font-semibold text-teal-800 shadow-xs dark:border-teal-500/30 dark:bg-teal-950/50 dark:text-teal-300">
-                      <span className="text-teal-600 dark:text-teal-400">
-                        <Icon name="sparkles" />
-                      </span>
-                      Clinical Interoperability Copilot
+                <div className="flex flex-1 flex-col items-center justify-center px-4 py-8 max-w-2xl mx-auto w-full text-center">
+                  <div>
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-teal-500/20 bg-teal-50/80 px-3 py-1 text-xs font-semibold text-teal-800 dark:border-teal-500/30 dark:bg-teal-950/40 dark:text-teal-300">
+                      <Icon name="sparkles" />
+                      InteropMind AI
                     </span>
-                    <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                      HL7 v2 &bull; FHIR R4 &bull; CPOE / LIS &bull; ONC HTI-1
-                    </span>
-                  </div>
-
-                  {/* Editorial Greeting */}
-                  <div className="mt-4">
-                    <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                      Welcome, <span className="bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent dark:from-teal-400 dark:to-cyan-400">{displayName}</span>
+                    <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                      What would you like to explore?
                     </h2>
-                    <p className="mt-2 text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
-                      Ask questions, analyze HL7 v2 messages, construct FHIR R4 resources, or trace end-to-end clinical workflows.
+                    <p className="mt-1.5 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                      Healthcare interoperability, HL7 v2, FHIR R4, and clinical workflows
                     </p>
                   </div>
 
-                  {/* 4 Feature Capability Cards */}
-                  <div className="mt-7 grid gap-3.5 sm:grid-cols-2">
-                    {STARTER_CARDS.map((card) => (
+                  {/* Centered Chat Box */}
+                  <form onSubmit={handleSubmit} className="mt-6 w-full">
+                    {error && (
+                      <p className="mb-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300">
+                        {error}
+                      </p>
+                    )}
+                    <div className="group relative rounded-2xl sm:rounded-3xl border-2 border-slate-300/90 bg-white p-2 shadow-lg shadow-slate-900/5 transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/20 hover:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/30 dark:focus-within:border-teal-400 dark:focus-within:ring-teal-500/25 dark:hover:border-slate-600">
+                      <div className="flex min-h-12 items-center gap-2.5 px-2 sm:px-3">
+                        <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-teal-50 text-teal-600 border border-teal-200/60 dark:bg-teal-950/60 dark:text-teal-400 dark:border-teal-800/40">
+                          <Icon name="sparkles" />
+                        </span>
+                        <input
+                          ref={inputRef}
+                          type="text"
+                          value={input}
+                          onChange={(event) => setInput(event.target.value)}
+                          placeholder="Ask anything about HL7, FHIR, CPOE/LIS, LOINC..."
+                          disabled={isLoading}
+                          className="min-w-0 flex-1 bg-transparent text-sm sm:text-base font-medium text-slate-900 outline-none placeholder:text-slate-400 disabled:opacity-70 dark:text-white dark:placeholder:text-slate-500"
+                        />
+                        <button
+                          type="submit"
+                          disabled={isLoading || !input.trim()}
+                          aria-label="Send message"
+                          title={input.trim() ? 'Send message (Enter)' : 'Enter your question'}
+                          className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 ${
+                            input.trim()
+                              ? 'bg-teal-600 text-white shadow-md shadow-teal-600/30 hover:bg-teal-500 hover:scale-105 active:scale-95'
+                              : 'bg-slate-100 text-slate-400 hover:bg-slate-200 disabled:cursor-not-allowed dark:bg-slate-800 dark:text-slate-600 dark:hover:bg-slate-750'
+                          }`}
+                        >
+                          <Icon name="send" />
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+
+                  {/* Simplified Suggestions Below */}
+                  <div className="mt-4 grid w-full grid-cols-1 sm:grid-cols-2 gap-2 text-left">
+                    {SIMPLIFIED_SUGGESTIONS.map((s) => (
                       <button
-                        key={card.title}
+                        key={s.label}
                         type="button"
-                        onClick={() => sendMessage(card.prompt)}
+                        onClick={() => sendMessage(s.prompt)}
                         disabled={isLoading}
-                        className="group relative flex flex-col justify-between rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 text-left shadow-xs transition-all duration-200 hover:-translate-y-0.5 hover:border-teal-500 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-70 dark:border-slate-800 dark:bg-slate-900/80 dark:hover:border-teal-500 dark:hover:bg-slate-900"
+                        className="group flex items-center justify-between rounded-xl border border-slate-200/90 bg-white px-3.5 py-2.5 text-xs font-medium text-slate-700 shadow-xs transition hover:border-teal-500/60 hover:bg-teal-50/40 hover:text-teal-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-teal-500/60 dark:hover:bg-slate-850 dark:hover:text-teal-300"
                       >
-                        <div>
-                          <div className="flex items-center justify-between">
-                            <span className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-xs font-semibold ${card.badgeClass}`}>
-                              <Icon name={card.icon} />
-                              {card.category}
-                            </span>
-                            <span className="text-slate-400 transition-transform duration-200 group-hover:translate-x-1 group-hover:text-teal-600 dark:group-hover:text-teal-400">
-                              <Icon name="arrow-right" />
-                            </span>
-                          </div>
-                          <h3 className="mt-3 text-sm sm:text-base font-bold text-slate-900 transition-colors group-hover:text-teal-600 dark:text-white dark:group-hover:text-teal-400">
-                            {card.title}
-                          </h3>
-                          <p className="mt-1.5 text-xs sm:text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-                            {card.description}
-                          </p>
+                        <div className="flex items-center gap-2 truncate">
+                          <span className="text-teal-600 dark:text-teal-400 shrink-0">
+                            <Icon name={s.icon} />
+                          </span>
+                          <span className="truncate">{s.label}</span>
                         </div>
-                        <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-teal-600 dark:text-teal-400">
-                          <span>Explore capability</span>
-                          <span className="transition-transform group-hover:translate-x-0.5">&rarr;</span>
-                        </div>
+                        <span className="text-slate-400 opacity-0 transition-opacity group-hover:opacity-100 dark:text-slate-500">
+                          &rarr;
+                        </span>
                       </button>
                     ))}
                   </div>
 
-                  {/* Quick Topics Pill Bar */}
-                  <div className="mt-6">
-                    <p className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      Quick Questions
-                    </p>
-                    <div className="mt-2.5 flex flex-wrap gap-2">
-                      {QUICK_TOPICS.map((topic) => (
-                        <button
-                          key={topic.label}
-                          type="button"
-                          onClick={() => sendMessage(topic.query)}
-                          disabled={isLoading}
-                          className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:border-teal-500/50 hover:bg-teal-50/50 hover:text-teal-800 disabled:cursor-not-allowed disabled:opacity-60 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-teal-500/50 dark:hover:bg-teal-950/40 dark:hover:text-teal-300"
-                        >
-                          {topic.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Bottom Tool Integration Banner */}
-                  <div className="mt-7 rounded-xl border border-slate-200/80 bg-slate-50/70 p-3.5 sm:p-4 dark:border-slate-800/80 dark:bg-slate-900/40">
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs">
-                      <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
-                        <span className="font-semibold text-slate-900 dark:text-white">Active Sandboxes:</span>
-                        <span className="text-slate-500">Live clinical tools connected to InteropMed</span>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <Link
-                          href="/tools"
-                          className="inline-flex items-center gap-1 font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
-                        >
-                          HL7 &amp; FHIR Parser &rarr;
-                        </Link>
-                        <span className="text-slate-300 dark:text-slate-700">&bull;</span>
-                        <Link
-                          href="/ehr-lis"
-                          className="inline-flex items-center gap-1 font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
-                        >
-                          SHIN EHR/LIS Simulator &rarr;
-                        </Link>
-                        <span className="text-slate-300 dark:text-slate-700">&bull;</span>
-                        <Link
-                          href="/articles"
-                          className="inline-flex items-center gap-1 font-semibold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
-                        >
-                          Standards Guides &rarr;
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
+                  <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-500">
+                    Enter to send &bull; Shift + Enter for new line
+                  </p>
                 </div>
               ) : (
                 <div className="space-y-6 py-4 sm:py-6">
@@ -1333,68 +1272,64 @@ export default function InteropMindWorkspace({ user }: InteropMindWorkspaceProps
             </div>
           </div>
 
-          <div className="shrink-0 px-2 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 pt-2 bg-gradient-to-t from-white via-white to-transparent dark:from-slate-950 dark:via-slate-950 dark:to-transparent">
-            <form onSubmit={handleSubmit} className="mx-auto w-full max-w-5xl xl:max-w-6xl">
-              {error && (
-                <p className="mb-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300">
-                  {error}
-                </p>
-              )}
-              {editingMessageId && (
-                <div className="mb-3 flex items-center justify-between gap-3 rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-teal-800 dark:border-teal-900 dark:bg-teal-950/40 dark:text-teal-200">
-                  <span className="font-semibold">Editing your last message</span>
-                  <button
-                    type="button"
-                    onClick={cancelMessageEdit}
-                    disabled={isLoading}
-                    className="rounded-full px-3 py-1 text-xs font-bold transition hover:bg-teal-100 disabled:cursor-not-allowed disabled:opacity-60 dark:hover:bg-teal-900"
-                  >
-                    Cancel
-                  </button>
+          {hasUserMessages && (
+            <div className="shrink-0 px-2 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 pt-2 bg-gradient-to-t from-white via-white to-transparent dark:from-slate-950 dark:via-slate-950 dark:to-transparent">
+              <form onSubmit={handleSubmit} className="mx-auto w-full max-w-5xl xl:max-w-6xl">
+                {error && (
+                  <p className="mb-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950/40 dark:text-red-300">
+                    {error}
+                  </p>
+                )}
+                {editingMessageId && (
+                  <div className="mb-3 flex items-center justify-between gap-3 rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-teal-800 dark:border-teal-900 dark:bg-teal-950/40 dark:text-teal-200">
+                    <span className="font-semibold">Editing your last message</span>
+                    <button
+                      type="button"
+                      onClick={cancelMessageEdit}
+                      disabled={isLoading}
+                      className="rounded-full px-3 py-1 text-xs font-bold transition hover:bg-teal-100 disabled:cursor-not-allowed disabled:opacity-60 dark:hover:bg-teal-900"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+                {/* Prominently Highlighted Input Container */}
+                <div className="group relative rounded-2xl sm:rounded-3xl border-2 border-slate-300/90 bg-white p-2 shadow-lg shadow-slate-900/5 transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/20 hover:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/30 dark:focus-within:border-teal-400 dark:focus-within:ring-teal-500/25 dark:hover:border-slate-600">
+                  <div className="flex min-h-12 items-center gap-2.5 px-2 sm:px-3">
+                    <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-teal-50 text-teal-600 border border-teal-200/60 dark:bg-teal-950/60 dark:text-teal-400 dark:border-teal-800/40">
+                      <Icon name="sparkles" />
+                    </span>
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={input}
+                      onChange={(event) => setInput(event.target.value)}
+                      placeholder={editingMessageId ? 'Edit your message' : 'Ask InteropMind a follow-up question...'}
+                      disabled={isLoading}
+                      className="min-w-0 flex-1 bg-transparent text-sm sm:text-base font-medium text-slate-900 outline-none placeholder:text-slate-400 disabled:opacity-70 dark:text-white dark:placeholder:text-slate-500"
+                    />
+                    <button
+                      type="submit"
+                      disabled={isLoading || !input.trim()}
+                      aria-label="Send message"
+                      title={input.trim() ? 'Send message (Enter)' : 'Enter your question'}
+                      className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 ${
+                        input.trim()
+                          ? 'bg-teal-600 text-white shadow-md shadow-teal-600/30 hover:bg-teal-500 hover:scale-105 active:scale-95'
+                          : 'bg-slate-100 text-slate-400 hover:bg-slate-200 disabled:cursor-not-allowed dark:bg-slate-800 dark:text-slate-600 dark:hover:bg-slate-750'
+                      }`}
+                    >
+                      <Icon name="send" />
+                    </button>
+                  </div>
                 </div>
-              )}
-              {/* Prominently Highlighted Input Container */}
-              <div className="group relative rounded-2xl sm:rounded-3xl border-2 border-slate-300/90 bg-white p-2 shadow-lg shadow-slate-900/5 transition-all duration-200 focus-within:border-teal-500 focus-within:ring-4 focus-within:ring-teal-500/20 hover:border-slate-400 dark:border-slate-700 dark:bg-slate-900 dark:shadow-black/30 dark:focus-within:border-teal-400 dark:focus-within:ring-teal-500/25 dark:hover:border-slate-600">
-                <div className="flex min-h-12 items-center gap-2.5 px-2 sm:px-3">
-                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-xl bg-teal-50 text-teal-600 border border-teal-200/60 dark:bg-teal-950/60 dark:text-teal-400 dark:border-teal-800/40">
-                    <Icon name="sparkles" />
-                  </span>
-                  <input
-                    ref={inputRef}
-                    type="text"
-                    value={input}
-                    onChange={(event) => setInput(event.target.value)}
-                    placeholder={
-                      editingMessageId
-                        ? 'Edit your message'
-                        : !hasUserMessages
-                        ? 'Ask anything about HL7 v2, FHIR R4, CPOE/LIS workflows, or LOINC/SNOMED...'
-                        : 'Ask InteropMind a follow-up question...'
-                    }
-                    disabled={isLoading}
-                    className="min-w-0 flex-1 bg-transparent text-sm sm:text-base font-medium text-slate-900 outline-none placeholder:text-slate-400 disabled:opacity-70 dark:text-white dark:placeholder:text-slate-500"
-                  />
-                  <button
-                    type="submit"
-                    disabled={isLoading || !input.trim()}
-                    aria-label="Send message"
-                    title={input.trim() ? 'Send message (Enter)' : 'Enter your question'}
-                    className={`grid h-10 w-10 shrink-0 place-items-center rounded-full transition-all duration-200 ${
-                      input.trim()
-                        ? 'bg-teal-600 text-white shadow-md shadow-teal-600/30 hover:bg-teal-500 hover:scale-105 active:scale-95'
-                        : 'bg-slate-100 text-slate-400 hover:bg-slate-200 disabled:cursor-not-allowed dark:bg-slate-800 dark:text-slate-600 dark:hover:bg-slate-750'
-                    }`}
-                  >
-                    <Icon name="send" />
-                  </button>
+                <div className="mt-2 flex items-center justify-between px-2 text-[11px] text-slate-400 dark:text-slate-500">
+                  <span>Enter to send &bull; Shift + Enter for new line</span>
+                  <span className="hidden sm:inline">Review clinical, security, and compliance decisions</span>
                 </div>
-              </div>
-              <div className="mt-2 flex items-center justify-between px-2 text-[11px] text-slate-400 dark:text-slate-500">
-                <span>Enter to send &bull; Shift + Enter for new line</span>
-                <span className="hidden sm:inline">Review clinical, security, and compliance decisions</span>
-              </div>
-            </form>
-          </div>
+              </form>
+            </div>
+          )}
         </section>
       </div>
 
