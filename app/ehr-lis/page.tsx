@@ -3,8 +3,8 @@ import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 
 export const metadata = {
-  title: 'Explore Our EHR & LIS System | InteropMed',
-  description: 'Hands-on exploration of modern Electronic Health Record (EHR) and Laboratory Information System (LIS) clinical workflows, interfaces, and terminology mapping.',
+  title: 'SHIN EHR & LIS Clinical Testbed | InteropMed Interoperability Hub',
+  description: 'Hands-on clinical interoperability test tool: simulate and research order-to-result data flows connecting Electronic Health Records (EHR) and Laboratory Information Systems (LIS) via HL7 and FHIR.',
 }
 
 const ehrWorkflows = [
@@ -71,14 +71,21 @@ export default function EhrLisExplorationPage() {
         <section className="border-b border-slate-200 bg-white py-16 dark:border-slate-800 dark:bg-slate-900 md:py-20">
           <div className="mx-auto max-w-7xl px-6">
             <div className="max-w-3xl">
-              <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-700 dark:bg-teal-950/60 dark:text-teal-300">
-                Interactive Clinical Systems
-              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800 dark:bg-teal-950/60 dark:text-teal-300">
+                  Clinical Test Tool &amp; Sandbox
+                </span>
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-semibold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  shin.interopmed.com Online
+                </span>
+              </div>
+
               <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-slate-950 dark:text-white sm:text-4xl md:text-5xl">
-                Explore Our EHR & LIS System
+                SHIN EHR &amp; LIS Clinical Interoperability Testbed
               </h1>
               <p className="mt-5 text-lg leading-8 text-slate-600 dark:text-slate-300">
-                An opportunity for clinical informaticians, researchers, and healthcare professionals to explore the architecture, workflow handoffs, and interoperability standards linking Electronic Health Records (EHR) with Laboratory Information Systems (LIS).
+                A connected Electronic Health Record and Laboratory Information System test tool for clinical informaticians, researchers, doctors, and engineers to simulate, validate, and research clinical order-to-result data flows using international standards (HL7, FHIR, LOINC, and SNOMED CT).
               </p>
               <div className="mt-8 flex flex-wrap items-center gap-3">
                 <a
@@ -87,7 +94,7 @@ export default function EhrLisExplorationPage() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-xl bg-teal-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-teal-800"
                 >
-                  <span>Launch Live EHR (shin.interopmed.com)</span>
+                  <span>Launch Live SHIN EHR (shin.interopmed.com)</span>
                   <span className="text-xs">↗</span>
                 </a>
                 <Link
@@ -100,7 +107,7 @@ export default function EhrLisExplorationPage() {
                   href="/interopmind"
                   className="rounded-xl border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-teal-500 hover:text-teal-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-teal-400"
                 >
-                  Explore InteropMind →
+                  Ask InteropMind AI →
                 </Link>
               </div>
             </div>

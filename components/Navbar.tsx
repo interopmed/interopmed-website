@@ -15,6 +15,7 @@ const navItems = [
   { href: '/', label: 'Home' },
   { href: '/articles', label: 'Articles' },
   { href: '/tools', label: 'Tools' },
+  { href: '/ehr-lis', label: 'SHIN EHR' },
   { href: '/interopmind', label: 'InteropMind' },
   { href: '/community', label: 'Community' },
   { href: '/stream', label: 'Stream' },

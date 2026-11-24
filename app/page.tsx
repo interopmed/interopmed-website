@@ -8,8 +8,8 @@ import { db } from '@/lib/db'
 import { prisma } from '@/lib/prisma'
 
 export const metadata = {
-  title: 'InteropMed | Health Informatics & Interoperability Knowledge Platform',
-  description: 'Evidence-based articles, clinical workflow analyses, healthcare standards, and digital health implementation guides.',
+  title: 'InteropMed | Interoperability Learning, Research & Support Hub',
+  description: 'An open healthcare interoperability learning, research support, and community platform featuring clinical test tools including the SHIN EHR & LIS environment.',
 }
 
 export const dynamic = 'force-dynamic'
@@ -221,76 +221,166 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* SECTION 2: HANDS-ON INTEROPERABILITY TOOLS & EHR/LIS EXPLORATION */}
+        {/* SECTION 2: THE INTEROPERABILITY HUB — 4 CORE PILLARS */}
         <section className="border-b border-slate-200/70 py-12 dark:border-slate-800 md:py-16">
           <div className="mx-auto max-w-7xl px-6">
-            <div className="mb-10 max-w-2xl">
-              <span className="text-xs font-bold uppercase tracking-wider text-teal-700 dark:text-teal-400">
-                Practical Learning
+            <div className="mb-10 max-w-3xl">
+              <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-800 dark:bg-teal-950 dark:text-teal-300">
+                Core Hub Pillars
               </span>
-              <h2 className="mt-2 text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
-                Hands-on Interoperability & Clinical Systems
+              <h2 className="mt-3 text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
+                Learning, Research Support, Community &amp; Clinical Testing
               </h2>
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-                Move from theory to practice with our interactive tools and clinical workflows.
+              <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                Everything clinical informaticians, researchers, doctors, and developers need to advance health data exchange.
               </p>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2">
-              {/* Card 1: Interoperability Tools */}
-              <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-7 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition hover:border-teal-300 dark:border-slate-800 dark:bg-slate-900">
+            {/* 4 PILLARS GRID */}
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {/* Pillar 1: Interoperability Learning */}
+              <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-teal-400 dark:border-slate-800 dark:bg-slate-900">
                 <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-semibold text-teal-700 dark:text-teal-400">Testing Utilities</span>
-                    <span className="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">Live Sandbox</span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-700 dark:bg-teal-950 dark:text-teal-300">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
                   </div>
-                  <h3 className="mt-4 text-xl font-bold text-slate-950 dark:text-white">
-                    Interoperability Tools & Message Parser
+                  <h3 className="mt-4 text-base font-bold text-slate-950 dark:text-white">
+                    01. Interoperability Learning
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    Interact with real FHIR REST APIs—query Patient demographics, vital observations, and lab reports. Test our HL7 v2 segment parser on sample ADT and ORU messages.
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                    Evidence-based guides explaining HL7 v2 messaging, FHIR R4 resources, SNOMED CT, LOINC, and terminology mapping without fluff.
                   </p>
-                  <div className="mt-5 flex flex-wrap gap-2 text-xs">
-                    <span className="rounded-md bg-slate-50 px-2.5 py-1 text-slate-700 border border-slate-200/60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">FHIR Resource Playground</span>
-                    <span className="rounded-md bg-slate-50 px-2.5 py-1 text-slate-700 border border-slate-200/60 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">HL7 v2 Message Inspector</span>
-                  </div>
                 </div>
-
-                <div className="mt-8 border-t border-slate-100 pt-5 dark:border-slate-800">
-                  <Link
-                    href="/tools"
-                    className="inline-flex items-center gap-2 rounded-xl bg-slate-950 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-teal-700 dark:bg-white dark:text-slate-950 dark:hover:bg-teal-300"
-                  >
-                    Open Interoperability Tools →
+                <div className="mt-6 border-t border-slate-100 pt-4 dark:border-slate-800">
+                  <Link href="/articles" className="text-xs font-semibold text-teal-700 hover:underline dark:text-teal-400">
+                    Explore learning guides →
                   </Link>
                 </div>
               </div>
 
-              {/* Card 2: EHR & LIS System */}
-              <div className="flex flex-col justify-between rounded-2xl border border-teal-200/70 bg-gradient-to-br from-white to-teal-50/30 p-7 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition hover:border-teal-400 dark:border-teal-900/60 dark:from-slate-900 dark:to-teal-950/30">
+              {/* Pillar 2: Research & Clinical Support */}
+              <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-teal-400 dark:border-slate-800 dark:bg-slate-900">
                 <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-semibold text-teal-700 dark:text-teal-400">Clinical Workflow</span>
-                    <span className="rounded bg-teal-100/60 px-2 py-0.5 text-[11px] font-medium text-teal-800 dark:bg-teal-950 dark:text-teal-300">EHR + LIS</span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
                   </div>
-                  <h3 className="mt-4 text-xl font-bold text-slate-950 dark:text-white">
-                    Explore Our Connected EHR & LIS System
+                  <h3 className="mt-4 text-base font-bold text-slate-950 dark:text-white">
+                    02. Research &amp; Clinical Support
                   </h3>
-                  <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                    See how patient encounters, doctor orders (CPOE), and laboratory specimen tests communicate end-to-end using international standards like LOINC, SNOMED, and FHIR.
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                    Supporting researchers, clinical teams, and health departments with evaluation frameworks, workflow studies, and reference architectures.
                   </p>
-                  <div className="mt-5 flex flex-wrap gap-2 text-xs">
-                    <span className="rounded-md bg-white/80 px-2.5 py-1 text-teal-800 border border-teal-200/60 shadow-sm dark:bg-slate-800 dark:border-teal-900 dark:text-teal-300">Clinical Charting</span>
-                    <span className="rounded-md bg-white/80 px-2.5 py-1 text-teal-800 border border-teal-200/60 shadow-sm dark:bg-slate-800 dark:border-teal-900 dark:text-teal-300">Laboratory Specimen Tracking</span>
+                </div>
+                <div className="mt-6 border-t border-slate-100 pt-4 dark:border-slate-800">
+                  <Link href="/clinical-informatics" className="text-xs font-semibold text-teal-700 hover:underline dark:text-teal-400">
+                    Research &amp; workflows →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Pillar 3: Hands-On Test Tools & SHIN */}
+              <div className="flex flex-col justify-between rounded-2xl border border-teal-300/80 bg-teal-50/30 p-6 shadow-sm transition hover:border-teal-500 dark:border-teal-900/60 dark:bg-teal-950/20">
+                <div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-600 text-white shadow-sm">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                  </div>
+                  <div className="mt-4 flex items-center gap-2">
+                    <h3 className="text-base font-bold text-slate-950 dark:text-white">
+                      03. SHIN Test Tool &amp; Sandbox
+                    </h3>
+                  </div>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                    Validate data handoffs using our live FHIR &amp; HL7 parsers, and simulate full doctor orders to lab result flows in the connected <strong className="font-semibold text-teal-800 dark:text-teal-200">SHIN EHR</strong>.
+                  </p>
+                </div>
+                <div className="mt-6 border-t border-teal-100 pt-4 dark:border-teal-900/60">
+                  <Link href="/ehr-lis" className="text-xs font-bold text-teal-700 hover:underline dark:text-teal-300">
+                    Open SHIN test tool →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Pillar 4: Community Engagement */}
+              <div className="flex flex-col justify-between rounded-2xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:border-teal-400 dark:border-slate-800 dark:bg-slate-900">
+                <div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
+                    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="mt-4 text-base font-bold text-slate-950 dark:text-white">
+                    04. Community Engagement
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                    Connect with clinical informaticians, doctors, and developers. Share deployment hurdles, ask architecture questions, and follow the live Stream feed.
+                  </p>
+                </div>
+                <div className="mt-6 border-t border-slate-100 pt-4 dark:border-slate-800">
+                  <Link href="/community" className="text-xs font-semibold text-teal-700 hover:underline dark:text-teal-400">
+                    Join the community →
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* DEDICATED SHIN CLINICAL TESTBED FEATURE */}
+            <div className="mt-10 overflow-hidden rounded-2xl border border-teal-200/80 bg-gradient-to-br from-white via-teal-50/20 to-teal-100/30 p-8 shadow-sm dark:border-teal-900/60 dark:from-slate-900 dark:via-slate-900 dark:to-teal-950/30 md:p-10">
+              <div className="lg:grid lg:grid-cols-[1.3fr_0.7fr] lg:items-center lg:gap-10">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-teal-100 px-3 py-1 text-xs font-bold text-teal-900 dark:bg-teal-950 dark:text-teal-300">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Featured Testing Utility
+                  </div>
+                  <h3 className="mt-4 text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
+                    Test Real-World Clinical Workflows with the SHIN EHR &amp; LIS Testbed
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">
+                    SHIN is our interactive clinical testing environment linking Electronic Health Records with Laboratory Information Systems. Test how doctor computerized order entry (CPOE), LOINC lab test codes, specimen barcoding, and automated analyzer result notifications interact in daily medical practice.
+                  </p>
+
+                  <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 text-xs font-medium text-slate-700 dark:text-slate-300">
+                    <div className="rounded-lg border border-teal-200/60 bg-white/80 p-2.5 text-center shadow-xs dark:border-teal-900 dark:bg-slate-800">
+                      ✓ Patient MPI
+                    </div>
+                    <div className="rounded-lg border border-teal-200/60 bg-white/80 p-2.5 text-center shadow-xs dark:border-teal-900 dark:bg-slate-800">
+                      ✓ CPOE Order Sets
+                    </div>
+                    <div className="rounded-lg border border-teal-200/60 bg-white/80 p-2.5 text-center shadow-xs dark:border-teal-900 dark:bg-slate-800">
+                      ✓ Specimen Barcoding
+                    </div>
+                    <div className="rounded-lg border border-teal-200/60 bg-white/80 p-2.5 text-center shadow-xs dark:border-teal-900 dark:bg-slate-800">
+                      ✓ FHIR / HL7 Delivery
+                    </div>
                   </div>
                 </div>
 
-                <div className="mt-8 border-t border-teal-100 pt-5 dark:border-teal-900/60">
+                <div className="mt-8 flex flex-col gap-3 lg:mt-0 lg:items-end">
+                  <a
+                    href="https://shin.interopmed.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-teal-700 px-6 py-3.5 text-center text-sm font-bold text-white shadow-md transition hover:bg-teal-800"
+                  >
+                    <span>Launch Live EHR (shin.interopmed.com)</span>
+                    <span>↗</span>
+                  </a>
                   <Link
                     href="/ehr-lis"
-                    className="inline-flex items-center gap-2 rounded-xl bg-teal-700 px-5 py-2.5 text-xs font-semibold text-white transition hover:bg-teal-800"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 text-center text-xs font-semibold text-slate-700 shadow-xs transition hover:border-teal-500 hover:text-teal-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
                   >
-                    Explore EHR & LIS System →
+                    Explore Step-by-Step Architecture →
+                  </Link>
+                  <Link
+                    href="/tools"
+                    className="text-center text-xs text-slate-500 transition hover:text-teal-600 dark:text-slate-400"
+                  >
+                    Or test with FHIR/HL7 Raw Message Parser →
                   </Link>
                 </div>
               </div>

@@ -15,7 +15,7 @@ export default function Footer() {
               <span className="text-lg font-bold text-slate-900 dark:text-white">InteropMed</span>
             </div>
             <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
-              Health informatics and healthcare interoperability knowledge platform. Understanding healthcare systems, connecting healthcare data, and improving clinical workflows.
+              Healthcare interoperability learning, research, and support hub. Advancing digital health systems, clinical research data exchange, and community testing with the SHIN EHR &amp; LIS testbed.
             </p>
           </div>
 
@@ -34,10 +34,11 @@ export default function Footer() {
             <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Interactive & Tools</h3>
             <ul className="space-y-2.5 text-sm">
               <li><Link href="/tools" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Interoperability Tools</Link></li>
-              <li><Link href="/ehr-lis" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">EHR & LIS Explorer</Link></li>
-              <li><Link href="/interopmind" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">InteropMind</Link></li>
-              <li><Link href="/community" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Community</Link></li>
-              <li><Link href="/stream" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Stream Activity</Link></li>
+              <li><Link href="/ehr-lis" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">SHIN EHR &amp; LIS Testbed</Link></li>
+              <li><a href="https://shin.interopmed.com" target="_blank" rel="noopener noreferrer" className="text-teal-700 transition-colors hover:text-teal-800 dark:text-teal-400">Live EHR (shin.interopmed.com) ↗</a></li>
+              <li><Link href="/interopmind" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">InteropMind AI Lab</Link></li>
+              <li><Link href="/community" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Community Engagement</Link></li>
+              <li><Link href="/stream" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Stream Activity Feed</Link></li>
               <li><Link href="/knowledge" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Standards Reference</Link></li>
             </ul>
           </div>
