@@ -3,6 +3,7 @@ import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import APIPlayground from '@/components/sections/APIPlayground'
 import HL7Inspector from '@/components/tools/HL7Inspector'
+import { STUDIO_URL } from '@/lib/studio-constants'
 
 export const metadata = {
   title: 'Interoperability Tools | InteropMed',
@@ -41,7 +42,7 @@ export default function ToolsPage() {
                 03. SHIN EHR &amp; LIS Testbed
               </a>
               <a
-                href="https://studio.interopmed.com"
+                href={STUDIO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-lg border border-indigo-200/80 bg-indigo-50/60 px-3 py-1.5 text-xs font-semibold text-indigo-800 transition hover:bg-indigo-100 dark:border-indigo-900 dark:bg-indigo-950/60 dark:text-indigo-300"
@@ -87,14 +88,14 @@ export default function ToolsPage() {
                 </div>
 
                 <a
-                  href="https://studio.interopmed.com"
+                  href={STUDIO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group rounded-xl border border-indigo-200/90 bg-indigo-50/30 p-4 shadow-sm transition hover:border-indigo-400 hover:bg-indigo-50/60 dark:border-indigo-900/60 dark:bg-slate-950"
                 >
                   <div className="flex items-center justify-between">
                     <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-bold text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-300">Step 2</span>
-                    <span className="text-xs font-bold text-indigo-600">studio.interopmed.com ↗</span>
+                    <span className="text-xs font-bold text-indigo-600">Studio Mapper ↗</span>
                   </div>
                   <h3 className="mt-2 text-sm font-bold text-slate-950 transition group-hover:text-indigo-600 dark:text-white">Map &amp; Export Pipeline</h3>
                   <p className="mt-1 text-xs leading-relaxed text-slate-600 dark:text-slate-400">

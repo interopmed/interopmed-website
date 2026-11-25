@@ -1,4 +1,5 @@
 import { createHmac, timingSafeEqual } from 'node:crypto'
+import { STUDIO_URL } from './studio-constants'
 
 const DEFAULT_SHARED_SECRET = 'interopmed-studio-dev-secret'
 
@@ -28,20 +29,29 @@ export function getStudioSharedSecret() {
 
 export function getStudioUrl() {
   const isProd = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL)
-  const fallbackUrl = isProd ? 'https://studio.interopmed.com' : 'http://127.0.0.1:3100'
-  const value = process.env.INTEROPMED_STUDIO_URL?.trim() || fallbackUrl
+  const defaultLocal = 'http://127.0.0.1:3100'
+  const defaultProd = 'https://studio.interopmed.com'
 
-  try {
-    const url = new URL(value)
-    // Never redirect to localhost / 127.0.0.1 in production environments
-    if (isProd && (url.hostname === '127.0.0.1' || url.hostname === 'localhost')) {
-      return 'https://studio.interopmed.com'
+  const configured =
+    process.env.NEXT_PUBLIC_STUDIO_URL?.trim() ||
+    process.env.INTEROPMED_STUDIO_URL?.trim()
+
+  if (configured) {
+    try {
+      const url = new URL(configured)
+      if (isProd && (url.hostname === '127.0.0.1' || url.hostname === 'localhost')) {
+        return defaultProd
+      }
+      return url.toString().replace(/\/$/, '')
+    } catch {
+      return configured.replace(/\/$/, '')
     }
-    return url.toString().replace(/\/$/, '')
-  } catch {
-    return fallbackUrl
   }
+
+  return isProd ? defaultProd : defaultLocal
 }
+
+export { STUDIO_URL }
 
 export function getSafeStudioReturnPath(
   value: string | string[] | undefined,

@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { STUDIO_URL } from '@/lib/studio-constants'
 
 type AccountSessionUser = {
   id: string
@@ -15,7 +16,7 @@ const navItems: { href: string; label: string; external?: boolean }[] = [
   { href: '/', label: 'Home' },
   { href: '/articles', label: 'Articles' },
   { href: '/tools', label: 'Tools' },
-  { href: 'https://studio.interopmed.com', label: 'Studio', external: true },
+  { href: STUDIO_URL, label: 'Studio', external: true },
   { href: '/ehr-lis', label: 'SHIN EHR' },
   { href: '/interopmind', label: 'InteropMind' },
   { href: '/community', label: 'Community' },

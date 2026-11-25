@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { STUDIO_URL } from '@/lib/studio-constants'
 
 const HL7_SAMPLE = `MSH|^~\\&|VITAL_MONITOR|ICU_BED_04|INTEROPMED|CENTRAL_EHR|20261124163000||ORU^R01|MSG20261124001|P|2.5
 PID|1||PAT94021^^^MRN||DOE^JANE||19840912|F
@@ -93,7 +94,7 @@ export default function QuickStartWorkbench() {
             <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
               {/* Tile 1: Studio Mapper */}
               <a
-                href="https://studio.interopmed.com"
+                href={STUDIO_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col justify-between rounded-xl border border-indigo-200/90 bg-indigo-50/40 p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.03)] transition hover:border-indigo-400 hover:bg-indigo-50/70 dark:border-indigo-900/70 dark:bg-indigo-950/30 dark:hover:border-indigo-400"
@@ -102,8 +103,8 @@ export default function QuickStartWorkbench() {
                   <span className="text-xs font-bold text-indigo-950 dark:text-indigo-200">
                     1. Studio Mapper
                   </span>
-                  <span className="rounded bg-indigo-200/80 px-1.5 py-0.5 text-[10px] font-bold text-indigo-900 dark:bg-indigo-900 dark:text-indigo-200">
-                    studio.interopmed.com ↗
+                  <span className="rounded bg-indigo-200/80 px-1.5 py-0.5 text-[10px] font-bold text-indigo-900 dark:bg-indigo-950 dark:text-indigo-200">
+                    Studio ↗
                   </span>
                 </div>
                 <span className="mt-1 text-[11px] text-indigo-800 dark:text-indigo-300">
@@ -261,7 +262,7 @@ export default function QuickStartWorkbench() {
               <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-800 bg-slate-900/60 px-4 py-2.5 text-xs">
                 <div className="flex items-center gap-3">
                   <a
-                    href="https://studio.interopmed.com"
+                    href={STUDIO_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-1.5 font-semibold text-indigo-400 transition hover:text-indigo-300"

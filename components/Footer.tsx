@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { STUDIO_URL } from '@/lib/studio-constants'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -34,7 +35,7 @@ export default function Footer() {
             <h3 className="mb-4 text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">Interactive & Tools</h3>
             <ul className="space-y-2.5 text-sm">
               <li><Link href="/tools" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Interoperability Tools</Link></li>
-              <li><a href="https://studio.interopmed.com" target="_blank" rel="noopener noreferrer" className="text-teal-700 transition-colors hover:text-teal-800 dark:text-teal-400">Studio Mapper ↗</a></li>
+              <li><a href={STUDIO_URL} target="_blank" rel="noopener noreferrer" className="text-teal-700 transition-colors hover:text-teal-800 dark:text-teal-400">Studio Mapper ↗</a></li>
               <li><Link href="/ehr-lis" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">SHIN EHR &amp; LIS Testbed</Link></li>
               <li><a href="https://shin.interopmed.com" target="_blank" rel="noopener noreferrer" className="text-teal-700 transition-colors hover:text-teal-800 dark:text-teal-400">Live EHR  ↗</a></li>
               <li><Link href="/interopmind" className="text-slate-600 transition-colors hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">InteropMind AI Lab</Link></li>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
+import { STUDIO_URL } from '@/lib/studio-constants'
 
 export const metadata = {
   title: 'SHIN EHR & LIS Clinical Testbed | InteropMed Interoperability Hub',
@@ -94,7 +95,7 @@ export default function EhrLisExplorationPage() {
                   <span className="text-xs">↗</span>
                 </a>
                 <a
-                  href="https://studio.interopmed.com"
+                  href={STUDIO_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-xl border border-indigo-300 bg-indigo-50/80 px-6 py-3 text-sm font-semibold text-indigo-950 transition hover:bg-indigo-100 dark:border-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-200"
