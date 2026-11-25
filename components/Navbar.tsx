@@ -11,11 +11,11 @@ type AccountSessionUser = {
   role: string
 }
 
-const navItems = [
+const navItems: { href: string; label: string; external?: boolean }[] = [
   { href: '/', label: 'Home' },
   { href: '/articles', label: 'Articles' },
   { href: '/tools', label: 'Tools' },
-  { href: '/studio', label: 'Studio' },
+  { href: 'https://studio.interopmed.com', label: 'Studio', external: true },
   { href: '/ehr-lis', label: 'SHIN EHR' },
   { href: '/interopmind', label: 'InteropMind' },
   { href: '/community', label: 'Community' },
@@ -100,11 +100,27 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <Link key={item.href} href={item.href} className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) =>
+            item.external ? (
+              <a
+                key={item.href}
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+              >
+                {item.label}
+              </a>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </div>
 
         {/* CTA Button */}
@@ -127,11 +143,27 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
           <div className="px-6 py-4 space-y-3">
-            {navItems.map((item) => (
-              <Link key={item.href} href={item.href} className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400">
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              item.external ? (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400"
+                >
+                  {item.label}
+                </a>
+              ) : (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="block text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400"
+                >
+                  {item.label}
+                </Link>
+              )
+            )}
             <div className="flex flex-col gap-3 border-t border-slate-200 pt-4 dark:border-slate-800">
               {hasAccountSession ? (
                 <>
