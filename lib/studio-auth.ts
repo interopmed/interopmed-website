@@ -27,24 +27,19 @@ export function getStudioSharedSecret() {
 }
 
 export function getStudioUrl() {
-  const value = process.env.INTEROPMED_STUDIO_URL?.trim()
-
-  if (!value) {
-    return null
-  }
+  const isProd = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL)
+  const fallbackUrl = isProd ? 'https://studio.interopmed.com' : 'http://127.0.0.1:3100'
+  const value = process.env.INTEROPMED_STUDIO_URL?.trim() || fallbackUrl
 
   try {
     const url = new URL(value)
     // Never redirect to localhost / 127.0.0.1 in production environments
-    if (
-      (process.env.NODE_ENV === 'production' || process.env.VERCEL) &&
-      (url.hostname === '127.0.0.1' || url.hostname === 'localhost')
-    ) {
-      return null
+    if (isProd && (url.hostname === '127.0.0.1' || url.hostname === 'localhost')) {
+      return 'https://studio.interopmed.com'
     }
     return url.toString().replace(/\/$/, '')
   } catch {
-    return null
+    return fallbackUrl
   }
 }
 

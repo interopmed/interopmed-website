@@ -16,7 +16,7 @@ export type BlogArticle = {
 }
 
 /**
- * @deprecated Articles are now stored in and served dynamically from the PostgreSQL database ("Article" table).
+ * @deprecated Articles are stored in and served dynamically from the PostgreSQL database ("Article" table).
  * Use `db.insight` or Prisma `prisma.article` to query articles.
  * To seed or refresh articles in the database, run: `npm run seed:articles`
  */

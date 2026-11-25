@@ -40,6 +40,13 @@ export default function ToolsPage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                 03. SHIN EHR &amp; LIS Testbed
               </a>
+              <Link
+                href="/studio"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-indigo-200/80 bg-indigo-50/60 px-3 py-1.5 text-xs font-semibold text-indigo-800 transition hover:bg-indigo-100 dark:border-indigo-900 dark:bg-indigo-950/60 dark:text-indigo-300"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
+                04. Studio Mapper ↗
+              </Link>
             </div>
 
             <a
