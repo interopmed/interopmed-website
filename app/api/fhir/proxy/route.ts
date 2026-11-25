@@ -98,8 +98,8 @@ export async function POST(req: NextRequest) {
     // Extract relevant response headers
     const responseHeaders: Record<string, string> = {}
     response.headers.forEach((value, key) => {
-      if (['content-type', 'date', 'etag', 'last-modified', 'x-request-id'].includes(key.toLowerCase())) {
-        responseHeaders[key] = value
+      if (['content-type', 'date', 'etag', 'last-modified', 'location', 'x-request-id'].includes(key.toLowerCase())) {
+        responseHeaders[key.toLowerCase()] = value
       }
     })
 
