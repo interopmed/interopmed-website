@@ -29,8 +29,7 @@ export function getStudioSharedSecret() {
 
 export function getStudioUrl() {
   const isProd = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL)
-  const defaultLocal = 'http://127.0.0.1:3100'
-  const defaultProd = 'https://studio.interopmed.com'
+  const defaultUrl = 'https://studio.interopmed.com'
 
   const configured =
     process.env.NEXT_PUBLIC_STUDIO_URL?.trim() ||
@@ -40,7 +39,7 @@ export function getStudioUrl() {
     try {
       const url = new URL(configured)
       if (isProd && (url.hostname === '127.0.0.1' || url.hostname === 'localhost')) {
-        return defaultProd
+        return defaultUrl
       }
       return url.toString().replace(/\/$/, '')
     } catch {
@@ -48,7 +47,7 @@ export function getStudioUrl() {
     }
   }
 
-  return isProd ? defaultProd : defaultLocal
+  return defaultUrl
 }
 
 export { STUDIO_URL }
