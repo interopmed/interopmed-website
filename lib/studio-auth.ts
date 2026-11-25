@@ -27,27 +27,8 @@ export function getStudioSharedSecret() {
   return process.env.INTEROPMED_STUDIO_SHARED_SECRET || DEFAULT_SHARED_SECRET
 }
 
-export function getStudioUrl() {
-  const isProd = process.env.NODE_ENV === 'production' || Boolean(process.env.VERCEL)
-  const defaultUrl = 'https://studio.interopmed.com'
-
-  const configured =
-    process.env.NEXT_PUBLIC_STUDIO_URL?.trim() ||
-    process.env.INTEROPMED_STUDIO_URL?.trim()
-
-  if (configured) {
-    try {
-      const url = new URL(configured)
-      if (isProd && (url.hostname === '127.0.0.1' || url.hostname === 'localhost')) {
-        return defaultUrl
-      }
-      return url.toString().replace(/\/$/, '')
-    } catch {
-      return configured.replace(/\/$/, '')
-    }
-  }
-
-  return defaultUrl
+export function getStudioUrl(): string {
+  return STUDIO_URL
 }
 
 export { STUDIO_URL }
