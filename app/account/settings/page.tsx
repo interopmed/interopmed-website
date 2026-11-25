@@ -1,6 +1,7 @@
 import AccountBreadcrumb from '@/components/AccountBreadcrumb'
 import AccountSettingsForm from '@/components/AccountSettingsForm'
 import ProfilePhotoManager from '@/components/ProfilePhotoManager'
+import ApiKeyManager from '@/components/ApiKeyManager'
 import { requireAdminUser } from '@/lib/account-auth'
 import { prisma } from '@/lib/prisma'
 
@@ -43,6 +44,7 @@ export default async function AccountSettingsPage() {
             initialImageUrl={settingsUser.profileImage}
           />
           <AccountSettingsForm user={serializedSettingsUser} />
+          <ApiKeyManager />
         </div>
       </div>
     </main>

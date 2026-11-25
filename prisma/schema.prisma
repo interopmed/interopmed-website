@@ -544,6 +544,7 @@ model AuthUser {
   following           UserFollow[] @relation("UserFollowing")
   followers           UserFollow[] @relation("UserFollowers")
   interopMindThreads  InteropMindThread[]
+  apiKeys             ApiKey[]
 
   @@index([isActive, createdAt])
 }
@@ -615,6 +616,31 @@ model AuthNotificationPreference {
 
   userId String   @unique
   user   AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// =====================
+// API Key Infrastructure
+// =====================
+
+model ApiKey {
+  id          String    @id @default(cuid())
+  name        String    // e.g. "Hospital EHR Staging Connector"
+  keyPrefix   String    // Visible prefix: e.g. "im_live_9b42..."
+  keyHash     String    @unique // SHA-256 hash of the full secret key
+  environment String    @default("live") // "live" | "test"
+  scopes      String[]  @default(["read", "write", "fhir"]) // Allowed capabilities
+  rateLimit   Int       @default(1000) // Hourly rate limit
+  isActive    Boolean   @default(true)
+  lastUsedAt  DateTime?
+  expiresAt   DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  userId String
+  user   AuthUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isActive])
+  @@index([keyHash])
 }
 
 model UserPost {

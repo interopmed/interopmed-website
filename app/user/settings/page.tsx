@@ -2,6 +2,7 @@ import AccountBreadcrumb from '@/components/AccountBreadcrumb'
 import AccountNotificationPreferencesForm from '@/components/AccountNotificationPreferencesForm'
 import AccountSettingsForm from '@/components/AccountSettingsForm'
 import ProfilePhotoManager from '@/components/ProfilePhotoManager'
+import ApiKeyManager from '@/components/ApiKeyManager'
 import { requireMemberUser } from '@/lib/account-auth'
 import { prisma } from '@/lib/prisma'
 
@@ -62,6 +63,7 @@ export default async function UserSettingsPage() {
             />
             <AccountSettingsForm user={serializedSettingsUser} />
             <AccountNotificationPreferencesForm preferences={preferences} />
+            <ApiKeyManager />
           </div>
 
           <div className="space-y-6">

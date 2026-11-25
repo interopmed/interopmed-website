@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { authenticateApiKeyFromHeaders } from '@/lib/api-key-auth'
 
 export const dynamic = 'force-dynamic'
 
@@ -49,6 +50,15 @@ export async function POST(req: NextRequest) {
   const startTime = Date.now()
 
   try {
+    // If client supplied an InteropMed API Key, verify it
+    const apiKeyAuth = await authenticateApiKeyFromHeaders(req.headers)
+    if (apiKeyAuth && !apiKeyAuth.ok) {
+      return NextResponse.json(
+        { success: false, error: apiKeyAuth.error || 'Invalid or expired API Key' },
+        { status: 401 }
+      )
+    }
+
     const json: ProxyRequestBody = await req.json()
     const { url, method = 'GET', headers: customHeaders = {}, body } = json
 
