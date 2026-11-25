@@ -63,6 +63,65 @@ export default function ToolsPage() {
           </div>
         </div>
 
+        {/* 3-STEP INTEGRATION ACCELERATOR WORKFLOW */}
+        <section className="border-b border-slate-200/80 bg-white py-8 dark:border-slate-800 dark:bg-slate-900/40">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="rounded-2xl border border-teal-200 bg-gradient-to-r from-teal-50/60 via-white to-sky-50/60 p-6 dark:border-teal-900/70 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900/80">
+              <span className="text-xs font-bold uppercase tracking-widest text-teal-700 dark:text-teal-400">
+                End-to-End Hospital Integration Workflow
+              </span>
+              <h2 className="mt-1 text-xl font-bold text-slate-950 dark:text-white sm:text-2xl">
+                From Raw Hospital Feeds to Verified Clinical Charts
+              </h2>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
+                Connect your medical software in three clear steps:
+              </p>
+
+              <div className="mt-5 grid gap-4 sm:grid-cols-3">
+                <div className="rounded-xl border border-slate-200/80 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-950">
+                  <span className="rounded bg-teal-100 px-2 py-0.5 text-xs font-bold text-teal-800 dark:bg-teal-900/60 dark:text-teal-300">Step 1</span>
+                  <h3 className="mt-2 text-sm font-bold text-slate-950 dark:text-white">Inspect &amp; Parse Message</h3>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                    Use our HL7 Inspector below to parse raw segments (PID, OBR, OBX) and verify field separators.
+                  </p>
+                </div>
+
+                <a
+                  href="https://studio.interopmed.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-xl border border-indigo-200/90 bg-indigo-50/30 p-4 shadow-sm transition hover:border-indigo-400 hover:bg-indigo-50/60 dark:border-indigo-900/60 dark:bg-slate-950"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="rounded bg-indigo-100 px-2 py-0.5 text-xs font-bold text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-300">Step 2</span>
+                    <span className="text-xs font-bold text-indigo-600">studio.interopmed.com ↗</span>
+                  </div>
+                  <h3 className="mt-2 text-sm font-bold text-slate-950 transition group-hover:text-indigo-600 dark:text-white">Map &amp; Export Pipeline</h3>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                    Map fields to FHIR R4 resources visually in Studio and export production Python/TS code.
+                  </p>
+                </a>
+
+                <a
+                  href="https://shin.interopmed.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-xl border border-teal-200/90 bg-teal-50/30 p-4 shadow-sm transition hover:border-teal-400 hover:bg-teal-50/60 dark:border-teal-900/60 dark:bg-slate-950"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="rounded bg-teal-100 px-2 py-0.5 text-xs font-bold text-teal-800 dark:bg-teal-900/60 dark:text-teal-300">Step 3</span>
+                    <span className="text-xs font-bold text-teal-600">shin.interopmed.com ↗</span>
+                  </div>
+                  <h3 className="mt-2 text-sm font-bold text-slate-950 transition group-hover:text-teal-600 dark:text-white">Simulate in SHIN Testbed</h3>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                    Verify live CPOE orders, specimen barcodes, and LIS delta-checks safely before hospital go-live.
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* TOOL 1: FHIR API PLAYGROUND */}
         <section id="fhir-playground" className="py-8 scroll-mt-28 md:py-12">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

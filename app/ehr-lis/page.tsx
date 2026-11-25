@@ -93,6 +93,15 @@ export default function EhrLisExplorationPage() {
                   <span>Launch Live EHR</span>
                   <span className="text-xs">↗</span>
                 </a>
+                <a
+                  href="https://studio.interopmed.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl border border-indigo-300 bg-indigo-50/80 px-6 py-3 text-sm font-semibold text-indigo-950 transition hover:bg-indigo-100 dark:border-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-200"
+                >
+                  <span>Open Studio Mapper</span>
+                  <span className="text-xs">↗</span>
+                </a>
                 <Link
                   href="/tools"
                   className="rounded-xl bg-slate-950 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"

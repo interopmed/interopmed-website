@@ -78,82 +78,88 @@ export default function QuickStartWorkbench() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-teal-400 opacity-75"></span>
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-teal-500"></span>
               </span>
-              Interoperability Learning, Research &amp; Support Hub
+              Clinical Interoperability &amp; Simulation Platform
             </div>
 
             <h1 className="mt-3 text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl lg:text-[2rem] lg:leading-tight">
-              Build, Test &amp; Master Healthcare Interoperability.
+              Connect Hospital Data to FHIR in Days, Not Months.
             </h1>
 
             <p className="mt-2.5 text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-[15px]">
-              The open learning, research support, and community testing platform for clinical informaticians, researchers, doctors, and healthcare developers. Test real workflows with our <strong className="font-semibold text-teal-700 dark:text-teal-300">SHIN EHR test tool</strong>.
+              The complete developer &amp; informatics suite. Visually map legacy HL7 v2 and JSON into FHIR R4, generate production Python/TypeScript pipelines, and simulate live clinical flows inside our <strong className="font-semibold text-teal-700 dark:text-teal-300">SHIN EHR &amp; LIS testbed</strong>.
             </p>
 
             {/* 4 DIRECT ACTION TILES */}
             <div className="mt-5 grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-              {/* Tile 1: SHIN Testbed */}
-              <Link
-                href="/ehr-lis"
+              {/* Tile 1: Studio Mapper */}
+              <a
+                href="https://studio.interopmed.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col justify-between rounded-xl border border-indigo-200/90 bg-indigo-50/40 p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.03)] transition hover:border-indigo-400 hover:bg-indigo-50/70 dark:border-indigo-900/70 dark:bg-indigo-950/30 dark:hover:border-indigo-400"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-bold text-indigo-950 dark:text-indigo-200">
+                    1. Studio Mapper
+                  </span>
+                  <span className="rounded bg-indigo-200/80 px-1.5 py-0.5 text-[10px] font-bold text-indigo-900 dark:bg-indigo-900 dark:text-indigo-200">
+                    studio.interopmed.com ↗
+                  </span>
+                </div>
+                <span className="mt-1 text-[11px] text-indigo-800 dark:text-indigo-300">
+                  Map HL7 &amp; JSON to FHIR R4 &amp; export pipelines →
+                </span>
+              </a>
+
+              {/* Tile 2: SHIN Testbed */}
+              <a
+                href="https://shin.interopmed.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group flex flex-col justify-between rounded-xl border border-teal-300/80 bg-teal-50/40 p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.03)] transition hover:border-teal-500 hover:bg-teal-50/70 dark:border-teal-900/70 dark:bg-teal-950/30 dark:hover:border-teal-400"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-teal-950 dark:text-teal-200">
-                    Test Tool: SHIN EHR &amp; LIS
+                    2. SHIN EHR &amp; LIS Testbed
                   </span>
                   <span className="rounded bg-teal-200/80 px-1.5 py-0.5 text-[10px] font-bold text-teal-900 dark:bg-teal-900 dark:text-teal-200">
-                    shin.interopmed.com
+                    shin.interopmed.com ↗
                   </span>
                 </div>
                 <span className="mt-1 text-[11px] text-teal-800 dark:text-teal-300">
-                  Trace live CPOE orders, LOINC labs &amp; specimen flow →
+                  Simulate live orders, lab accessioning &amp; analyzer feeds →
                 </span>
-              </Link>
+              </a>
 
-              {/* Tile 2: FHIR & HL7 Tools */}
+              {/* Tile 3: FHIR & HL7 Tools */}
               <Link
                 href="/tools"
                 className="group flex flex-col justify-between rounded-xl border border-slate-200/90 bg-white p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.03)] transition hover:border-teal-500 hover:shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:hover:border-teal-500"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-slate-950 transition group-hover:text-teal-700 dark:text-white dark:group-hover:text-teal-300">
-                    Open FHIR &amp; HL7 Parser
+                    3. FHIR API &amp; HL7 Tools
                   </span>
                   <span className="text-xs text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-teal-600">→</span>
                 </div>
                 <span className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
-                  Parse segments &amp; query live FHIR R4 APIs
+                  Inspect raw segments &amp; query interactive FHIR APIs
                 </span>
               </Link>
 
-              {/* Tile 3: Learning & Research Guides */}
+              {/* Tile 4: InteropMind AI */}
               <Link
-                href="/articles"
+                href="/interopmind"
                 className="group flex flex-col justify-between rounded-xl border border-slate-200/90 bg-white p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.03)] transition hover:border-teal-500 hover:shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:hover:border-teal-500"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-bold text-slate-950 transition group-hover:text-teal-700 dark:text-white dark:group-hover:text-teal-300">
-                    Learning &amp; Research Guides
+                    4. InteropMind AI Copilot
                   </span>
                   <span className="text-xs text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-teal-600">→</span>
                 </div>
                 <span className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
-                  HL7, FHIR, SNOMED, LOINC &amp; clinical playbooks
-                </span>
-              </Link>
-
-              {/* Tile 4: Community Engagement */}
-              <Link
-                href="/community"
-                className="group flex flex-col justify-between rounded-xl border border-slate-200/90 bg-white p-3.5 shadow-[0_1px_4px_rgba(0,0,0,0.03)] transition hover:border-teal-500 hover:shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:hover:border-teal-500"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-slate-950 transition group-hover:text-teal-700 dark:text-white dark:group-hover:text-teal-300">
-                    Community &amp; Stream
-                  </span>
-                  <span className="text-xs text-slate-400 transition group-hover:translate-x-0.5 group-hover:text-teal-600">→</span>
-                </div>
-                <span className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
-                  Join informaticians, researchers &amp; live dispatches
+                  LOINC/SNOMED lookup &amp; clinical mapping guidance
                 </span>
               </Link>
             </div>
@@ -251,22 +257,34 @@ export default function QuickStartWorkbench() {
                 </pre>
               </div>
 
-              {/* Card Footer with Sandbox Link */}
+              {/* Card Footer with Sandbox & Studio Links */}
               <div className="flex flex-wrap items-center justify-between gap-2 border-t border-slate-800 bg-slate-900/60 px-4 py-2.5 text-xs">
-                <a
-                  href="https://shin.interopmed.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 font-semibold text-teal-400 transition hover:text-teal-300"
-                >
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
-                  Test in SHIN EHR  ↗
-                </a>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="https://studio.interopmed.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 font-semibold text-indigo-400 transition hover:text-indigo-300"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
+                    Map in Studio ↗
+                  </a>
+                  <span className="text-slate-700">|</span>
+                  <a
+                    href="https://shin.interopmed.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 font-semibold text-teal-400 transition hover:text-teal-300"
+                  >
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+                    Simulate in SHIN ↗
+                  </a>
+                </div>
                 <Link
                   href="/tools"
                   className="text-slate-400 transition hover:text-slate-200"
                 >
-                  Open Sandbox in Tools →
+                  Full Toolkit →
                 </Link>
               </div>
             </div>
