@@ -6,8 +6,8 @@ import HL7Inspector from '@/components/tools/HL7Inspector'
 import { STUDIO_URL } from '@/lib/studio-constants'
 
 export const metadata = {
-  title: 'Interoperability Tools | InteropMed',
-  description: 'Hands-on utilities for health informaticians: interactive FHIR API playground, HL7 message parser, and EHR/LIS workflow explorers.',
+  title: 'Live Interoperability & EHR Testing Tools | InteropMed',
+  description: 'Real-world testing suite for health informaticians and engineers: live FHIR REST API & EHR conformance client, HL7 message linter, and clinical order-to-result simulation.',
 }
 
 export default function ToolsPage() {
@@ -129,7 +129,7 @@ export default function ToolsPage() {
             <div className="mb-4">
               <span className="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400">Tool 01</span>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
-                FHIR Resource &amp; REST API Playground
+                Live FHIR Resource &amp; EHR Conformance Client
               </h2>
             </div>
             <APIPlayground />
@@ -142,7 +142,7 @@ export default function ToolsPage() {
             <div className="mb-4">
               <span className="text-xs font-bold uppercase tracking-widest text-teal-600 dark:text-teal-400">Tool 02</span>
               <h2 className="mt-1 text-2xl font-bold tracking-tight text-slate-950 dark:text-white">
-                HL7 v2 Message Parser &amp; Segment Inspector
+                HL7 v2 Message Linter &amp; Deep Subfield Inspector
               </h2>
             </div>
             <HL7Inspector />
